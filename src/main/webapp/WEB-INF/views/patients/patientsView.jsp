@@ -311,7 +311,7 @@
         /* 카카오톡 연결 버튼 위치 스타일 (민기)*/
         div#kakaoBtnArea {
 		    position: absolute;
-		    left: 1500px;
+		    left: 1550px;
 		}
 
 
@@ -545,39 +545,41 @@
             </div>
             
 			
-			<script>
-				// 카카오톡 전송화면 연결해주는 스트립트 - 민기작성
-				function kakao(){
-					Kakao.init("69b0a9018799ca073e6a3156072740a5");      		// 사용할 앱의 JavaScript 키를 설정
-			        Kakao.Link.sendDefault({
-			              objectType:"location"
-			            , address:"서울특별시 강동구 천호동 315-14"    									// 공유할 위치의 주소
-			            , addressTitle:"KH의원 병원주소 안내"   							// 카카오톡 내의 지도 뷰에서 사용되는 타이틀
-			            , content: {
-			                  title:"KH의원 진료접수 안내"   							// 타이틀 내용
-			                , description:""  				// 콘텐츠 상세설명
-			                , imageUrl:""    				// 썸네일 이미지
-			                , link: {
-			                      mobileWebUrl:"http://www.naver.com"   // 모바일 카카오톡에서 사용하는 웹 링크 URL
-			                    , webUrl:"errorPage.jsp" 		// PC버전 카카오톡에서 사용하는 웹 링크 URL
-			                }
-			            }
-			            , social: {
-			                  likeCount:0       // LIKE 개수
-			                , commentCount:0    // 댓글 개수
-			                , sharedCount:0     // 공유 회수
-			            }
-			            , buttons: [
-			                {
-			                      title:"병원정보" 									// 버튼 제목
-			                    , link: {
-			                          mobileWebUrl:"http://www.naver.com"   // 모바일 카카오톡에서 사용하는 웹 링크 URL
-			                        , webUrl:"http://www.naver.com" 		// PC버전 카카오톡에서 사용하는 웹 링크 URL
-			                    }
-			                }
-			            ]
-			        });
-			    }
+			<script type="text/javascript">
+			// 카카오톡 전송영역
+			  // input your appkey
+			  Kakao.init('69b0a9018799ca073e6a3156072740a5')
+			  function sendLink() {
+			    Kakao.Link.sendDefault({
+			      objectType: 'location',
+			      address: '서울시 강동구 천호동 315-14',
+			      addressTitle: '오시는길',
+			      content: {
+			        title: '진료접수처리 되었습니다.',
+			        description: '',
+			        imageUrl:
+			          '',
+			        link: {
+			          mobileWebUrl: 'http://pf.kakao.com/_xcxnmaxb/chat',
+			          webUrl: 'http://pf.kakao.com/_xcxnmaxb',
+			        },
+			      },
+			      social: {
+			        likeCount: 0,
+			        commentCount: 0,
+			        sharedCount: 0,
+			      },
+			      buttons: [
+			        {
+			          title: '채팅하기',
+			          link: {
+			            mobileWebUrl: 'http://pf.kakao.com/_xcxnmaxb/chat',
+			            webUrl: 'http://pf.kakao.com/_xcxnmaxb',
+			          },
+			        },
+			      ],
+			    })
+			  }
 			</script>
             <!-- 진료 관리 -->
             <div class="sidebar">
@@ -593,7 +595,10 @@
                             <button class="tab_menu_btn" type="button" id="boryuBtn" onclick="selectTreatment(1);">진료보류</button>
                             <button class="tab_menu_btn" type="button" id="bookBtn" onclick="selectTreatment(3);">예약대기</button>
                             <div id="kakaoBtnArea">
-                            	<button type="button" id="kakaoBtn" onclick="kakao();">카카오톡</button>
+                            	<a id="kakao-link-btn" href="javascript:sendLink()">
+							  		<!-- <img src="//developers.kakao.com/assets/img/about/logos/kakaolink/kakaolink_btn_medium.png"/> -->
+							  		<img src="resources/images/kakaolink_btn_small_ov.png"/>
+							  	</a>
                             </div>
                         </div>
                         <div class="tab_box on">
