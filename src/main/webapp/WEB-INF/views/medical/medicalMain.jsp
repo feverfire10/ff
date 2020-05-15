@@ -632,40 +632,172 @@
 							
 				$(temp).parent().show();
 			});
+			
 			// 정렬기준 변경하는 부분
 			$("#hpPati").click(function(){
 				// 환자번호로 정렬
-				$("#hpPati").css("background", "darkgray");
+				/* $("#hpPati").css("background", "darkgray");
 				$("#hpName").css("background", "lightgray");
 				$("#hpPno").css("background", "lightgray");
-				$("#hpDate").css("background", "lightgray");
+				$("#hpDate").css("background", "lightgray"); */
+				
+				startDay = $("#startDay").val();
+				endDay = $("#endDay").val();
+				//console.log(startDay);
+				//console.log(endDay);
+				var notl = "";
+				$.ajax({
+					url:"sortpNo.js",
+					data:{
+						startDay:startDay,
+						endDay:endDay
+					},
+					type:"post",
+					success: function(sortList){
+						$.each(sortList, function(i, obj){
+							notl += "<tr class='row100 daypl disName'>" +
+										"<td data-column='column1'>"+ (i+1) +"</td>" +
+										"<td data-column='column2'>"+ obj.patientsNo +"</td>" +
+										"<td data-column='column3'>"+ obj.chartNo +"</td>" +
+										"<td data-column='column4'>"+ obj.patientsName +"</td>" +
+										"<td data-column='column5'>"+ obj.patientsPno +"</td>" +
+										"<td data-column='column6'>"+ obj.insurance +"</td>" +
+										"<td data-column='column7'>"+ obj.adhd +"</td>" +
+										"<td data-column='column8'>"+ obj.mo +"</td>" +
+										"<td data-column='column9'>"+ obj.receiptDate +"</td>" +
+									"</tr>";
+						})
+						$("#parientsListTable tbody").html(notl);	
+						notl = "";
+						
+					},error: function(){
+						console.log("ajax 환자번호 정렬 통신 실패");
+					}
+				});
 			});
 			$("#hpName").click(function(){
 				// 수진자명으로 정렬
-				$("#hpPati").css("background", "lightgray");
+				/* $("#hpPati").css("background", "lightgray");
 				$("#hpName").css("background", "darkgray");
 				$("#hpPno").css("background", "lightgray");
-				$("#hpDate").css("background", "lightgray");
+				$("#hpDate").css("background", "lightgray"); */
+				
+				var natl = "";
+				startDay = $("#startDay").val();
+				endDay = $("#endDay").val();
+				$.ajax({
+					url:"sortpName.js",
+					data:{
+						startDay:startDay,
+						endDay:endDay
+					},
+					type:"post",
+					success: function(sortList){
+						$.each(sortList, function(i, obj){
+							natl += "<tr class='row100 daypl disName'>" +
+										"<td data-column='column1'>"+ (i+1) +"</td>" +
+										"<td data-column='column2'>"+ obj.patientsNo +"</td>" +
+										"<td data-column='column3'>"+ obj.chartNo +"</td>" +
+										"<td data-column='column4'>"+ obj.patientsName +"</td>" +
+										"<td data-column='column5'>"+ obj.patientsPno +"</td>" +
+										"<td data-column='column6'>"+ obj.insurance +"</td>" +
+										"<td data-column='column7'>"+ obj.adhd +"</td>" +
+										"<td data-column='column8'>"+ obj.mo +"</td>" +
+										"<td data-column='column9'>"+ obj.receiptDate +"</td>" +
+									"</tr>";
+						})
+						$("#parientsListTable tbody").html(natl);
+						natl = "";
+						
+					},error: function(){
+						console.log("ajax 환자이름 정렬 통신 실패");
+					}
+				});
 			});
 			$("#hpPno").click(function(){
 				// 주민번호로 정렬
-				$("#hpPati").css("background", "lightgray");
+				/* $("#hpPati").css("background", "lightgray");
 				$("#hpName").css("background", "lightgray");
 				$("#hpPno").css("background", "darkgray");
-				$("#hpDate").css("background", "lightgray");
+				$("#hpDate").css("background", "lightgray"); */
+				
+				var pnotl = "";
+				startDay = $("#startDay").val();
+				endDay = $("#endDay").val();
+				$.ajax({
+					url:"sortpPno.js",
+					data:{
+						startDay:startDay,
+						endDay:endDay
+					},
+					type:"post",
+					success: function(sortList){
+						$.each(sortList, function(i, obj){
+							pnotl += "<tr class='row100 daypl disName'>" +
+										"<td data-column='column1'>"+ (i+1) +"</td>" +
+										"<td data-column='column2'>"+ obj.patientsNo +"</td>" +
+										"<td data-column='column3'>"+ obj.chartNo +"</td>" +
+										"<td data-column='column4'>"+ obj.patientsName +"</td>" +
+										"<td data-column='column5'>"+ obj.patientsPno +"</td>" +
+										"<td data-column='column6'>"+ obj.insurance +"</td>" +
+										"<td data-column='column7'>"+ obj.adhd +"</td>" +
+										"<td data-column='column8'>"+ obj.mo +"</td>" +
+										"<td data-column='column9'>"+ obj.receiptDate +"</td>" +
+									"</tr>";
+						})
+						$("#parientsListTable tbody").html(pnotl);
+						pnotl = "";
+						
+					},error: function(){
+						console.log("ajax 환자이름 정렬 통신 실패");
+					}
+				});
 			});
 			$("#hpDate").click(function(){
 				// 진료일로 정렬
-				$("#hpPati").css("background", "lightgray");
+				/* $("#hpPati").css("background", "lightgray");
 				$("#hpName").css("background", "lightgray");
 				$("#hpPno").css("background", "lightgray");
-				$("#hpDate").css("background", "darkgray");
+				$("#hpDate").css("background", "darkgray"); */
+				
+				var pdtl = "";
+				startDay = $("#startDay").val();
+				endDay = $("#endDay").val();
+				$.ajax({
+					url:"betweenDayList.js",
+					data:{
+						startDay:startDay,
+						endDay:endDay
+					},
+					type:"post",
+					success: function(sortList){
+						$.each(sortList, function(i, obj){
+							pdtl += "<tr class='row100 daypl disName'>" +
+										"<td data-column='column1'>"+ (i+1) +"</td>" +
+										"<td data-column='column2'>"+ obj.patientsNo +"</td>" +
+										"<td data-column='column3'>"+ obj.chartNo +"</td>" +
+										"<td data-column='column4'>"+ obj.patientsName +"</td>" +
+										"<td data-column='column5'>"+ obj.patientsPno +"</td>" +
+										"<td data-column='column6'>"+ obj.insurance +"</td>" +
+										"<td data-column='column7'>"+ obj.adhd +"</td>" +
+										"<td data-column='column8'>"+ obj.mo +"</td>" +
+										"<td data-column='column9'>"+ obj.receiptDate +"</td>" +
+									"</tr>";
+						})
+						$("#parientsListTable tbody").html(pdtl);
+						pnotl = "";
+						
+					},error: function(){
+						console.log("ajax 환자이름 정렬 통신 실패");
+					}
+				});
 			});
 			
 			
 			// 외래내역 선택 환자 진료조회 부분
 			$(document).on("dblclick", ".daypl", function(event){
 				var pNo = $(this).children().eq(1).text();
+				var pMo = $(this).children().eq(7).text();
 				var pDate = $(this).children().eq(8).text();
 				//console.log(pNo);
 				//console.log(pDate);
@@ -674,6 +806,7 @@
 					url:"detailPatients.me",
 					data:{
 						patientsNo:pNo,
+						mo:pMo,
 						receiptDate:pDate
 					},
 					type:"post",
@@ -1008,6 +1141,7 @@
 						}
 						$("#prescriptionTable tbody").html(valueP);
 						$('#patientSearch').modal("hide");
+						
 						
 						document.getElementById("vitalDate").value = new Date().toISOString().substring(0, 10);
 					}, error: function(){

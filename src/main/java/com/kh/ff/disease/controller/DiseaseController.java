@@ -20,9 +20,8 @@ public class DiseaseController {
 	@ResponseBody
 	@RequestMapping(value="selectDiseaseAll", produces="application/json; charset=utf-8")
 	public String selectDiseaseAll() {
-		//ArrayList<Disease> diseaseAll = dService.selectDiseaseAll();
-		//return new Gson().toJson(diseaseAll);
-		return null;
+		ArrayList<Disease> diseaseAll = dService.selectDiseaseAll();
+		return new Gson().toJson(diseaseAll);
 	}
 	
 	@ResponseBody
@@ -41,9 +40,8 @@ public class DiseaseController {
 	@ResponseBody
 	@RequestMapping(value="divDiseaseArea.di", produces="application/json; charset=utf-8")
 	public String divDiseaseArea() {
-		//ArrayList<Disease> divList = dService.divDiseaseArea();
-		//return new Gson().toJson(divList);
-		return null;
+		ArrayList<Disease> divList = dService.divDiseaseArea();
+		return new Gson().toJson(divList);
 	}
 
 }

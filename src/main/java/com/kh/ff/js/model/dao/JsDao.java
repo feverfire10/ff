@@ -38,5 +38,15 @@ public class JsDao {
 	public ArrayList<Js> betweenDayList(Js j, SqlSessionTemplate sqlSession){
 		return (ArrayList)sqlSession.selectList("jsMapper.betweenDayList", j);
 	}
+	
+	public ArrayList<Js> sortpNo(Js j, SqlSessionTemplate sqlSession){
+		return (ArrayList)sqlSession.selectList("jsMapper.sortpNo", j);
+	}
+	public ArrayList<Js> sortpName(Js j, SqlSessionTemplate sqlSession){
+		return (ArrayList)sqlSession.selectList("jsMapper.sortpName", j);
+	}
+	public ArrayList<Js> sortpPno(Js j, SqlSessionTemplate sqlSession){
+		return (ArrayList)sqlSession.selectList("jsMapper.sortpPno", j);
+	}
 
 }

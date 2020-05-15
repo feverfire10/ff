@@ -73,4 +73,27 @@ public class JsServiceImpl implements JsService {
 		return jDao.betweenDayList(j, sqlSession);
 	}
 
+	/**
+	 * 8. 외래내역 환자번호기준 정렬용 서비스
+	 */
+	@Override
+	public ArrayList<Js> sortpNo(Js j) {
+		return jDao.sortpNo(j,sqlSession);
+	}
+	/**
+	 * 9. 외래내역 환자이름기준 정렬용 서비스
+	 */
+	@Override
+	public ArrayList<Js> sortpName(Js j) {
+		return jDao.sortpName(j,sqlSession);
+	}
+	/**
+	 * 10. 외래내역 환자주민번호기준 정렬용 서비스
+	 */
+	@Override
+	public ArrayList<Js> sortpPno(Js j) {
+		return jDao.sortpPno(j,sqlSession);
+	}
+
+
 }
