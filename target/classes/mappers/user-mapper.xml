@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="userMapper">
+
+	<resultMap type="User" id="userResultSet">
+		<id property="userCode" column="user_code"/>
+		<result property="userPassword" column="user_password"/>
+		<result property="userName" column="user_name"/>
+		<result property="userDepartment" column="user_department"/>
+		<result property="userNo" column="user_no"/>
+		<result property="userLicense" column="user_license"/>
+		<result property="userSocialNo" column="user_sno"/>
+		<result property="userEmail" column="user_email"/>
+		<result property="userDoctor" column="user_doctor"/>
+		<result property="userApplicationDate" column="user_adate"/>
+		<result property="userExpirationDate" column="user_edate"/>
+		<result property="userStatus" column="user_status"/>
+		<result property="powerMaster" column="power_master"/>
+	</resultMap>
+	
+	<resultMap type="Power" id="powerResultSet">
+		<id property="userCode" column="user_code"/>
+		<result property="powerMaster" column="power_master"/>
+		<result property="powerReceipt" column="power_receipt"/>
+		<result property="powerClinic" column="power_clinic"/>
+		<result property="powerList" column="power_list"/>
+		<result property="powerSub" column="power_sub"/>
+		<result property="powerResult" column="power_result"/>
+		<result property="powerSheet" column="power_sheet"/>
+		<result property="powerMessage" column="power_message"/>
+	</resultMap>
+	
+	<select id="loginUser" parameterType="User" resultMap="userResultSet">
+		select user_code, user_password, power_master from tb_user join tb_power using(user_code)
+		where user_code=#{userCode} and user_password=#{userPassword} and user_status='Y'
+	</select>
+	
+	<insert id="insertUser" parameterType="User">
+		insert into tb_user
+		values(seq_user_no.nextval, #{userPassWord}, #{userName}, #{userDepartment}, #{userNo}, #{userLicense},
+			   #{userSocialNo}, #{userEmail}, #{userDoctor}, default, #{userExpirationDate}, default)
+	</insert>
+	
+	<update id="updateUser" parameterType="User">
+		update tb_user
+		set user_password=#{userPassWord}, user_name=#{userName}, user_department= #{userDepartment},
+		    user_license=#{userLicense}, uuser_sno=#{userSocialNo}, user_email=#{userEmail},
+		    user_doctor=#{userDoctor}, user_adate=sysdate, user_edate=#{userExpirationDate}
+		where user_code=#{userCode}
+	</update>
+	
+	<update id="updatePower" parameterType="Power">
+		update tb_power
+		set power_master=#{powerMaster}, power_receipt=#{powerReceipt}, power_clinic=#{powerClinic},
+		    power_list=#{powerList}, power_sub=#{powerSub}, power_result=#{powerResult},
+		    power_sheet=#{powerSheet}, power_message={powerMessage}
+		where user_code=#{userCode}
+	</update>
+	
+	<update id="deleteUser" parameterType="User">
+		update tb_user
+		set user_status='N'
+		where user_code=#{userCode}
+	</update>
+	
+	<select id="idCheck" resultType="_int">
+		select count(*)
+		from tb_user
+		where user_code=#{userCode}
+	</select>
+	
+	<select id="userListCount" resultType="_int">
+		select count(*)
+		from tb_user
+		where user_status='Y'
+	</select>
+	
+	<select id="selectUserList" resultMap="userResultSet">
+		select *
+		from tb_user
+		where user_status='Y'
+		order by user_no asc
+	</select>
+
+</mapper>

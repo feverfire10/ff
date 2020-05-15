@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="receiptMapper">
+	<resultMap type="BillForm" id="billFormResultSet">
+		<id property="billFormNo" column="BILL_FORM_NO"/>
+		<result property="patientsNo" column="PATIENTS_NO"/>
+		<result property="pbVisitDate" column="PB_VISIT_DATE"/>
+		<result property="night" column="NIGHT"/>
+		<result property="checkup" column="CHECKUP"/>
+		<result property="hospitalization" column="HOSPITALIZATION"/>
+		<result property="meals" column="meals"/>
+		<result property="dose" column="dose"/>
+		<result property="injection" column="injection"/>
+		<result property="anesthetize" column="anesthetize"/>
+		<result property="operation" column="operation"/>
+		<result property="examination" column="examination"/>
+		<result property="radiation" column="radiation"/>
+		<result property="treatment" column="treatment"/>
+		<result property="selfPay" column="SELF_PAY"/>
+		<result property="physicalTherapy" column="PHYSICAL_THERAPY"/>
+		<result property="psychotherapeutics" column="psychotherapeutics"/>
+		<result property="ultrasonic" column="ultrasonic"/>
+		<result property="selectionTreat" column="SELECTION_TREAT"/>
+		<result property="medicalHerbs" column="MEDICAL_HERBS"/>
+		<result property="etc" column="etc"/>
+		<result property="chartNo" column="CHART_NO"/>
+		<result property="patientsName" column="PATIENTS_NAME"/>
+		<result property="dayNote" column="DAY_NOTE"/>
+		<result property="chainNote" column="CHAIN_NOTE"/>
+		<result property="insurance" column="INSURANCE"/>
+		<result property="patientsPno" column="PATIENTS_PNO"/>
+		<result property="adhd" column="ADHD"/>
+		<result property="mo" column="MO"/>
+	</resultMap>
+	<select id="selectReceiptWait" resultMap="billFormResultSet">
+		SELECT BILL_FORM_NO, JS.PATIENTS_NO, PB_VISIT_DATE, BF.NIGHT, CHECKUP, 
+		       HOSPITALIZATION, MEALS, DOSE, INJECTION, ANESTHETIZE, OPERATION, 
+		       EXAMINATION, RADIATION, TREATMENT, SELF_PAY, PHYSICAL_THERAPY, 
+		       PSYCHOTHERAPEUTICS, ULTRASONIC, SELECTION_TREAT, MEDICAL_HERBS, 
+		       ETC, JS.CHART_NO, PATIENTS_NAME 
+		  FROM TB_BILL_FORM BF 
+		  JOIN TB_PATIENTS P USING (PATIENTS_NO) 
+		  JOIN TB_JS JS ON (BF.CHART_NO = JS.CHART_NO) 
+		 WHERE PB_VISIT_DATE = TO_CHAR(SYSDATE, 'YYYY-MM-DD')
+		   AND CLINIC_STATE = 2
+	</select>
+	
+	<select id="selectReceiptComp">
+		SELECT BILL_FORM_NO, JS.PATIENTS_NO, PB_VISIT_DATE, BF.NIGHT, CHECKUP, 
+		       HOSPITALIZATION, MEALS, DOSE, INJECTION, ANESTHETIZE, OPERATION, 
+		       EXAMINATION, RADIATION, TREATMENT, SELF_PAY, PHYSICAL_THERAPY, 
+		       PSYCHOTHERAPEUTICS, ULTRASONIC, SELECTION_TREAT, MEDICAL_HERBS, 
+		       ETC, JS.CHART_NO, PATIENTS_NAME 
+		  FROM TB_BILL_FORM BF 
+		  JOIN TB_PATIENTS P USING (PATIENTS_NO) 
+		  JOIN TB_JS JS ON (BF.CHART_NO = JS.CHART_NO) 
+		 WHERE PB_VISIT_DATE = TO_CHAR(SYSDATE, 'YYYY-MM-DD')
+		   AND CLINIC_STATE = 4
+	</select>
+	
+	<select id="selectBillForm" parameterType="BillForm" resultMap="billFormResultSet">
+		SELECT BILL_FORM_NO, PATIENTS_NO, PB_VISIT_DATE, CHECKUP, HOSPITALIZATION, MEALS, DOSE,
+			   INJECTION, ANESTHETIZE, OPERATION, EXAMINATION, RADIATION, TREATMENT, SELF_PAY,
+			   PHYSICAL_THERAPY, PSYCHOTHERAPEUTICS, ULTRASONIC, SELECTION_TREAT, MEDICAL_HERBS,
+			   ETC, CHART_NO, PATIENTS_NAME, DAY_NOTE, CHAIN_NOTE
+		  FROM TB_BILL_FORM BF
+          JOIN TB_PATIENTS P USING (PATIENTS_NO)
+		 WHERE CHART_NO = #{chartNo}
+	</select>
+	
+	<select id="selectSalaryClassific" parameterType="BillForm" resultType="_int">
+		SELECT DISTINCT SALARY_CLASSIFIC FROM TB_PRESCRIPTIONCHART WHERE CHART_NO = ${chartNo}
+	</select>
+	
+	<insert id="insertReceipt" parameterType="Receipt">
+		INSERT INTO TB_RECEIPT VALUES(#{billFormNo}, #{totalBill}, #{discount}, #{totalPay}, #{memo}, TO_CHAR(SYSDATE, 'YYYY-MM-DD'), #{payMethod})
+	</insert>
+	
+	<select id="selectBillFormList" parameterType="_int" resultMap="billFormResultSet">
+		SELECT BF.PATIENTS_NO, CHECKUP, DOSE, OPERATION, RADIATION, PATIENTS_NAME, PATIENTS_PNO, INSURANCE, MO, ADHD, CHART_NO
+		  FROM TB_PATIENTS
+		  JOIN TB_JS USING (PATIENTS_NO)
+	 	  JOIN TB_BILL_FORM BF USING (CHART_NO)
+		 WHERE CHART_NO IN (SELECT CHART_NO
+		                      FROM TB_BILL_FORM
+		                      JOIN TB_JS USING (CHART_NO)
+		                     WHERE CLINIC_STATE = #{num})
+	</select>
+</mapper>

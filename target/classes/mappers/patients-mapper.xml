@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="patientsMapper">
+
+	<resultMap type="Patients" id="patientsResultSet">
+		<id property="patientsNo" column="PATIENTS_NO"/>
+		<result property="patientsName" column="PATIENTS_NAME"/>
+		<result property="patientsPno" column="PATIENTS_PNO"/>
+		<result property="insurance" column="INSURANCE"/>
+		<result property="address" column="ADDRESS"/>
+		<result property="phone" column="PHONE"/>
+		<result property="firstVisit" column="FIRST_VISIT"/>
+		<result property="lastVisit" column="LAST_VISIT"/>
+		<result property="Do" column="DO"/>
+		<result property="lastDo" column="LAST_DO"/>
+		<result property="mo" column="MO"/>
+		<result property="adhd" column="ADHD"/>
+		<result property="dayNote" column="DAY_NOTE"/>
+		<result property="chainNote" column="CHAIN_NOTE"/>
+		<result property="chartNo" column="CHART_NO"/>
+	</resultMap>
+	
+	<!-- <resultMap id="patientsResultSet" type="Patients">
+		
+	</resultMap> -->
+	
+	<select id="selectPatient" parameterType="Patients" resultMap="patientsResultSet">
+		SELECT * FROM TB_PATIENTS WHERE PATIENTS_NAME = #{patientsName} AND PATIENTS_PNO = #{patientsPno}
+	</select>
+	
+	<insert id="insertPatients" parameterType="Patients">
+		INSERT INTO TB_PATIENTS VALUES(SEQ_PAT_NO.NEXTVAL, #{patientsName}, #{patientsPno}, #{insurance}, #{address}, #{phone}, TO_CHAR(SYSDATE, 'YYYY-MM-DD'), TO_CHAR(SYSDATE, 'YYYY-MM-DD'), #{Do}, #{Do},
+									   #{mo}, #{adhd}, #{dayNote}, #{chainNote})
+	</insert>
+
+	<insert id="insertJS" parameterType="_int">
+		INSERT INTO TB_JS VALUES(SEQ_CHART_NO.NEXTVAL, TO_CHAR(SYSDATE, 'YYYY-MM-DD'), DEFAULT, #{pno})
+	</insert>
+	
+	<update id="updatePatient" parameterType="Patients">
+		UPDATE TB_PATIENTS
+		SET LAST_VISIT = TO_CHAR(SYSDATE, 'YYYY-MM-DD'),
+			DO = #{Do},
+			ADHD = '재진',
+			MO = #{mo},
+			DAY_NOTE = #{dayNote},
+			CHAIN_NOTE = (#{chainNote} || CHR(10) || #{dayNote})
+		WHERE PATIENTS_PNO = #{patientsPno}
+		AND PATIENTS_NAME = #{patientsName}
+	</update>
+	
+	<select id="selectPatientsChart" parameterType="Patients" resultMap="patientsResultSet">
+		SELECT * FROM TB_PATIENTS JOIN TB_JS USING (PATIENTS_NO) WHERE TB_JS.RECEIPT_DATE = TO_CHAR(SYSDATE, 'YYYY-MM-DD') AND PATIENTS_NO = #{patientsNo} ORDER BY PATIENTS_NO ASC
+	</select>
+	
+	<select id="selectPatients" parameterType="com.kh.ff.patients.model.vo.SearchCondition" resultMap="patientsResultSet">
+		SELECT * FROM TB_PATIENTS
+		<if test="name != null">
+			WHERE PATIENTS_NAME LIKE '%' || #{content} || '%'
+		</if>
+		<if test="idnum != null">
+			WHERE PATIENTS_PNO LIKE '%' || #{content} || '%'
+		</if>
+	</select>
+	
+	<select id="selectTreatment" parameterType="_int" resultMap="patientsResultSet">
+		SELECT * FROM TB_JS JOIN TB_PATIENTS USING (PATIENTS_NO) WHERE TB_JS.RECEIPT_DATE = TO_CHAR(SYSDATE, 'YYYY-MM-DD') AND CLINIC_STATE = #{num} ORDER BY CHART_NO ASC
+	</select>
+	
+	<update id="updatePatients" parameterType="JS">
+		UPDATE TB_JS SET CLINIC_STATE = #{clinicState} WHERE CHART_NO = #{chartNo}
+	</update>
+
+</mapper>

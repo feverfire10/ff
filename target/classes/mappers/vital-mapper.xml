@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="vitalMapper">
+
+	<resultMap id="vitalResultSet" type="Vital">
+		<id column="vital_no" property="vitalNo"/>
+		<result column="max_bp" property="maxBp"/>
+		<result column="min_bp" property="minBp"/>
+		<result column="before_bs" property="beforeBs"/>
+		<result column="after_bs" property="afterBs"/>
+		<result column="weight" property="weight"/>
+		<result column="height" property="height"/>
+		<result column="fever" property="fever"/>
+		<result column="receipt_date" property="receiptDate"/>
+	</resultMap>
+	
+	<select id="selectVitalList" parameterType="Vital" resultMap="vitalResultSet">
+		SELECT *
+		FROM TB_VITAL
+		JOIN TB_JS USING(CHART_NO)
+		WHERE RECEIPT_DATE=#{receiptDate} AND PATIENTS_NO=#{patientsNo}
+	</select>
+	
+	<insert id="insertVital" parameterType="Vital">
+		MERGE INTO TB_VITAL
+		    USING DUAL
+		    ON (CHART_NO = #{chartNo})
+		    WHEN MATCHED THEN
+		        UPDATE SET
+		            MAX_BP = #{maxBp},
+		            MIN_BP = #{minBp},
+		            BEFORE_BS = #{beforeBs},
+		            AFTER_BS = #{afterBs},
+		            WEIGHT = #{weight},
+		            HEIGHT = #{height},
+		            FEVER = #{fever}
+		    WHEN NOT MATCHED THEN
+		        INSERT (VITAL_NO, MAX_BP, MIN_BP, BEFORE_BS, AFTER_BS, WEIGHT, HEIGHT, FEVER, CHART_NO)
+		            VALUES (SEQ_VITAL_NO.NEXTVAL, #{maxBp}, #{minBp}, #{beforeBs}, #{afterBs}, #{weight}, #{height}, #{fever}, #{chartNo})
+	</insert>
+</mapper>

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration 
+PUBLIC "-//mybatis.org//DTD Config 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-config.dtd" >
+<configuration>
+	
+	<settings>
+		<setting name="jdbcTypeForNull" value="NULL"/>
+	</settings>
+	
+	<typeAliases>
+		<!-- 김민기 -->
+		<typeAlias type="com.kh.ff.js.model.vo.Js" alias="Js"/>
+		<typeAlias type="com.kh.ff.vital.model.vo.Vital" alias="Vital"/>
+		<typeAlias type="com.kh.ff.patients.model.vo.Patients" alias="Patients"/>
+		<typeAlias type="com.kh.ff.symptom.model.vo.Symptom" alias="Symptom"/>
+		<typeAlias type="com.kh.ff.disease.model.vo.Disease" alias="Disease"/>
+		<typeAlias type="com.kh.ff.prescription.model.vo.Prescription" alias="Prescription"/>
+		<!-- 박동석 -->
+		<typeAlias type="com.kh.ff.rightClinic.model.vo.PatientJs" alias="PatientJs" />
+		<typeAlias type="com.kh.ff.rightClinic.model.vo.DiseaseRc" alias="DiseaseRc" />
+		<typeAlias type="com.kh.ff.rightClinic.model.vo.PrescriptionRc" alias="PrescriptionRc" />
+		<typeAlias type="com.kh.ff.rightClinic.model.vo.SymptomRc" alias="SymptomRc" />
+		<!-- 접수 -->
+		<typeAlias type="com.kh.ff.receipt.model.vo.Receipt" alias="Receipt" />
+		<typeAlias type="com.kh.ff.receipt.model.vo.BillForm" alias="BillForm" />
+		<!-- 민호 -->
+		<typeAlias type="com.kh.ff.user.model.vo.User" alias="User"/>
+		<typeAlias type="com.kh.ff.user.model.vo.Power" alias="Power"/>
+		<!-- <typeAlias type="com.kh.ff.support.model.vo.Support" alias="Support"/> -->
+	</typeAliases>
+	
+	<!-- 기존에는 이 파일에서 DB 연결설정에 대한 정보를 기술했다면 
+		 스프링에서는 서버 실행과 동시에 바로 DB와 연결될 수 있게끔 다른 파일에 기술할거임 -->
+	<mappers>
+		<!-- 김민기 -->
+		<mapper resource="/mappers/js-mapper.xml"/>
+		<mapper resource="/mappers/vital-mapper.xml"/>
+		<mapper resource="/mappers/patients-mapper.xml"/>
+		<mapper resource="/mappers/symptom-mapper.xml"/>
+		<mapper resource="/mappers/disease-mapper.xml"/>
+		<mapper resource="/mappers/prescription-mapper.xml"/>
+		<!-- 박동석 -->
+		<mapper resource="/mappers/rightClinic-mapper.xml"/>
+		<!-- 접수 -->
+		<mapper resource="/mappers/patients-mapper.xml"/>
+		<mapper resource="/mappers/receipt-mapper.xml"/>
+		<!-- 민호 -->
+		<mapper resource="/mappers/user-mapper.xml"/>
+		<!-- <mapper resource="/mappers/support-mapper.xml"/> -->
+		
+	</mappers>	
+	
+</configuration>
+
+
+
+
+

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="diseaseMapper">
+
+	<resultMap id="diseaseResultSet" type="Disease">
+		<id column="diseasechart_no" property="diseasechartNo"/>
+		<result column="chart_no" property="chartNo"/>
+		<result column="disease_no" property="diseaseNo"/>
+		<result column="disease_code" property="diseaseCode"/>
+		<result column="disease_kname" property="diseaseKorName"/>
+		<result column="disease_ename" property="diseaseEngName"/>
+		<result column="user_department" property="userDepartment"/>
+		<result column="user_license" property="userLicense"/>
+	</resultMap>
+	
+	<select id="selectDiseaseHistory" parameterType="Disease" resultMap="diseaseResultSet">		
+		SELECT DISEASE_CODE, DISEASE_KNAME, USER_DEPARTMENT, USER_LICENSE, DISEASE_NO
+		FROM TB_JS
+		JOIN TB_DISEASECHART C USING(CHART_NO)
+		JOIN TB_DISEASE D USING(DISEASE_NO)
+		JOIN TB_PATIENTS USING(PATIENTS_NO)
+		JOIN TB_USER ON(MO=USER_NAME)
+		WHERE PATIENTS_NO=#{patientsNo} AND RECEIPT_DATE=#{receiptDate} AND MO=#{mo}
+	</select>
+	
+	<select id="selectDiseaseAll" parameterType="Disease" resultMap="diseaseResultSet">
+		SELECT *
+		FROM TB_DISEASE
+		ORDER BY DISEASE_CODE
+	</select>
+	
+	<select id="selectNowHistory" parameterType="Disease" resultMap="diseaseResultSet">
+		SELECT D.DISEASE_CODE, DISEASE_KNAME
+		FROM TB_DISEASECHART C
+		JOIN TB_DISEASE D ON(D.DISEASE_NO=C.DISEASE_CODE)
+		JOIN TB_JS USING(CHART_NO)
+		JOIN TB_PATIENTS USING(PATIENTS_NO)
+		WHERE CHART_NO=#{chartNo}
+	</select>
+	
+	<insert id="insertDisease" parameterType="Disease">
+		INSERT INTO TB_DISEASECHART VALUES(SEQ_DISEASECHART_NO.NEXTVAL, #{chartNo}, #{diseaseNo})
+	</insert>
+	
+	<delete id="deleteDiseaseCode" parameterType="Disease">
+		DELETE FROM TB_DISEASECHART WHERE CHART_NO=#{chartNo} AND DISEASE_CODE=#{diseaseNo}
+	</delete>
+	
+	<select id="divDiseaseArea" resultMap="diseaseResultSet">
+		SELECT *
+		FROM TB_DISEASE
+		ORDER BY DISEASE_CODE
+	</select>
+</mapper>

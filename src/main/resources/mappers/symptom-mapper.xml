@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="symptomMapper">
+
+	<resultMap id="symptomResultSet" type="Symptom">
+		<id column="symptom_no" property="symptomNo"/>
+		<result column="symptom_history" property="symptomHistory"/>
+		<result column="chart_no" property="chartNo"/>
+		<result column="receipt_date" property="receiptDate"/>
+	</resultMap>
+	
+	<select id="selectSymptomHistory" parameterType="Symptom" resultMap="symptomResultSet">
+		SELECT SYMPTOM_HISTORY
+		FROM TB_JS
+		JOIN TB_SYMPTOMCHART USING(CHART_NO)
+		WHERE PATIENTS_NO=#{patientsNo} AND RECEIPT_DATE=#{receiptDate}
+	</select>
+	
+	<select id="selectHistoryAll" parameterType="Symptom" resultMap="symptomResultSet">
+		SELECT RECEIPT_DATE, SYMPTOM_HISTORY
+		FROM TB_SYMPTOMCHART
+		JOIN TB_JS USING(CHART_NO)
+		WHERE PATIENTS_NO=#{patientsNo}
+	</select>
+	
+	<insert id="insertSymptom" parameterType="Symptom">
+		MERGE INTO TB_SYMPTOMCHART
+	    USING DUAL
+	    ON (CHART_NO = #{chartNo})
+	    WHEN MATCHED THEN
+	        UPDATE SET
+	            SYMPTOM_HISTORY = #{symptomHistory}
+	    WHEN NOT MATCHED THEN
+	        INSERT (SYMPTOM_NO, SYMPTOM_HISTORY, CHART_NO)
+	            VALUES (SEQ_SYMPTOMCHART_NO.NEXTVAL, #{symptomHistory}, #{chartNo})
+	</insert>
+</mapper>

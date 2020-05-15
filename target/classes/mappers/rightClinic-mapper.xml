@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="rightClinicMapper">
+
+	<resultMap id="patientJsResultSet" type="PatientJs">
+		<id column="PATIENTS_NO" property="patientsNo" />
+		<result column="PATIENTS_NAME" property="patientsName" />
+		<result column="PATIENTS_PNO" property="patientsPno" />
+		<result column="INSURANCE" property="insurance" />
+		<result column="ADDRESS" property="address" />
+		<result column="PHONE" property="phone" />
+		<result column="FIRST_VISIT" property="firstVisit" />
+		<result column="LAST_VISIT" property="lastVisit" />
+		<result column="DO" property="firstDo" />
+		<result column="LAST_DO" property="lastDo" />
+		<result column="MO" property="mo" />
+		<result column="ADHD" property="adhd" />
+		<result column="DAY_NOTE" property="dayNote" />
+		<result column="CHAIN_NOTE" property="chainNote" />
+		<result column="NIGHT" property="night" />
+		<result column="EMERGENCY" property="emergency" />
+		<result column="CHART_NO" property="chartNo" />
+		<result column="RECEIPT_DATE" property="receiptDate" />
+		<result column="CLINIC_STATE" property="clinicState" />
+	</resultMap>
+	
+	<resultMap id="diseaseRcResultSet" type="DiseaseRc">
+		<id column="CHART_NO" property="chartNo" />
+		<result column="DISEASE_NO" property="diseaseNo" />
+		<result column="DISEASE_CODE" property="diseaseCode" />
+		<result column="DISEASE_KNAME" property="diseaseKname" />
+		<result column="DISEASE_ENAME" property="diseaseEname" />
+	</resultMap>
+	
+	<resultMap id="symptomRcResultSet" type="SymptomRc">
+		<id column="CHART_NO" property="chartNo" />
+		<result column="symptom_no" property="symptomNo" />
+		<result column="symptom_history" property="symptomHistory" />
+	</resultMap>
+	
+	<resultMap id="prescriptionRcResultSet" type="PrescriptionRc">
+		<id column="CHART_NO" property="chartNo" />
+		<result column="ACTION_YN" property="actionYn" />
+		<result column="PRESCRIP_USER_CODE" property="prescripUserCode" />
+		<result column="TOTAL_AD" property="totalAd" />
+		<result column="NUM_TIMES" property="numTimes" />
+		<result column="NUM_DAYS" property="numDays" />
+		<result column="SALARY_CLASSIFIC" property="salaryClassific" />
+		<result column="NIGHTTIME" property="nightTime" />
+		<result column="EMERGENCY" property="emergency" />
+		<result column="PRESCRIP_CODE" property="prescripCode" />
+		<result column="PRESCRIP_TYPE" property="prescripType" />
+		<result column="PRESCRIP_NAME" property="prescripName" />
+		<result column="PRESCRIP_INSUP" property="prescripInsup" />
+		<result column="PRESCRIP_GENEP" property="prescripGenep" />
+		<result column="PRESCRIP_INSU_OFFICE" property="prescripInsuOffice" />
+	</resultMap>
+	
+	<select id="selPatientsList" parameterType="hashmap" resultMap="patientJsResultSet">
+		SELECT *
+		FROM TB_PATIENTS
+		JOIN TB_JS USING(PATIENTS_NO)
+		<where>
+	    <if test="patientsName != null">
+	         PATIENTS_NAME = #{patientsName}
+	    </if>
+	    <if test="receiptDate != null">
+	        AND RECEIPT_DATE = #{receiptDate}
+	    </if>
+	    <if test="clinicState != null">
+	        AND CLINIC_STATE = #{clinicState}
+	    </if>
+	  </where>
+	</select>
+	
+	<select id="selOnePatientList" parameterType="hashmap" resultMap="patientJsResultSet">
+		SELECT *
+		FROM TB_PATIENTS
+		JOIN TB_JS USING(PATIENTS_NO)
+		<where>
+	    <if test="patiName != null">
+	         PATIENTS_NAME = #{patiName}
+	    </if>
+	    <if test="patiSSN != null">
+	        AND PATIENTS_PNO = #{patiSSN}
+	    </if>
+	  </where>
+	</select>
+	
+	<select id="selDiseaseHistory" parameterType="hashmap" resultMap="diseaseRcResultSet">
+		SELECT CHART_NO, DISEASE_NO, DISEASE_CODE, DISEASE_KNAME, DISEASE_ENAME
+		FROM TB_PATIENTS PT
+		JOIN TB_JS JS USING(PATIENTS_NO)
+		JOIN TB_DISEASECHART USING(chart_no)
+		JOIN tb_disease USING(DISEASE_NO)
+		WHERE JS.RECEIPT_DATE = #{clickDate} 
+		AND PATIENTS_NAME = #{clickPatientsName} 
+		AND PATIENTS_PNO = #{clickPatientsPno}
+	</select>
+	
+	<select id="selPrescriptionHistory" parameterType="hashmap" resultMap="prescriptionRcResultSet">
+		SELECT CHART_NO, ACTION_YN, PRESCRIP_USER_CODE, TOTAL_AD, NUM_TIMES, NUM_DAYS
+		, SALARY_CLASSIFIC, NIGHTTIME, PSC.EMERGENCY, PRESCRIP_CODE, PRESCRIP_TYPE
+		, PRESCRIP_NAME, PRESCRIP_INSUP, PRESCRIP_GENEP, PRESCRIP_INSU_OFFICE
+		FROM TB_PATIENTS PT
+		JOIN TB_JS JS USING(PATIENTS_NO)
+		JOIN tb_prescriptionchart PSC USING(chart_no)
+		JOIN tb_prescription PS USING(PRESCRIP_USER_CODE)
+		WHERE JS.RECEIPT_DATE = #{clickDate}  AND PATIENTS_NAME = #{clickPatientsName} AND PATIENTS_PNO = #{clickPatientsPno}
+	</select>
+	
+	<select id="selSymptomHistory" parameterType="hashmap" resultMap="symptomRcResultSet">
+		SELECT chart_no, st.symptom_no, st.symptom_history
+		FROM TB_PATIENTS PT
+		JOIN TB_JS JS USING(PATIENTS_NO)
+		JOIN tb_symptomchart st USING(chart_no)
+		WHERE JS.RECEIPT_DATE = #{clickDate} AND PATIENTS_NAME = #{clickPatientsName} AND PATIENTS_PNO = #{clickPatientsPno}
+	</select>
+</mapper>
+

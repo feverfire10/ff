@@ -1,0 +1,149 @@
+
+
+/*//////////////////////////////////////////////////////////////////
+[ FONT ]*/
+
+
+@font-face {
+  font-family: Montserrat-Regular;
+  src: url('../fonts/montserrat/Montserrat-Regular.ttf'); 
+}
+
+@font-face {
+  font-family: Montserrat-Medium;
+  src: url('../fonts/montserrat/Montserrat-Medium.ttf'); 
+}
+
+/*//////////////////////////////////////////////////////////////////
+[ RESTYLE TAG ]*/
+* {
+	margin: 0px; 
+	padding: 0px; 
+	box-sizing: border-box;
+}
+
+body, html {
+	height: 100%;
+	font-family: sans-serif;
+}
+
+/* ------------------------------------ */
+a {
+	margin: 0px;
+	transition: all 0.4s;
+	-webkit-transition: all 0.4s;
+  -o-transition: all 0.4s;
+  -moz-transition: all 0.4s;
+}
+
+a:focus {
+	outline: none !important;
+}
+
+a:hover {
+	text-decoration: none;
+}
+
+/* ------------------------------------ */
+h1,h2,h3,h4,h5,h6 {margin: 0px;}
+
+p {margin: 0px;}
+
+ul, li {
+	margin: 0px;
+	list-style-type: none;
+}
+
+
+/* ------------------------------------ */
+input {
+	border: none !important;
+/* 	width: 100%; */
+}
+
+textarea {
+  display: block;
+  outline: none;
+}
+
+textarea:focus, input:focus {
+  border-color: transparent !important;
+}
+
+/* ------------------------------------ */
+button {
+	outline: none !important;
+	border: none;
+	background: transparent;
+}
+
+button:hover {
+	cursor: pointer;
+}
+
+iframe {
+	border: none !important;
+}
+
+
+
+/*//////////////////////////////////////////////////////////////////
+[ Table ]*/
+
+.limiter {
+  width: 100%;
+  margin: 0 auto;
+}
+
+
+.wrap-table100 {
+  width: 1300px;
+}
+
+/*//////////////////////////////////////////////////////////////////
+[ Table ]*/
+table {
+  width: 100%;
+  background-color: #fff;
+}
+
+th, td {font-weight: unset;}
+
+/*==================================================================
+[ Ver3 ]*/
+.table100.ver3 tbody tr {
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.table100.ver3 td {
+  font-size: 14px;
+  color: #808080;
+  line-height: 1.4;
+}
+
+.table100.ver3 th {
+  font-family: Montserrat-Medium;
+  font-size: 12px;
+  line-height: 1.4;
+  text-transform: uppercase;
+
+  background-color: lightgrey;
+}
+
+/* 선택한 전체의 색 */
+.table100.ver3 .row100:hover td {
+  background-color: #DFF5F5;
+}
+
+.table100.ver3 .hov-column-ver3 {
+  background-color: #fcebf5;
+}
+
+.table100.ver3 .hov-column-head-ver3 {
+  background-color: #7b88e3 !important;
+}
+
+/* 선택한 칸의 색 */
+.table100.ver3 .row100 td:hover {
+  background-color: #C4E4E4;
+}

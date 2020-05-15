@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="prescriptionMapper">
+	<resultMap id="prescriptionResultSet" type="Prescription">
+		<id column="prescrip_user_code" property="prescripUserCode"/>
+		<result column="prescrip_code" property="prescripCode"/>
+		<result column="prescrip_type" property="prescripType"/>
+		<result column="prescrip_name" property="prescripName"/>
+		<result column="prescrip_insup" property="prescripInsup"/>
+		<result column="prescrip_genep" property="prescripGenep"/>
+		<result column="prescrip_insu_office" property="prescripInsuOffice"/>
+		<result column="action_yn" property="actionYn"/>
+		<result column="chart_no" property="chartNo"/>
+		<result column="total_ad" property="totalAd"/>
+		<result column="num_times" property="numTimes"/>
+		<result column="num_days" property="numDays"/>
+		<result column="salary_classific" property="salaryClassific"/>
+		<result column="nighttime" property="nighttime"/>
+		<result column="emergency" property="emergency"/>
+		<result column="adhd" property="adhd"/>
+	</resultMap>
+	
+	<select id="selectPrescriptionAll" parameterType="Prescription" resultMap="prescriptionResultSet">
+		SELECT * FROM TB_PRESCRIPTION
+		ORDER BY PRESCRIP_USER_CODE
+	</select>
+	<select id="selectPrescriptionBase" parameterType="Prescription" resultMap="prescriptionResultSet">
+		SELECT * FROM TB_PRESCRIPTION
+		WHERE PRESCRIP_TYPE='진찰료'
+		ORDER BY PRESCRIP_USER_CODE
+	</select>
+	<select id="selectPrescriptionMedi" parameterType="Prescription" resultMap="prescriptionResultSet">
+		SELECT * FROM TB_PRESCRIPTION
+		WHERE PRESCRIP_TYPE='투약'
+		ORDER BY PRESCRIP_USER_CODE
+	</select>
+	<select id="selectPrescriptionHand" parameterType="Prescription" resultMap="prescriptionResultSet">
+		SELECT * FROM TB_PRESCRIPTION
+		WHERE PRESCRIP_TYPE='처치'
+		ORDER BY PRESCRIP_USER_CODE
+	</select>
+	<select id="selectPrescriptionXray" parameterType="Prescription" resultMap="prescriptionResultSet">
+		SELECT * FROM TB_PRESCRIPTION
+		WHERE PRESCRIP_TYPE='방사선'
+		ORDER BY PRESCRIP_USER_CODE
+	</select>
+	<select id="selectPrescriptionCheckup" parameterType="Prescription" resultMap="prescriptionResultSet">
+		SELECT * FROM TB_PRESCRIPTION
+		WHERE PRESCRIP_TYPE='검사'
+		ORDER BY PRESCRIP_USER_CODE
+	</select>
+	
+	<select id="selectPrescriptionList" parameterType="Prescription" resultMap="prescriptionResultSet">
+		SELECT *
+		FROM TB_PRESCRIPTIONCHART
+		JOIN TB_PRESCRIPTION USING(PRESCRIP_USER_CODE)
+		JOIN TB_JS USING(CHART_NO)
+		JOIN TB_PATIENTS USING(PATIENTS_NO)
+		WHERE PATIENTS_NO=#{patientsNo} AND RECEIPT_DATE=#{receiptDate}
+	</select>
+	
+	<select id="infoPriceGene" parameterType="Prescription" resultMap="prescriptionResultSet">
+		SELECT PRESCRIP_GENEP
+		FROM TB_PRESCRIPTION
+		WHERE PRESCRIP_USER_CODE=#{prescripUserCode}
+	</select>
+	<select id="infoPriceInsu" parameterType="Prescription" resultMap="prescriptionResultSet">
+		SELECT PRESCRIP_INSUP
+		FROM TB_PRESCRIPTION
+		WHERE PRESCRIP_USER_CODE=#{prescripUserCode}
+	</select>
+	
+	<insert id="insertPrescription" parameterType="Prescription">
+		INSERT INTO TB_PRESCRIPTIONCHART VALUES
+		(SEQ_PRESCRIPTIONCHART_NO.NEXTVAL, DEFAULT, #{prescripUserCode}, #{chartNo}, #{totalAd}, #{numTimes}, #{numDays}, #{salaryClassific}, 'N', 'N')
+	</insert>
+	
+	<insert id="insertBillForm" parameterType="Prescription">
+	   MERGE INTO TB_BILL_FORM
+       USING DUAL
+       ON (CHART_NO = #{chartNo})
+       WHEN MATCHED THEN
+           UPDATE SET
+               CHECKUP = (SELECT SUM(PRESCRIP_INSUP * TOTAL_AD)
+                            FROM TB_PRESCRIPTION 
+                            JOIN TB_PRESCRIPTIONCHART USING (PRESCRIP_USER_CODE) 
+                            WHERE CHART_NO = #{chartNo}
+                            AND PRESCRIP_TYPE = '진찰료'),
+                DOSE = (SELECT SUM(PRESCRIP_INSUP * TOTAL_AD)
+                            FROM TB_PRESCRIPTION 
+                            JOIN TB_PRESCRIPTIONCHART USING (PRESCRIP_USER_CODE) 
+                            WHERE CHART_NO = #{chartNo}
+                            AND PRESCRIP_TYPE = '투약'),
+                OPERATION = (SELECT SUM(PRESCRIP_INSUP * TOTAL_AD)
+                                FROM TB_PRESCRIPTION 
+                                JOIN TB_PRESCRIPTIONCHART USING (PRESCRIP_USER_CODE) 
+                                WHERE CHART_NO = #{chartNo}
+                                AND PRESCRIP_TYPE = '처치'),
+                RADIATION = (SELECT SUM(PRESCRIP_INSUP * TOTAL_AD)
+                                FROM TB_PRESCRIPTION 
+                                JOIN TB_PRESCRIPTIONCHART USING (PRESCRIP_USER_CODE) 
+                                WHERE CHART_NO = #{chartNo}
+                                AND PRESCRIP_TYPE = '방사선')
+       WHEN NOT MATCHED THEN
+           INSERT INTO TB_BILL_FORM VALUES(SEQ_BF_NO.NEXTVAL, (SELECT PATIENTS_NO FROM TB_JS WHERE CHART_NO = #{chartNo}), TO_CHAR(SYSDATE, 'YYYY-MM-DD'), DEFAULT,
+            (SELECT SUM(PRESCRIP_INSUP * TOTAL_AD)
+            FROM TB_PRESCRIPTION 
+            JOIN TB_PRESCRIPTIONCHART USING (PRESCRIP_USER_CODE) 
+            WHERE CHART_NO = #{chartNo}
+            AND PRESCRIP_TYPE = '진찰료'), NULL, NULL, (SELECT SUM(PRESCRIP_INSUP * TOTAL_AD)
+            FROM TB_PRESCRIPTION 
+            JOIN TB_PRESCRIPTIONCHART USING (PRESCRIP_USER_CODE) 
+            WHERE CHART_NO = #{chartNo}
+            AND PRESCRIP_TYPE = '투약'), NULL, NULL, (SELECT SUM(PRESCRIP_INSUP * TOTAL_AD)
+            FROM TB_PRESCRIPTION 
+            JOIN TB_PRESCRIPTIONCHART USING (PRESCRIP_USER_CODE) 
+            WHERE CHART_NO = #{chartNo}
+            AND PRESCRIP_TYPE = '처치'), NULL, (SELECT SUM(PRESCRIP_INSUP * TOTAL_AD)
+            FROM TB_PRESCRIPTION 
+            JOIN TB_PRESCRIPTIONCHART USING (PRESCRIP_USER_CODE) 
+            WHERE CHART_NO = #{chartNo}
+            AND PRESCRIP_TYPE = '방사선'), NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, #{chartNo})
+	</insert>
+	
+	<delete id="deletePreCode" parameterType="Prescription">
+		DELETE FROM TB_PRESCRIPTIONCHART WHERE CHART_NO=#{chartNo} AND PRESCRIP_USER_CODE=#{prescripUserCode}
+	</delete>
+	
+	<select id="divPrescriptionArea" resultMap="prescriptionResultSet">
+		SELECT * FROM TB_PRESCRIPTION
+		ORDER BY PRESCRIP_USER_CODE
+	</select>
+	
+	
+</mapper>

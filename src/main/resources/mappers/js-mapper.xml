@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="jsMapper">
+	
+	<resultMap id="jsResultSet" type="com.kh.ff.js.model.vo.Js">
+		<id column="chart_no" property="chartNo"/>
+		<result column="patients_no" property="patientsNo"/>
+		<result column="receipt_date" property="receiptDate"/>
+		<result column="clinic_state" property="clinicState"/>
+		<result column="patients_name" property="patientsName"/>
+		<result column="age" property="age"/>
+		<result column="mo" property="mo"/>
+		<result column="insurance" property="insurance"/>
+		<result column="patients_pno" property="patientsPno"/>
+	</resultMap>
+	
+	<select id="selectStateList" parameterType="Js" resultMap="jsResultSet">
+		SELECT PATIENTS_NAME, PATIENTS_NO, AGE, ADHD, MO, RECEIPT_DATE
+		FROM (SELECT PATIENTS_NO, TO_CHAR(SYSDATE, 'YYYY') - SUBSTR((CASE
+		                                                                WHEN SUBSTR(PATIENTS_PNO, 8, 1) IN ('1', '2')
+		                                                                THEN
+		                                                                    '19' || SUBSTR(PATIENTS_PNO, 1, 6)
+		                                                                WHEN SUBSTR(PATIENTS_PNO, 8, 1) IN ('3', '4')
+		                                                                THEN
+		                                                                    '20' || SUBSTR(PATIENTS_PNO, 1, 6)
+		                                                            END), 1, 4) + 1 AS AGE, PATIENTS_NAME, ADHD, MO
+		        FROM TB_PATIENTS)
+		JOIN TB_JS USING(PATIENTS_NO)
+		WHERE CLINIC_STATE=0 AND RECEIPT_DATE=#{receiptDate}
+	</select>
+	
+	<select id="selectHoldList" parameterType="Js" resultMap="jsResultSet">
+		SELECT PATIENTS_NAME, PATIENTS_NO, AGE, ADHD, MO, RECEIPT_DATE, CHART_NO
+		FROM (SELECT PATIENTS_NO, TO_CHAR(SYSDATE, 'YYYY') - SUBSTR((CASE
+		                                                                WHEN SUBSTR(PATIENTS_PNO, 8, 1) IN ('1', '2')
+		                                                                THEN
+		                                                                    '19' || SUBSTR(PATIENTS_PNO, 1, 6)
+		                                                                WHEN SUBSTR(PATIENTS_PNO, 8, 1) IN ('3', '4')
+		                                                                THEN
+		                                                                    '20' || SUBSTR(PATIENTS_PNO, 1, 6)
+		                                                            END), 1, 4) + 1 AS AGE, PATIENTS_NAME, ADHD, MO
+		        FROM TB_PATIENTS)
+		JOIN TB_JS USING(PATIENTS_NO)
+		WHERE CLINIC_STATE=1 AND RECEIPT_DATE=#{receiptDate}
+	</select>
+	
+	<select id="selectDateBar" parameterType="Js" resultMap="jsResultSet">
+		SELECT CHART_NO, PATIENTS_NAME, INSURANCE, CASE
+		                                            WHEN SUBSTR(PATIENTS_PNO, 8, 1) IN ('1', '3')
+		                                            THEN '남'
+		                                            WHEN SUBSTR(PATIENTS_PNO, 8, 1) IN ('2', '4')
+		                                            THEN '여'
+		                                           END AS GENDER, TO_CHAR(SYSDATE, 'YYYY') - SUBSTR((CASE
+		                                                                                                WHEN SUBSTR(PATIENTS_PNO, 8, 1) IN ('1', '2')
+		                                                                                                THEN
+		                                                                                                    '19' || SUBSTR(PATIENTS_PNO, 1, 6)
+		                                                                                                WHEN SUBSTR(PATIENTS_PNO, 8, 1) IN ('3', '4')
+		                                                                                                THEN
+		                                                                                                    '20' || SUBSTR(PATIENTS_PNO, 1, 6)
+		                                                                                             END), 1, 4) + 1 AS AGE, RECEIPT_DATE 
+		FROM TB_JS
+		JOIN TB_PATIENTS USING(PATIENTS_NO)
+		WHERE PATIENTS_NO=#{patientsNo}
+	</select>
+	
+	<update id="updateClinicState" parameterType="_int">
+		UPDATE TB_JS
+		SET CLINIC_STATE = 1
+		WHERE CHART_NO = #{cNo}
+	</update>
+	<update id="completePatients" parameterType="_int">
+		UPDATE TB_JS
+		SET CLINIC_STATE = 2
+		WHERE CHART_NO = #{cNo}
+	</update>
+	
+	<select id="modalPaientsList" parameterType="Js" resultMap="jsResultSet">
+		SELECT PATIENTS_NO, CHART_NO, PATIENTS_NAME, PATIENTS_PNO, INSURANCE, ADHD, MO, RECEIPT_DATE
+		FROM TB_JS
+		JOIN TB_PATIENTS USING(PATIENTS_NO)
+		WHERE RECEIPT_DATE=#{receiptDate} AND CLINIC_STATE=2
+		ORDER BY RECEIPT_DATE
+	</select>
+	
+	<select id="betweenDayList" parameterType="Js" resultMap="jsResultSet">
+		SELECT PATIENTS_NO, CHART_NO, PATIENTS_NAME, PATIENTS_PNO, INSURANCE, ADHD, MO, RECEIPT_DATE
+		FROM TB_JS
+		JOIN TB_PATIENTS USING(PATIENTS_NO)
+		WHERE RECEIPT_DATE BETWEEN #{startDay} AND #{endDay} AND CLINIC_STATE=2
+		ORDER BY RECEIPT_DATE
+	</select>
+</mapper>
