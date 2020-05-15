@@ -1,4 +1,7 @@
+
+*.MF
 pom.properties
+
 
 # Compiled class file
 *.class

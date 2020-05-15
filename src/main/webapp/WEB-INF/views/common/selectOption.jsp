@@ -69,7 +69,7 @@ div img:hover{
 		<!-- </c:if> -->
 		<br><br><br><br><br><br>
 		<div class="first" id="first">
-			<p><img src="resources/images/logo3.png" style="width:300px;height:300px;margin-top:100px;margin-right:45px;"></p>
+			<p><img src="resources/images/logo33.png" style="width:300px;height:300px;margin-top:100px;margin-right:25px;"></p>
 			<h1>원무</h1>
 		</div>
 		
@@ -77,11 +77,11 @@ div img:hover{
 			<input type='date' id="nowDate" name=receiptDate>	
 		</div>	
 		<div class="second" id="second">
-			<p><img src="resources/images/logo3.png" style="width:300px;height:300px;margin-top:100px;margin-right:45px;"></p>
+			<p><img src="resources/images/logo33.png" style="width:300px;height:300px;margin-top:100px;margin-right:25px;"></p>
 			<h1>진료</h1>
 		</div>
 		<div class="third" id="third">
-			<p><img src="resources/images/logo3.png" style="width:300px;height:300px;margin-top:100px;margin-right:45px;"></p>
+			<p><img src="resources/images/logo33.png" style="width:300px;height:300px;margin-top:100px;margin-right:25px;"></p>
 			<h1>지원</h1>
 		</div>
 	</div>
