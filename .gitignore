@@ -1,4 +1,4 @@
-*.properties
+pom.properties
 
 # Compiled class file
 *.class
@@ -13,7 +13,6 @@
 .mtj.tmp/
 
 # Package Files #
-*.jar
 *.war
 *.nar
 *.ear
