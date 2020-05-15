@@ -40,7 +40,7 @@ public class MedicalController {
 
 	@RequestMapping("medicalMain.me")
 	public String medecalMain(Js j, Model model) {
-		//System.out.println(j);
+		System.out.println(j);
 		ArrayList<Js> list = jService.selectStateList(j);
 		ArrayList<Js> hList = jService.selectHoldList(j);
 		

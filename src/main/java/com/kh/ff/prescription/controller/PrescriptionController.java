@@ -20,44 +20,44 @@ public class PrescriptionController {
 	@ResponseBody
 	@RequestMapping(value="selectPrescriptionAll.pr", produces="application/json")
 	public String selectPrescriptionAll() {
-		ArrayList<Prescription> pAllList = pService.selectPrescriptionAll();
-		
-		return new Gson().toJson(pAllList);
+		//ArrayList<Prescription> pAllList = pService.selectPrescriptionAll();
+		//return new Gson().toJson(pAllList);
+		return null;
 	}
 	@ResponseBody
 	@RequestMapping(value="selectPrescriptionBase.pr", produces="application/json")
 	public String selectPrescriptionBase() {
-		ArrayList<Prescription> bList = pService.selectPrescriptionBase();
-		
-		return new Gson().toJson(bList);
+		//ArrayList<Prescription> bList = pService.selectPrescriptionBase();
+		//return new Gson().toJson(bList);
+		return null;
 	}
 	@ResponseBody
 	@RequestMapping(value="selectPrescriptionMedi.pr", produces="application/json")
 	public String selectPrescriptionMedi() {
-		ArrayList<Prescription> mList = pService.selectPrescriptionMedi();
-		
-		return new Gson().toJson(mList);
+		//ArrayList<Prescription> mList = pService.selectPrescriptionMedi();
+		//return new Gson().toJson(mList);
+		return null;
 	}
 	@ResponseBody
 	@RequestMapping(value="selectPrescriptionHand.pr", produces="application/json")
 	public String selectPrescriptionHand() {
-		ArrayList<Prescription> hList = pService.selectPrescriptionHand();
-		
-		return new Gson().toJson(hList);
+		//ArrayList<Prescription> hList = pService.selectPrescriptionHand();
+		//return new Gson().toJson(hList);
+		return null;
 	}
 	@ResponseBody
 	@RequestMapping(value="selectPrescriptionXray.pr", produces="application/json")
 	public String selectPrescriptionXray() {
-		ArrayList<Prescription> xList = pService.selectPrescriptionXray();
-		
-		return new Gson().toJson(xList);
+		//ArrayList<Prescription> xList = pService.selectPrescriptionXray();
+		//return new Gson().toJson(xList);
+		return null;
 	}
 	@ResponseBody
 	@RequestMapping(value="selectPrescriptionCheckup.pr", produces="application/json")
 	public String selectPrescriptionCheckup() {
-		ArrayList<Prescription> cList = pService.selectPrescriptionCheckup();
-		
-		return new Gson().toJson(cList);
+		//ArrayList<Prescription> cList = pService.selectPrescriptionCheckup();
+		//return new Gson().toJson(cList);
+		return null;
 	}
 	
 	@ResponseBody
@@ -101,8 +101,9 @@ public class PrescriptionController {
 	@ResponseBody
 	@RequestMapping(value="divPrescriptionArea.pr", produces="application/json; charset=utf-8")
 	public String divPrescriptionArea() {
-		ArrayList<Prescription> divList = pService.divPrescriptionArea();
-		return new Gson().toJson(divList);
+		//ArrayList<Prescription> divList = pService.divPrescriptionArea();
+		//return new Gson().toJson(divList);
+		return null;
 	}
 
 }
