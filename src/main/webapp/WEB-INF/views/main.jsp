@@ -10,8 +10,11 @@
 <script type="text/JavaScript" src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
 </head>
 <body>
-
 	<jsp:include page="user/userLoginForm.jsp"/>	
+	
+	<div>
+		사용자화면
+	</div>
 </body>
 </html>
 
