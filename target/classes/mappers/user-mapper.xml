@@ -20,7 +20,7 @@
 		<result property="powerMaster" column="power_master"/>
 	</resultMap>
 	
-	<resultMap type="Power" id="powerResultSet">
+	 	<resultMap type="Power" id="powerResultSet">
 		<id property="userCode" column="user_code"/>
 		<result property="powerMaster" column="power_master"/>
 		<result property="powerReceipt" column="power_receipt"/>

@@ -62,12 +62,13 @@ div img:hover{
 <body>
 	
 	<div class="userOuter">
-		<!-- <c:if test="${ loginUser.powerMaster eq 'Y' }"> -->
+		<br><br>
+		<c:if test="${ userLogin.powerMaster eq 'Y' }">
 			<a href="userList.me" class="onlyAdmin" id="key">
 				<img src="resources/images/key.png" class="key">	
 			</a>
-		<!-- </c:if> -->
-		<br><br><br><br><br><br>
+		</c:if>
+		<br><br><br>
 		<div class="first" id="first">
 			<p><img src="resources/images/logo3.png" style="width:300px;height:300px;margin-top:100px;margin-right:45px;"></p>
 			<h1>원무</h1>
