@@ -15,7 +15,7 @@
 	<!-- DB와 연동된 객체를 빈으로 등록시키는 구문 -->
 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
 		<property name="driverClassName" value="net.sf.log4jdbc.sql.jdbcapi.DriverSpy"/>
-		<property name="url" value="jdbc:log4jdbc:oracle:thin:@localhost:1521:XE"/>
+		<property name="url" value="jdbc:log4jdbc:oracle:thin:@localhost:49161:XE"/>
 		<property name="username" value="feverfire"/>
 		<property name="password" value="feverfire"/>
 		<property name="defaultAutoCommit" value="false"/>
