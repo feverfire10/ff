@@ -307,9 +307,17 @@
             border: 1px solid transparent;
             border-radius: .25rem;
         }
+        
+        /* 카카오톡 연결 버튼 위치 스타일 (민기)*/
+        div#kakaoBtnArea {
+		    position: absolute;
+		    left: 1500px;
+		}
 
 
     </style>
+<!-- 카카오톡 연결 CDN -->
+<script type="text/JavaScript" src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
 </head>
 <body>
 
@@ -536,8 +544,41 @@
                 </div>
             </div>
             
-
-
+			
+			<script>
+				// 카카오톡 전송화면 연결해주는 스트립트 - 민기작성
+				function kakao(){
+					Kakao.init("69b0a9018799ca073e6a3156072740a5");      		// 사용할 앱의 JavaScript 키를 설정
+			        Kakao.Link.sendDefault({
+			              objectType:"location"
+			            , address:"서울특별시 강동구 천호동 315-14"    									// 공유할 위치의 주소
+			            , addressTitle:"KH의원 병원주소 안내"   							// 카카오톡 내의 지도 뷰에서 사용되는 타이틀
+			            , content: {
+			                  title:"KH의원 진료접수 안내"   							// 타이틀 내용
+			                , description:""  				// 콘텐츠 상세설명
+			                , imageUrl:""    				// 썸네일 이미지
+			                , link: {
+			                      mobileWebUrl:"http://www.naver.com"   // 모바일 카카오톡에서 사용하는 웹 링크 URL
+			                    , webUrl:"errorPage.jsp" 		// PC버전 카카오톡에서 사용하는 웹 링크 URL
+			                }
+			            }
+			            , social: {
+			                  likeCount:0       // LIKE 개수
+			                , commentCount:0    // 댓글 개수
+			                , sharedCount:0     // 공유 회수
+			            }
+			            , buttons: [
+			                {
+			                      title:"병원정보" 									// 버튼 제목
+			                    , link: {
+			                          mobileWebUrl:"http://www.naver.com"   // 모바일 카카오톡에서 사용하는 웹 링크 URL
+			                        , webUrl:"http://www.naver.com" 		// PC버전 카카오톡에서 사용하는 웹 링크 URL
+			                    }
+			                }
+			            ]
+			        });
+			    }
+			</script>
             <!-- 진료 관리 -->
             <div class="sidebar">
                 <div class="tp">
@@ -551,6 +592,9 @@
                             <button class="tab_menu_btn on" type="button" id="waitBtn" onclick="selectTreatment(0);">진료대기</button>
                             <button class="tab_menu_btn" type="button" id="boryuBtn" onclick="selectTreatment(1);">진료보류</button>
                             <button class="tab_menu_btn" type="button" id="bookBtn" onclick="selectTreatment(3);">예약대기</button>
+                            <div id="kakaoBtnArea">
+                            	<button type="button" id="kakaoBtn" onclick="kakao();">카카오톡</button>
+                            </div>
                         </div>
                         <div class="tab_box on">
                             <table class="table" style="font-size: 11px;" id="wait">

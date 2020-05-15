@@ -15,7 +15,7 @@
 	</resultMap>
 	
 	<select id="selectStateList" parameterType="Js" resultMap="jsResultSet">
-		SELECT PATIENTS_NAME, PATIENTS_NO, AGE, ADHD, MO, RECEIPT_DATE
+		SELECT PATIENTS_NAME, PATIENTS_NO, AGE, ADHD, MO, RECEIPT_DATE, CHART_NO
 		FROM (SELECT PATIENTS_NO, TO_CHAR(SYSDATE, 'YYYY') - SUBSTR((CASE
 		                                                                WHEN SUBSTR(PATIENTS_PNO, 8, 1) IN ('1', '2')
 		                                                                THEN

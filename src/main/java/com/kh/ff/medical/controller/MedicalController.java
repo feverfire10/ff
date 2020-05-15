@@ -46,7 +46,7 @@ public class MedicalController {
 		System.out.println(j);
 		ArrayList<Js> list = jService.selectStateList(j);
 		ArrayList<Js> hList = jService.selectHoldList(j);
-		
+		System.out.println(list);
 		model.addAttribute("list", list);
 		model.addAttribute("hList", hList);
 		
