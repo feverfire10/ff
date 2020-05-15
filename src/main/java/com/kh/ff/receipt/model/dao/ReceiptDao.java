@@ -34,5 +34,15 @@ public class ReceiptDao {
 	public ArrayList<BillForm> selectBillFormList(SqlSessionTemplate sqlSession, int num){
 		return (ArrayList)sqlSession.selectList("receiptMapper.selectBillFormList", num);
 	}
+	
+	public int medicalCompleteSelectBillForm(int chartNo, SqlSessionTemplate sqlSession) {
+		return sqlSession.selectOne("receiptMapper.medicalCompleteSelectBillForm", chartNo);
+	}
+	public int medicalCompleteInsertBillForm(int chartNo, SqlSessionTemplate sqlSession) {
+		return sqlSession.insert("receiptMapper.medicalCompleteInsertBillForm", chartNo);
+	}
+	public int medicalCompleteUpdateBillForm(int chartNo, SqlSessionTemplate sqlSession) {
+		return sqlSession.update("receiptMapper.medicalCompleteUpdateBillForm", chartNo);
+	}
 
 }

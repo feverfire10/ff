@@ -66,4 +66,28 @@ public class ReceiptServiceImpl implements ReceiptService{
 		return rDao.selectBillFormList(sqlSession, num);
 	}
 
+	/**
+	 * 진료 저장 전 영수폼 존재 유무 조회용 서비스
+	 */
+	@Override
+	public int medicalCompleteSelectBillForm(int chartNo) {
+		return rDao.medicalCompleteSelectBillForm(chartNo, sqlSession);
+	}
+	/**
+	 * 영수폼 insert용 서비스
+	 */
+	@Override
+	public int medicalCompleteInsertBillForm(int chartNo) {
+		return rDao.medicalCompleteInsertBillForm(chartNo, sqlSession);
+	}
+	/**
+	 * 영수폼 update용 서비스
+	 */
+	@Override
+	public int medicalCompleteUpdateBillForm(int chartNo) {
+		return rDao.medicalCompleteUpdateBillForm(chartNo, sqlSession);
+	}
+
+	
+
 }
