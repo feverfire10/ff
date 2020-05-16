@@ -55,8 +55,3 @@ public class RightClinicServiceImpl implements RightClinicService {
 	
 
 }
-
-
-
-
-

@@ -34,7 +34,13 @@ public class PatientJs {
 	private int chartNo;			// 차트번호
 	private String receiptDate;		// 내원날짜
 	private int clinicState;		// 진료상태
-}
+	
+
+	/*
+	 * private String prescripUserCode; // 처방코드 private String prescripName; // 처방명
+	 * private int numTimes; // 시행횟수 private String nightTime; // 야간
+	 */	}
+
 
 
 

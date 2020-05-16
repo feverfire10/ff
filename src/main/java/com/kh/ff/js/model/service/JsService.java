@@ -20,5 +20,9 @@ public interface JsService {
 	ArrayList<Js> modalPaientsList(Js j);
 	
 	ArrayList<Js> betweenDayList(Js j);
+	
+	ArrayList<Js> sortpNo(Js j);
+	ArrayList<Js> sortpName(Js j);
+	ArrayList<Js> sortpPno(Js j);
 
 }

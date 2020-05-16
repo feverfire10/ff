@@ -117,7 +117,7 @@ public class RightClinicController {
 
 		return new Gson().toJson(list);
 	}
-	
+
 	@ResponseBody
 	@RequestMapping(value = "vitalChart.rc", produces="application/json; charset=utf-8")
 	public String selVitalChartList(String clickPatientsName, String clickPatientsPno) {
@@ -126,15 +126,3 @@ public class RightClinicController {
 		return new Gson().toJson(list);
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
