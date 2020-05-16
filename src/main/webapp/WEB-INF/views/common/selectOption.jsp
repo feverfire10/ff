@@ -60,48 +60,76 @@ div img:hover{
 </style>
 </head>
 <body>
-	
+	<!-- ㅁㅇㄴㅁㄴㅇ -->
 	<div class="userOuter">
-		<!-- <c:if test="${ loginUser.powerMaster eq 'Y' }"> -->
+		<br><br>
+		<c:if test="${ userLogin.powerMaster eq 'Y' }">
 			<a href="userList.me" class="onlyAdmin" id="key">
 				<img src="resources/images/key.png" class="key">	
 			</a>
-		<!-- </c:if> -->
-		<br><br><br><br><br><br>
-		<div class="first" id="first">
+		</c:if>
+		<br><br><br>
+		<c:if test="${ userLogin.powerReceipt eq 'Y' }">
+			<div class="first" id="first">
 			<p><img src="resources/images/logo33.png" style="width:300px;height:300px;margin-top:100px;margin-right:25px;"></p>
 			<h1>원무</h1>
 		</div>
-		
-		<div style="display:none;">
-			<input type='date' id="nowDate" name=receiptDate>	
-		</div>	
-		<div class="second" id="second">
+		</c:if>
+		<c:if test="${ userLogin.powerReceipt eq 'N' }">
+			<div class="first" id="noFirst">
+			<p><img src="resources/images/logo33.png" style="width:300px;height:300px;margin-top:100px;margin-right:25px;"></p>
+			<h1>원무</h1>
+		</div>
+		</c:if>
+		<c:if test="${ userLogin.powerClinic eq 'Y' }">
+			<div class="second" id="second">
 			<p><img src="resources/images/logo33.png" style="width:300px;height:300px;margin-top:100px;margin-right:25px;"></p>
 			<h1>진료</h1>
 		</div>
-		<div class="third" id="third">
+		</c:if>
+		<c:if test="${ userLogin.powerClinic eq 'N' }">
+			<div class="second" id="noSecond">
+			<p><img src="resources/images/logo33.png" style="width:300px;height:300px;margin-top:100px;margin-right:25px;"></p>
+			<h1>진료</h1>
+		</div>
+		</c:if>
+		<c:if test="${ userLogin.powerSub eq 'Y' }">
+			<div class="third" id="third">
 			<p><img src="resources/images/logo33.png" style="width:300px;height:300px;margin-top:100px;margin-right:25px;"></p>
 			<h1>지원</h1>
 		</div>
+		</c:if>
+		<c:if test="${ userLogin.powerSub eq 'N' }">
+			<div class="third" id="noThird">
+			<p><img src="resources/images/logo33.png" style="width:300px;height:300px;margin-top:100px;margin-right:25px;"></p>
+			<h1>지원</h1>
+		</div>
+		</c:if>
 	</div>
-
+	
 	<script>
-		$(function(){
-			document.getElementById("nowDate").value = new Date().toISOString().substring(0, 10);;						
-		});
 		$("#first").click(function(){
 			location.href = "patientsInfo.me";
 		});
 		
 		$("#second").click(function(){
-			var mDate = $("#nowDate").val();
-			console.log(mDate);
-			location.href = "medicalMain.me?receiptDate="+mDate;
+			location.href = "medicalMain.me";
 		});
 		
 		$("#third").click(function(){
 			location.href = "supportMain.me";
+		});
+		
+		$("#noFirst").click(function(){
+			window.alert("권한이 없습니다!!");
+		});
+		
+		$("#noSecond").click(function(){
+			window.alert("권한이 없습니다!!");
+		});
+		
+		$("#noThird").click(function(){
+			window.alert("권한이 없습니다!!");
 		});
 	</script>
 </body>
