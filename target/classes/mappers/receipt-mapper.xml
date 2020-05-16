@@ -75,7 +75,7 @@
 	</select>
 	
 	<insert id="insertReceipt" parameterType="Receipt">
-		INSERT INTO TB_RECEIPT VALUES(#{billFormNo}, #{totalBill}, #{discount}, #{totalPay}, #{memo}, TO_CHAR(SYSDATE, 'YYYY-MM-DD'), #{payMethod})
+		INSERT INTO TB_RECEIPT VALUES(#{billFormNo}, #{totalBill}, #{discount}, #{cardPay}, #{memo}, TO_CHAR(SYSDATE, 'YYYY-MM-DD'), #{cashPay})
 	</insert>
 	
 	<update id="updateClinicState" parameterType="_int">

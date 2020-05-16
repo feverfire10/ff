@@ -41,7 +41,7 @@ public class PatientsController {
 	// 재진일때 : 접수 INSERT 환자 UPDATE
 	@ResponseBody
 	@RequestMapping(value="insert.p")
-	public String insertPatients(Patients p, Model model) {
+	public String insertPatients(Patients p, String selectDay, Model model) {
 		Patients p2 = paService.selectPatient(p); // 추가 전 검색 --> p2
 		if(p2 == null) { // 처음 온 환자
 			int result1 = paService.insertPatients(p); // 환자 추가 --> result1에 담김
