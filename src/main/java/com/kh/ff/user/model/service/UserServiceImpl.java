@@ -34,6 +34,11 @@ public class UserServiceImpl implements UserService{
 	public int insertUser(User u) {
 		return uDao.insertUser(sqlSession, u);
 	}
+	
+	@Override
+	public int insertPower(Power p) {
+		return uDao.insertPower(sqlSession, p);
+	}
 
 	/** 
 	 * 유저 업데이트 서비스
@@ -83,6 +88,16 @@ public class UserServiceImpl implements UserService{
 	@Override
 	public ArrayList<User> selectUserList(PageInfo pi) {
 		return uDao.selectUserList(sqlSession, pi);
+	}
+
+	@Override
+	public User selectUser(String userCode) {
+		return uDao.selectUser(sqlSession, userCode);
+	}
+
+	@Override
+	public Power selectPower(String userCode) {
+		return uDao.selectPower(sqlSession, userCode);
 	}
 
 }

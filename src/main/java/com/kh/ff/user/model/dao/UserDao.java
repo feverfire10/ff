@@ -21,6 +21,10 @@ public class UserDao {
 		return sqlSession.insert("userMapper.insertUser", u);
 	}
 	
+	public int insertPower(SqlSessionTemplate sqlSession, Power p) {
+		return sqlSession.insert("userMapper.insertPower", p);
+	}
+	
 	public int updateUser(SqlSessionTemplate sqlSession, User u) {
 		return sqlSession.update("userMapper.updateUser", u);
 	}
@@ -47,5 +51,13 @@ public class UserDao {
 		RowBounds rowBounds = new RowBounds(offset, pi.getUserLimit());
 		
 		return (ArrayList)sqlSession.selectList("userMapper.selectUserList", null, rowBounds);
+	}
+	
+	public User selectUser(SqlSessionTemplate sqlSession, String userCode) {
+		return sqlSession.selectOne("userMapper.selectUser", userCode);
+	}
+	
+	public Power selectPower(SqlSessionTemplate sqlSession, String userCode) {
+		return sqlSession.selectOne("userMapper.selectPower", userCode);
 	}
 }

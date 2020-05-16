@@ -1,12 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <link rel=" shortcut icon" href="resources/images/logo2.png">
 <link rel="icon" href="resources/images/logo2.png">
 <meta charset="UTF-8">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker3.min.css">
 <title>Insert title here</title>
 <style>
    .move_share1 {
@@ -69,19 +70,12 @@
 	text-align:center;
 	line-height:40px;
 }
-.selectbox{float:left;}
-select { 
-	width: 200px; /* 원하는 너비설정 */ 
+.selectbox{
+	float:right;
+}
+.selectbox input{
+	width:200px;
 	height:42px;
-	padding: .5em; /* 여백으로 높이 설정 */ 
-	font-family: inherit; /* 폰트 상속 */ 
-	font-size: 18px;
-	background: url(https://farm1.staticflickr.com/379/19928272501_4ef877c265_t.jpg) no-repeat 95% 50%; /* 네이티브 화살표 대체 */ 
-	border: 1px solid #999; 
-	border-radius: 0px; /* iOS 둥근모서리 제거 */ 
-	-webkit-appearance: none; /* 네이티브 외형 감추기 */ 
-	-moz-appearance: none; 
-	appearance: none; 
 }
 .patientInfo{
 	float:left;
@@ -115,7 +109,10 @@ select {
 p{
 	
 }
-#supportListOne{border-collapse: collapse;}
+#supportListOne{
+	border-collapse: collapse;
+
+}
 #supportListOne th{
 	border:1px solid;
 	width:100%;
@@ -175,12 +172,8 @@ p{
 		<div class="patientCount" style="background:white;">14</div>
 		
 		<div class="selectbox"> 
-			<label for="patientSelect"></label>
-			<select id="patientSelect"> 
-				<option selected>대기환자</option> 
-				<option>보류환자</option> 
-				<option>완료환자</option> 
-			</select> 
+			<input type="button" id="supportWait" value="대기환자">
+			<input type="button" id="supportFinish" value="완료환자">
 		</div>
 		<!-- 
 		<div class="date">
@@ -188,15 +181,14 @@ p{
 		</div>
 		-->
 		
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/livs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
-		<script type="text/javascript">
+		<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>-->
+		<!--<script type="text/javascript">
 			$('#datePicker').datepicker({
 				format : "yyyy-mm-dd",
 				language : "kr",
 				todayHighlight : true
 			});
-		</script>
+		</script>-->
 
 		<div class="patientInfo" style="width:100%;">
 			<div style="background:rgb(1,153,220); height:20px;margin-top:-16px;text-align:center;">
@@ -228,9 +220,8 @@ p{
 			</div>
 		</div>
 		
-		<div style="border:1px solid;width:100%;height:600px;">
+		<div style="border:1px solid;width:100%;height:400px;overflow:auto;">
 			<table id="supportListOne" align="center">
-				<thead>
 					<tr>
 						<th>S</th>
 						<th>차트번호</th>
@@ -243,29 +234,11 @@ p{
 						<th>야간</th>
 						<th>주치의</th>
 					</tr>
-				</thead>
-				<tbody>
-					<c:forEach items="" var=""> 
-						<tr>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-						</tr>
-					</c:forEach>
-				</tbody>
 			</table>
 		</div>
 		
 		<div style="border:1px solid; width:100%;height:400px;">
 			<table id="supportListTwo" align="center">
-				<thead>
 					<tr>
 						<th>S</th>
 						<th>차트번호</th>
@@ -278,25 +251,68 @@ p{
 						<th>예약</th>
 						<th>주치의</th>
 					</tr>
-				</thead>
-				<tbody>
-					<c:forEach items="" var=""> 
-						<tr>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-						</tr>
-					</c:forEach>
-				</tbody>
 			</table>
 		</div>
 	</div>
+	
+	<script>
+		$(function() {
+			$("#supportWait").click(function(){
+				$.ajax({
+					url:"selPatients.rc",
+					data : {
+			               receiptDate : '2020-05-16',
+			               clinicState : '1'
+			            },
+					type:"get",
+					success:function(list){
+						console.log(list);
+						var value = "<tr>"+"<th>"+"S"+"</th>"+"<th>"+"차트번호"+"</th>"+
+						             "<th>"+"환자이름"+"</th>"+"<th>"+"성별/나이"+"</th>"+
+							         "<th>"+"처방코드"+"</th>"+"<th>"+"처방명칭"+"</th>"+
+							         "<th>"+"횟수"+"</th>"+"<th>"+"응급"+"</th>"+
+									 "<th>"+"야간"+"</th>"+"<th>"+"주치의"+"</th>"+"</tr>";
+						
+						$.each(list, function(i, obj){
+							var ssnYear = obj.patientsPno.substring(0, 2);
+							var genNum = obj.patientsPno.substring(7, 8);
+							var nowYear = new Date().getFullYear();
+							var gender;
+							var age = 0;
+							if (genNum == "1" || genNum == "3") {
+								gender = "남";
+								if (genNum == "1") {
+									age = parseInt(nowYear)
+											- (1900 + parseInt(ssnYear));
+								} else if (genNum == "3") {
+									age = parseInt(nowYear)
+											- (2000 + parseInt(ssnYear));
+								}
+							} else {
+								gender = "여";
+								if (genNum == "2") {
+									age = parseInt(nowYear)
+											- (1900 + parseInt(ssnYear));
+								} else if (genNum == "4") {
+									age = parseInt(nowYear)
+											- (2000 + parseInt(ssnYear));
+								}
+	
+							}
+							value += "<tr>"+"<td>"+"</td>"+"<td>"+obj.chartNo+"</td>"+"<td>"
+							         +obj.patientsName+"</td>"+"<td>"+gender+"/"+age+"</td>"+"<td>"
+							         +obj.prescripUserCode+"</td>"+"<td>"+obj.prescripName+"</td>"
+							         +"<td>"+obj.numTimes+"</td>"+"<td>"+obj.emergency+"</td>"
+							         +"<td>"+obj.night+"</td>"+"<td>"+obj.mo+"</td>"+"</tr>";
+						});
+						$("#supportListOne tbody").empty();
+						$("#supportListOne tbody").append(value);
+					},error:function(){
+	    				console.log("댓글 리스트 조회용 ajax 통신 실패");
+	    			}
+				});
+			});
+		});
+	</script>
 </body>
 </html>

@@ -10,5 +10,5 @@ public interface SupportService {
 	Support supportSelectPatient(int chartNo);
 	
 	// 환자 리스트 조회용 서비스
-	ArrayList<Support> supportSelectList();
+	ArrayList<Support> supportSelectList(String receiptDate,String prescripType, String clinicState);
 }

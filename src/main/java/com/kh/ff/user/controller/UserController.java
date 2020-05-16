@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.google.gson.Gson;
 import com.kh.ff.common.model.vo.PageInfo;
 import com.kh.ff.common.template.Pagination;
 import com.kh.ff.user.model.service.UserService;
@@ -46,12 +47,13 @@ public class UserController {
 	}
 	
 	@RequestMapping("userInsert.me")
-	public String insertUser(User u, Model model, HttpSession session) {
-		int result = uService.insertUser(u);
+	public String insertUser(User u,Power p, Model model, HttpSession session) {
+		int result1 = uService.insertUser(u);
+		int result2 = uService.insertPower(p);
 		
-		if(result > 0) {
+		if(result1 > 0 && result2 > 0) {
 			session.setAttribute("msg", "사용자 등록에 성공하였습니다.");
-			return "redirect:/";
+			return "redirect:userList.me";
 		}else {
 			model.addAttribute("msg", "사용자 등록에 실패하였습니다.");
 			return "common/errorPage";
@@ -120,5 +122,13 @@ public class UserController {
 		model.addAttribute("list", list);
 		
 		return "user/userMain";
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="userDetail.me", produces="application/json; charset=utf-8")
+	public String selectUserDetail(String userCode) {
+		User u = uService.selectUser(userCode);
+		
+		return new Gson().toJson(u);
 	}
 }
