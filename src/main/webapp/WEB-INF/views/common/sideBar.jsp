@@ -68,7 +68,7 @@
       <hr>   
       <button class="sideBtn" data-toggle="modal" data-target="#patientSearch">환자조회</button>
       <br><br>
-      <button class="sideBtn" data-toggle="modal" data-target="#completeList">외래내역</button>
+      <button id="modalPatients" class="sideBtn" data-toggle="modal" data-target="#patientSearch">외래내역</button>
       <br><br>
       <button class="sideBtn" data-toggle="modal" data-target="#patientSearch">대기환자</button>
       <br>
