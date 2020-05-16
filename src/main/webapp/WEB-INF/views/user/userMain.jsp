@@ -4,6 +4,8 @@
 <!DOCTYPE html>
 <html>
 <head>
+<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.2.0.min.js" ></script>
 <link rel=" shortcut icon" href="resources/images/logo2.png">
 <link rel="icon" href="resources/images/logo2.png">
 <link rel=" shortcut icon" href="resources/images/logo2.png">
@@ -82,8 +84,11 @@
 	border-radius: 3px 5px 8px 10px;
 }
 .userLeft td{
-	border: 0.5px solid rgb(220, 220, 220);
 	width: 200px;
+}
+.userLeft input{
+	width:100%;
+	border:0;
 }
 #btns{
 	width: 120px;
@@ -101,7 +106,7 @@
 }
 .powerTitle{
 	margin: auto;
-	background: aquamarine;
+	background: rgb(1,153,220);
 	width: 350px;
 	height: 30px;
 	font-size: 20px;
@@ -119,6 +124,13 @@
 }
 #title{font-size: 20px;}
 #checkbox{margin-left:71px;}
+#checkbox2{margin-left:71px;}
+#checkbox3{margin-left:71px;}
+#checkbox4{margin-left:71px;}
+#checkbox5{margin-left:71px;}
+#checkbox6{margin-left:71px;}
+#checkbox7{margin-left:71px;}
+#checkbox8{margin-left:71px;}
 #checkbox:hover{cursor:pointer;}
 #searchUser{
 	width:400px;
@@ -151,6 +163,7 @@
 #userList td{
 	text-align:center;
 }
+#reset :hover{cursor:pointer;}
 </style>
 </head>
 <body>
@@ -177,105 +190,112 @@
    </div>
 	<div class="userOuter">
 		<fieldset>
-			<legend><h2>사용자 정보</h2></legend>
-			<div class="userLeft">
-				<form action="userInsert.me" method="post">
-					<table>
-						<tr>
-							<th>*사용자코드</th>
-							<td></td>
-							<th>*사용자암호</th>
-							<td></td>
-						</tr>
-						<tr></tr><tr></tr>
-						<tr>
-							<th>담당자명</th>
-							<td></td>
-							<th>*소속과목</th>
-							<td></td>
-						</tr>
-						<tr></tr><tr></tr>
-						<tr>
-							<th>사원번호</th>
-							<td></td>
-							<th>면허번호</th>
-							<td></td>
-						</tr>
-						<tr></tr><tr></tr>
-						<tr>
-							<th>이메일</th>
-							<td></td>
-							<th>주민번호</th>
-							<td></td>
-						</tr>
-						<tr></tr><tr></tr>
-						<tr>
-							<th>적용일자</th>
-							<td></td>
-							<th>의사여부</th>
-							<td></td>
-						</tr>
-						<tr></tr><tr></tr>
-						<tr>
-							<th>만료일자</th>
-							<td></td>
-						</tr>
-					</table>
-				</form>
-				<div style="margin-top: 30px;">
-					<button type="button" id="btns" class="newUser">신규등록</button>
-					<button type="button" id="btns" class="updateUser">사용자수정</button>
-					<button type="button" id="btns" class="deleteUser">사용자삭제</button>
-				</div>
-			</div>
-			<div class="userRight">
-				<div class="powerTitle">프로그램 사용권한</div>
-				<br>
-				<table>
-					<tr id="title">
-						<th>프로그램</th>
-						<th>사용권한</th>
-					</tr>
-					<tr>
-						<th>마스터</th>
-						<td><input style="zoom:1.5;" id="checkbox" type="checkbox" name="" value="" checked></td>
-					</tr>
-					<tr>
-						<th>외래접수</th>
-						<td><input style="zoom:1.5;" id="checkbox" type="checkbox" name="" value="" checked></td>
-					</tr>
-					<tr>
-						<th>외래진료</th>
-						<td><input style="zoom:1.5;" id="checkbox" type="checkbox" name="" value="" checked></td>
-					</tr>
-					<tr>
-						<th>환자조회</th>
-						<td><input style="zoom:1.5;" id="checkbox" type="checkbox" name="" value="" checked></td>
-					</tr>
-					<tr>
-						<th>지원부서</th>
-						<td><input style="zoom:1.5;" id="checkbox" type="checkbox" name="" value="" checked></td>
-					</tr>
-					<tr>
-						<th>통계</th>
-						<td><input style="zoom:1.5;" id="checkbox" type="checkbox" name="" value="" checked></td>
-					</tr>
-					<tr>
-						<th>진단서</th>
-						<td><input style="zoom:1.5;" id="checkbox" type="checkbox" name="" value="" checked></td>
-					</tr>
-					<tr>
-						<th>메신저</th>
-						<td><input style="zoom:1.5;" id="checkbox" type="checkbox" name="" value="" checked></td>
-					</tr>
-				</table>
-				<br>
-			</div>
+			<legend><h2 id="reset">사용자 정보</h2></legend>
+				<form id="enrollForm" action="userInsert.me" method="post">
+					<div class="userLeft">
+							<table id="selectUser">
+								<tr>
+									<th>*사용자코드</th>
+									<td><input type="text" id="userCode" name="userCode" required></td>
+									<th>*사용자암호</th>
+									<td><input type="text" id="userPassword" name="userPassword" required></td>
+								</tr>
+								<tr></tr><tr></tr>
+								<tr>
+									<th>담당자명</th>
+									<td><input type="text" id="userName" name="userName"></td>
+									<th>*소속과목</th>
+									<td><input type="text" id="userDepartment" name="userDepartment" required></td>
+								</tr>
+								<tr></tr><tr></tr>
+								<tr>
+									<th>사원번호</th>
+									<td><input type="text" id="userNo" name="userNo" readonly></td>
+									<th>면허번호</th>
+									<td><input type="text" id="userLicense" name="userLicense"></td>
+								</tr>
+								<tr></tr><tr></tr>
+								<tr>
+									<th>주민번호</th>
+									<td><input type="text" id="userSocialNo" name="userSocialNo"></td>
+									<th>이메일</th>
+									<td><input type="text" id="userEmail" name="userEmail"></td>
+								</tr>
+								<tr></tr><tr></tr>
+								<tr>	
+									<th>의사여부 (Y/N)</th>
+									<td><input type="text" id="userDoctor" name="userDoctor"></td>
+									<th>등록날짜</th>
+									<td><input type="text" id="userApplicationDate" name="userApplicationDate" readonly></td>
+								</tr><tr></tr><tr></tr>
+								<tr>	
+									<th>만료날짜</th>
+									<td><input type="text" id="userExpirationDate" name="userExpirationDate" readonly></td>
+									<th style="display:none;"></th>
+									<td style="display:none;"><input type="text" id="userStatus" name="userStatus" readonly></td>
+								</tr>
+							</table>
+							
+							<div style="margin-top: 30px;">
+								<button type="submit" id="btns" class="newUser">신규등록</button>
+								<button type="button" id="btns" class="updateUser">사용자수정</button>
+								<button type="button" id="btns" class="deleteUser" onclick="removeCheck()">사용자삭제</button>
+							</div>
+						</div>
+						<div class="userRight">
+							<div class="powerTitle">프로그램 사용권한</div>
+							<br>
+							<table>
+								<tr id="title">
+									<th>프로그램</th>
+									<th>사용권한</th>
+								</tr>
+								<tr>
+									<th>마스터</th>
+									<td><input style="zoom:1.5;" id="checkbox" type="checkbox" name="powerMaster" value="Y"></td>
+								</tr>
+								<tr>
+									<th>외래접수</th>
+									<td><input style="zoom:1.5;" id="checkbox2" type="checkbox" name="powerReceipt" value="Y"></td>
+								</tr>
+								<tr>
+									<th>외래진료</th>
+									<td><input style="zoom:1.5;" id="checkbox3" type="checkbox" name="powerClinic" value="Y"></td>
+								</tr>
+								<tr>
+									<th>환자조회</th>
+									<td><input style="zoom:1.5;" id="checkbox4" type="checkbox" name="powerList" value="Y"></td>
+								</tr>
+								<tr>
+									<th>지원부서</th>
+									<td><input style="zoom:1.5;" id="checkbox5" type="checkbox" name="powerSub" value="Y"></td>
+								</tr>
+								<tr>
+									<th>통계</th>
+									<td><input style="zoom:1.5;" id="checkbox6" type="checkbox" name="powerResult" value="Y"></td>
+								</tr>
+								<tr>
+									<th>진단서</th>
+									<td><input style="zoom:1.5;" id="checkbox7" type="checkbox" name="powerSheet" value="Y"></td>
+								</tr>
+								<tr>
+									<th>메신저</th>
+									<td><input style="zoom:1.5;" id="checkbox8" type="checkbox" name="powerMessage" value="Y"></td>
+								</tr>
+							</table>
+							<br>
+						</div>
+					</form>
+			
 		</fieldset>
 		<br><br>
 		<div>
-			<div style="float: left; width:40px; height:40px; background:aquamarine"></div>
+			<div style="float: left; width:40px; height:40px; background:rgb(1,153,220)"></div>
 			<div style="float:left; margin-left:15px; margin-top: 1.5px; font-size:27px;">사용자 정보 조회</div>
+			<!--<div style="float:left; margin-left:70px;">
+				<input style="float: left;zoom:1.5; margin-top: 9px;" type="checkbox" name="" value="" checked>
+				<p style="float:left; font-size: 18px; margin-top:9px; ">ID 정보 조회</p>
+			</div>
 			<div style="float:left; margin-left:70px;">
 				<input style="float: left;zoom:1.5; margin-top: 9px;" type="checkbox" name="" value="">
 				<p style="float:left; font-size: 18px; margin-top:9px; ">만료된 ID 정보 조회</p>
@@ -283,7 +303,7 @@
 			<div id="searchUser" style="float:right; margin-left:70px; display:none;">
 				<input class="searchUser1" type="text" placeholder="사용자 정보 입력">
 				<button type=button class="searchUser2">검색</button>
-			</div>
+			</div>  -->
 		</div>
 		<div style="width:100%; height:500px; margin-top:80px;">
 			<table id="userList" align="center">
@@ -297,67 +317,150 @@
 						<th>의사여부</th>
 						<th>적용일자</th>
 						<th>종료일자</th>
+						<th style="display:none"></th>
+						<th style="display:none"></th>
+						<th style="display:none"></th>
+						<th style="display:none"></th>
+						<th style="display:none"></th>
+						<th style="display:none"></th>
+						<th style="display:none"></th>
+						<th style="display:none"></th>
+						<th style="display:none"></th>
+						<th style="display:none"></th>
+						<th style="display:none"></th>
 					</tr>
 				</thead>
 				<tbody>
 					
 					<c:forEach items="${ list }" var="u">
 						<tr>
-							<td>${ u.userNo }</td>
 							<td>${ u.userCode }</td>
 							<td>${ u.userName }</td>
+							<td>${ u.userNo }</td>
 							<td>${ u.userLicense }</td>
 							<td>${ u.userDepartment }</td>
 							<td>${ u.userDoctor }</td>
 							<td>${ u.userApplicationDate }</td>
 							<td>${ u.userExpirationDate }</td>
+							<td style="display:none">${ u.userSocialNo }</td>
+							<td style="display:none">${ u.userPassword }</td>
+							<td style="display:none">${ u.powerMaster }</td>
+							<td style="display:none">${ u.powerReceipt }</td>
+							<td style="display:none">${ u.powerClinic }</td>
+							<td style="display:none">${ u.powerList }</td>
+							<td style="display:none">${ u.powerSub }</td>
+							<td style="display:none">${ u.powerResult }</td>
+							<td style="display:none">${ u.powerSheet }</td>
+							<td style="display:none">${ u.powerMessage }</td>
+							<td style="display:none">${ u.userEmail }</td>
 						</tr>
 					</c:forEach>
 				</tbody>			
 			</table>
-			
-			<!--  <div id="pagingArea">
-                <ul class="pagination">
-                	
-                	<c:choose>
-                		<c:when test="${ pi.currentPage eq 1 }">
-	                    	<li class="page-item disabled"><a class="page-link" href="">Previous</a></li>
-                		</c:when>
-                		<c:otherwise>
-                			<li class="page-item"><a class="page-link" href="userList.me?currentPage=${ pi.currentPage-1 }">Previous</a></li>
-                		</c:otherwise>
-                	</c:choose>
-                    
-                    <%-- <% for(int p=startPage; p<=endPage; p++) %> --%>
-                    <c:forEach begin="${ pi.startPage }" end="${ pi.endPage }" var="p"> 
-                    	
-                    	<c:choose>
-                    		<c:when test="${ pi.currentPage ne p }">
-                    			<li class="page-item"><a class="page-link" href="userList.me?currentPage=${ p }">${ p }</a></li>
-                    		</c:when>
-                    		<c:otherwise>
-                    			<li class="page-item disabled"><a class="page-link" href="">${ p }</a></li>
-                    		</c:otherwise>
-                    	</c:choose>
-                    	
-                    </c:forEach>
-                    
-                    <c:choose>
-                    	<c:when test="${ pi.currentPage eq pi.maxPage }">
-                    		<li class="page-item disabled"><a class="page-link" href="">Next</a></li>
-                    	</c:when>
-                    	<c:otherwise>
-	                    	<li class="page-item"><a class="page-link" href="userList.me?currentPage=${pi.currentPage+1}">Next</a></li>
-                    	</c:otherwise>
-                    </c:choose>
-                
-                </ul>
-            </div> -->
+	
 		</div>
 		<script>
+		var aaaa="";
+			$("#reset").click(function(){
+				location.href = "userList.me";
+			});
+			
+			$(".deleteUser").click(function(){
+				location.href="userDelete.me?aaaa="+aaaa;
+			});
+			
 			$(function(){
+				
 				$("#userList tbody tr").click(function(){
-					location.href
+					var str ="";
+					var tdArr= new Array();
+					1
+					var tr=$(this);
+					var td=tr.children();
+					
+					console.log(tr.text());
+					
+					td.each(function(i){
+						tdArr.push(td.eq(i).text());
+					})
+					
+					console.log(tdArr);
+					console.log(aaaa);
+					var userCode = td.eq(0).text();
+					aaaa = userCode;
+					console.log(aaaa);
+					var userName = td.eq(1).text();
+					var userNo = td.eq(2).text();
+					var userLicense = td.eq(3).text();
+					var userDepartment = td.eq(4).text();
+					var userDoctor = td.eq(5).text();
+					var userApplicationDate = td.eq(6).text();
+					var userExpirationDate = td.eq(7).text();
+					var userSocialNo = td.eq(8).text();
+					var userPassword = td.eq(9).text();
+					var powerMaster = td.eq(10).text();
+					var powerReceipt = td.eq(11).text();
+					var powerClinic = td.eq(12).text();
+					var powerList = td.eq(13).text();
+					var powerSub = td.eq(14).text();
+					var powerResult = td.eq(15).text();
+					var powerSheet = td.eq(16).text();
+					var powerMessage = td.eq(17).text();
+					var userEmail = td.eq(18).text();
+					
+					$("#userCode").val(userCode).attr('readonly',true);
+					$("#userPassword").val(userPassword);
+					$("#userName").val(userName);
+					$("#userNo").val(userNo);
+					$("#userLicense").val(userLicense);
+					$("#userDepartment").val(userDepartment);
+					$("#userDoctor").val(userDoctor);
+					$("#userApplicationDate").val(userApplicationDate);
+					$("#userExpirationDate").val(userExpirationDate);
+					$("#userSocialNo").val(userSocialNo).attr('readonly',true);
+					$("#userPassword").val(userPassword);
+					$("#userEmail").val(userEmail);
+					if(powerMaster =="Y"){
+						$("#checkbox").attr("checked",true);
+					}else{
+						$("#checkbox").attr("checked",false);
+					}
+					if(powerReceipt =='Y'){
+						$("#checkbox2").attr('checked',true);
+					}else{
+						$("#checkbox2").attr("checked",false);
+					}
+					if(powerClinic =='Y'){
+						$("#checkbox3").attr('checked',true);
+					}else{
+						$("#checkbox3").attr("checked",false);
+					}
+					if(powerList =='Y'){
+						$("#checkbox4").attr('checked',true);
+					}else{
+						$("#checkbox4").attr("checked",false);
+					}
+					if(powerSub =='Y'){
+						$("#checkbox5").attr('checked',true);
+					}else{
+						$("#checkbox5").attr("checked",false);
+					}
+					if(powerResult =='Y'){
+						$("#checkbox6").attr('checked',true);
+					}else{
+						$("#checkbox6").attr("checked",false);
+					}
+					if(powerSheet =='Y'){
+						$("#checkbox7").attr('checked',true);
+					}else{
+						$("#checkbox7").attr("checked",false);
+					}
+					if(powerMessage =='Y'){
+						$("#checkbox8").attr('checked',true);
+					}else{
+						$("#checkbox8").attr("checked",false);
+					}
+					
 				});
 			});
 		</script>

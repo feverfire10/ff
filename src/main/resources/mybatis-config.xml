@@ -27,7 +27,7 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		<!-- 민호 -->
 		<typeAlias type="com.kh.ff.user.model.vo.User" alias="User"/>
 		<typeAlias type="com.kh.ff.user.model.vo.Power" alias="Power"/>
-		<!-- <typeAlias type="com.kh.ff.support.model.vo.Support" alias="Support"/> -->
+		<typeAlias type="com.kh.ff.support.model.vo.Support" alias="Support"/>
 	</typeAliases>
 	
 	<!-- 기존에는 이 파일에서 DB 연결설정에 대한 정보를 기술했다면 
@@ -47,7 +47,7 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		<mapper resource="/mappers/receipt-mapper.xml"/>
 		<!-- 민호 -->
 		<mapper resource="/mappers/user-mapper.xml"/>
-		<!-- <mapper resource="/mappers/support-mapper.xml"/> -->
+		<mapper resource="/mappers/support-mapper.xml"/>
 		
 	</mappers>	
 	
