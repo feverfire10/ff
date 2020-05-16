@@ -157,6 +157,7 @@ input[type="date"]::-webkit-outer-spin-button, input[type="date"]::-webkit-inner
 .div_checkbox{
 	margin-top: 15px;
 	margin-left: 15px;
+	margin-bottom: 15px;
 }
 
 .tb_body1_tr {
