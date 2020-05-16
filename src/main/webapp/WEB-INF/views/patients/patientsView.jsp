@@ -783,7 +783,7 @@
                    mo:$("#mo").val(),
                    adhd:$("#adhd").val(),
                    dayNote:$("#dayNote").val(),
-                   chainNote:$("#chainNote").val()
+                   chainNote:$("#chainNote").val(),
                    selectDay:$("#datepicker").val()},
               type:"POST",
               contentType: "application/x-www-form-urlencoded; charset=UTF-8",
@@ -856,7 +856,7 @@
            }
            $.ajax({
               url:"selectTreatment.p",
-              data:{num:num
+              data:{num:num,
             	    selectDay:$("#datepicker").val()},
               success:function(result){
                $.each(result, function(i, obj){

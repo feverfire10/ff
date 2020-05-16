@@ -58,6 +58,11 @@ public class PatientsServiceImpl implements PatientsService {
 	public int updatePatients(JS jsChart) {
 		return paDao.updatePatients(sqlSession, jsChart);
 	}
+
+	@Override
+	public JS checkJs(JS js) {
+		return paDao.checkJs(sqlSession, js);
+	}
 	
 
 }

@@ -16,8 +16,9 @@ import lombok.ToString;
 public class JS {
 	
 	private int chartNo;
-	private Timestamp receiptDate;
+	private String receiptDate;
 	private int clinicState;
 	private int patientsNo;
+	private int patientsPno;
 
 }

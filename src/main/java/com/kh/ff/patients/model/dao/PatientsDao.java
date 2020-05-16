@@ -44,5 +44,9 @@ public class PatientsDao {
 		return sqlSession.update("patientsMapper.updatePatients", jsChart);
 	}
 	
+	public JS checkJs(SqlSessionTemplate sqlSession, JS js) {
+		return sqlSession.selectOne("patientsMapper.checkJs", js);
+	}
+	
 	
 }

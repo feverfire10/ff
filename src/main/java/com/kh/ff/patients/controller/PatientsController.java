@@ -42,30 +42,37 @@ public class PatientsController {
 	@ResponseBody
 	@RequestMapping(value="insert.p")
 	public String insertPatients(Patients p, String selectDay, Model model) {
-		Patients p2 = paService.selectPatient(p); // 추가 전 검색 --> p2
-		if(p2 == null) { // 처음 온 환자
-			int result1 = paService.insertPatients(p); // 환자 추가 --> result1에 담김
-			Patients pp = paService.selectPatient(p); // PK를 꺼내기 위한 재검색 --> pp
-			int result2 = paService.insertJS(pp.getPatientsNo()); // pp의 PK로 JS테이블에 행 추가하는 메소드(결과값 result2)
-			//pp = paService.selectPatientsChart(pp); // --> pp에 다시 chartNo값 추가하기위한 메소드
-			if(result1 * result2 > 0) { // 1 * 1 = 1 /// 1 * 0 = 0
-				Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
-				return gson.toJson(pp);
-			} else {
-				return "접수실패";
+		//Patients test1 = new Patients();
+		//test1.setPatientsPno(patientsPno);
+		//JS test = paService.checkJs(js);
+		//if(test == null) {
+			Patients p2 = paService.selectPatient(p); // 추가 전 검색 --> p2
+			if(p2 == null) { // 처음 온 환자
+				int result1 = paService.insertPatients(p); // 환자 추가 --> result1에 담김
+				Patients pp = paService.selectPatient(p); // PK를 꺼내기 위한 재검색 --> pp
+				int result2 = paService.insertJS(pp.getPatientsNo()); // pp의 PK로 JS테이블에 행 추가하는 메소드(결과값 result2)
+				//pp = paService.selectPatientsChart(pp); // --> pp에 다시 chartNo값 추가하기위한 메소드
+				if(result1 * result2 > 0) { // 1 * 1 = 1 /// 1 * 0 = 0
+					Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+					return gson.toJson(pp);
+				} else {
+					return "접수실패";
+				}
+			} else { // 전에 온 환자
+				int result1 = paService.updatePatient(p); // lastVisit, lastDo 업데이트 하기위한 메소드
+				Patients p1 = paService.selectPatient(p2); // PK를 꺼내기 위한 재검색 --> p1
+				int result2 = paService.insertJS(p1.getPatientsNo()); // JS테이블에 행 추가 --> result
+				//Patients pp = paService.selectPatientsChart(p1); // pp에 다시 chartNo를 추가하는 메소드 (p2를 보내서 PK도 담김)
+				if(result1 * result2 > 0) {
+					Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+					return gson.toJson(p1);
+				} else {
+					return "접수실패";
+				}
 			}
-		} else { // 전에 온 환자
-			int result1 = paService.updatePatient(p); // lastVisit, lastDo 업데이트 하기위한 메소드
-			Patients p1 = paService.selectPatient(p2); // PK를 꺼내기 위한 재검색 --> p1
-			int result2 = paService.insertJS(p1.getPatientsNo()); // JS테이블에 행 추가 --> result
-			//Patients pp = paService.selectPatientsChart(p1); // pp에 다시 chartNo를 추가하는 메소드 (p2를 보내서 PK도 담김)
-			if(result1 * result2 > 0) {
-				Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
-				return gson.toJson(p1);
-			} else {
-				return "접수실패";
-			}
-		}
+		//} else {
+		//	return "접수실패";
+		//}
 		
 	}
 	
@@ -108,10 +115,15 @@ public class PatientsController {
 		@ResponseBody
 		@RequestMapping(value="updatePatients.js")
 		public void updatePatients(JS jsChart, HttpServletResponse response) throws JsonIOException, IOException {
-			
-			int result = paService.updatePatients(jsChart);
-			response.setContentType("application/json; charset=UTF-8");
-			new Gson().toJson(result, response.getWriter());
+			//if(jsChart.getClinicState() == 5) {
+			//	int result = paService.deletePatients(jsChart);
+			//	response.setContentType("application/json; charset=UTF-8");
+			//	new Gson().toJson(result, response.getWriter());
+			//} else {
+				int result = paService.updatePatients(jsChart);
+				response.setContentType("application/json; charset=UTF-8");
+				new Gson().toJson(result, response.getWriter());
+			//}
 
 			
 		}
