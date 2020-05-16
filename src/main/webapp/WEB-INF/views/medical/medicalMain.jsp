@@ -425,558 +425,693 @@
   	</div>
   	
   	<!-- 외래내역 modal 영역 -->
-	<div class="modal fade" id="patientSearch" role="dialog">
-	    <div class="patientsModal">    
-	
-		<div class="modal-content codeContent">
-	        <div class="modal-header">
-         		<h4>외래내역</h4>
-	        </div>
-	
-	        <div class="inputBtnArea">
-          		<input type='text' class='readonlyInput' value='기간' style="outline:none" readonly>
-          		<div class='dayDiv'>
-	          		<input type='radio' id="toDay" name='dayValue' checked>&nbsp;
-	          		<label for='toDay'>당일</label>
-          		</div>
-          		<div class='dayDiv'>
-	          		<input type='radio' id='betDay' name='dayValue'>&nbsp;
-	          		<label for='betDay'>기간</label>
-          		</div>
-          		<div class='borderDiv'>
-          			<input type='date' id="startDay" disabled>
-          		</div>
-          		 ~ 
-          		 <div class='borderDiv'>
-          		 	<input type='date' id="endDay" disabled>
-          		 </div>
-          		 	<input type="text" id="nameBox" style="outline:none" value="수진자명">
-          		 <div class="borderDiv">
-	          		 <input type='text' id='patientsSearch' style="outline:none">	          		 
-          		 </div>
-          		 &nbsp;&nbsp;
-          		<button type="button" id="patientsSearchBtn">검색</button>	
-	        </div>
-	        <hr class="mhLine">
-	        <div class="container-table100">
-				<div class="table100 ver3 m-b-110">
-			        <div id="patientsListArea" style="overflow:auto;">
-			        	<table id="parientsListTable">
-			        		<thead>
-			        			<tr id="mlhead">
-				        			<th>No</th>
-				        			<th id="hpPati" class="hPick">환자번호</th>
-				        			<th>차트번호</th>
-				        			<th id="hpName" class="hPick">수진자명</th>
-				        			<th id="hpPno" class="hPick">주민번호</th>
-				        			<th>보험유형</th>
-				        			<th>초/재진</th>
-				        			<th>담당의</th>
-				        			<th id="hpDate" class="hPick">진료일</th>
-			        			</tr>
-			        		</thead>
-			        		<tbody>
-			        		
-			        		</tbody>
-			        	</table>
-			        </div>
-		        </div>
-			</div>
-			
-	        <div class="modal-footer">
-	        </div>
-	      </div>
-	    </div>
-  	</div>
+	<!-- 외래내역 modal 영역 -->
+   <div class="modal fade" id="patientSearch" role="dialog">
+       <div class="patientsModal">    
+   
+      <div class="modal-content codeContent">
+           <div class="modal-header">
+               <h4>외래내역</h4>
+           </div>
+   
+           <div class="inputBtnArea">
+                <input type='text' class='readonlyInput' value='기간' style="outline:none" readonly>
+                <div class='dayDiv'>
+                   <input type='radio' id="toDay" name='dayValue' checked>&nbsp;
+                   <label for='toDay'>당일</label>
+                </div>
+                <div class='dayDiv'>
+                   <input type='radio' id='betDay' name='dayValue'>&nbsp;
+                   <label for='betDay'>기간</label>
+                </div>
+                <div class='borderDiv'>
+                   <input type='date' id="startDay" disabled>
+                </div>
+                 ~ 
+                 <div class='borderDiv'>
+                    <input type='date' id="endDay" disabled>
+                 </div>
+                    <input type="text" id="nameBox" style="outline:none" value="수진자명">
+                 <div class="borderDiv">
+                    <input type='text' id='patientsSearch' style="outline:none">                    
+                 </div>
+                 &nbsp;&nbsp;
+                <button type="button" id="patientsSearchBtn">검색</button>   
+           </div>
+           <hr class="mhLine">
+           <div class="container-table100">
+            <div class="table100 ver3 m-b-110">
+                 <div id="patientsListArea" style="overflow:auto;">
+                    <table id="parientsListTable">
+                       <thead>
+                          <tr id="mlhead">
+                             <th>No</th>
+                             <th id="hpPati" class="hPick">환자번호</th>
+                             <th>차트번호</th>
+                             <th id="hpName" class="hPick">수진자명</th>
+                             <th id="hpPno" class="hPick">주민번호</th>
+                             <th>보험유형</th>
+                             <th>초/재진</th>
+                             <th>담당의</th>
+                             <th id="hpDate" class="hPick">진료일</th>
+                          </tr>
+                       </thead>
+                       <tbody>
+                       
+                       </tbody>
+                    </table>
+                 </div>
+              </div>
+         </div>
+         
+           <div class="modal-footer">
+           </div>
+         </div>
+       </div>
+     </div>
   	<script>
-  		$(function(){
-  			$(document).ready(function(){
-  				
-  				$("#modalPatients").click(function(){
-  					var mDate = $("#medicalDate").val();
-  					//console.log(mDate);
-  					var mpl = "";
-  					$.ajax({
-  						url:"modalPaientsList.js",
-  						data:{
-  							receiptDate:mDate
-  						},
-  						type:"post",
-  						success: function(mpList){
-  							$.each(mpList, function(i, obj){
-  								mpl += "<tr class='row100 daypl disName'>" +
-			  								"<td data-column='column1'>"+ (i+1) +"</td>" +
-											"<td data-column='column2'>"+ obj.patientsNo +"</td>" +
-											"<td data-column='column3'>"+ obj.chartNo +"</td>" +
-											"<td data-column='column4'>"+ obj.patientsName +"</td>" +
-											"<td data-column='column5'>"+ obj.patientsPno +"</td>" +
-											"<td data-column='column6'>"+ obj.insurance +"</td>" +
-											"<td data-column='column7'>"+ obj.adhd +"</td>" +
-											"<td data-column='column8'>"+ obj.mo +"</td>" +
-											"<td data-column='column9'>"+ obj.receiptDate +"</td>" +
-										"</tr>";
-  							});
-  							$("#parientsListTable tbody").html(mpl);
-  						}, error: function(){
-  							console.log("ajax 외래내역 modal 통신 실패");
-  						}
-  					});
-  				});
-  				var checkVal = 0;
-  				var startDay = $("#startDay").val();
-  				var endDay = $("#endDay").val();
-	  			// 검색 기간 활성화/비활성화 설정 부분
-	  			$("#betDay").click(function(){
-	  				$("input[id='startDay']").attr('disabled', false);
-	  				$("input[id='endDay']").attr('disabled', false);
-	  				checkVal = 1;
-	  			});
-	  			$("#toDay").click(function(){
-	  				$("input[id='startDay']").attr('disabled', true);
-	  				$("input[id='endDay']").attr('disabled', true);
-	  				checkVal = 0;
-	  			});
-	  			$("#startDay").change(function(){
-	  				//console.log("333");
-	  				startDay = $("#startDay").val();
-	  			});
-	  			$("#endDay").change(function(){
-	  				//console.log("333");
-	  				endDay = $("#endDay").val();
-	  			});
-	  			
-  				// 환자 조회 실행 부분
-	  			$(document).on("click", "#patientsSearchBtn", function(){
-	  				//console.log("333");
-	  				//console.log(checkVal);
-	  				//console.log(startDay);
-	  				//console.log(endDay);
-	  				
-	  				var btl = "";
-	  				$.ajax({
-	  					url:"betweenDayList.js",
-	  					data:{
-	  						startDay: startDay,
-	  						endDay: endDay
-	  					},
-	  					type:"post",
-	  					success: function(betList){
-	  						$.each(betList, function(i, obj){
-	  							btl += "<tr class='row100 daypl disName'>" +
-			  								"<td data-column='column1'>"+ (i+1) +"</td>" +
-											"<td data-column='column2'>"+ obj.patientsNo +"</td>" +
-											"<td data-column='column3'>"+ obj.chartNo +"</td>" +
-											"<td data-column='column4'>"+ obj.patientsName +"</td>" +
-											"<td data-column='column5'>"+ obj.patientsPno +"</td>" +
-											"<td data-column='column6'>"+ obj.insurance +"</td>" +
-											"<td data-column='column7'>"+ obj.adhd +"</td>" +
-											"<td data-column='column8'>"+ obj.mo +"</td>" +
-											"<td data-column='column9'>"+ obj.receiptDate +"</td>" +
-										"</tr>";
-										
-	  						});
-	  						$("#parientsListTable tbody").html(btl);
-	  					}, error: function(){
-	  						console.log("ajax 기간사이 진료환자 조회 통신 실패");
-	  					}
-	  				});
-	  			});  
-	  		
-  			});
-			$("#patientsSearch").keyup(function(){
-				var k = $(this).val();
-				$("#parientsListTable > tbody > tr").hide();
-				var temp = $("#parientsListTable > tbody > tr > td:nth-child(4):contains('" + k + "')");
-							
-				$(temp).parent().show();
-			});
-			// 정렬기준 변경하는 부분
-			$("#hpPati").click(function(){
-				// 환자번호로 정렬
-				$("#hpPati").css("background", "darkgray");
-				$("#hpName").css("background", "lightgray");
-				$("#hpPno").css("background", "lightgray");
-				$("#hpDate").css("background", "lightgray");
-			});
-			$("#hpName").click(function(){
-				// 수진자명으로 정렬
-				$("#hpPati").css("background", "lightgray");
-				$("#hpName").css("background", "darkgray");
-				$("#hpPno").css("background", "lightgray");
-				$("#hpDate").css("background", "lightgray");
-			});
-			$("#hpPno").click(function(){
-				// 주민번호로 정렬
-				$("#hpPati").css("background", "lightgray");
-				$("#hpName").css("background", "lightgray");
-				$("#hpPno").css("background", "darkgray");
-				$("#hpDate").css("background", "lightgray");
-			});
-			$("#hpDate").click(function(){
-				// 진료일로 정렬
-				$("#hpPati").css("background", "lightgray");
-				$("#hpName").css("background", "lightgray");
-				$("#hpPno").css("background", "lightgray");
-				$("#hpDate").css("background", "darkgray");
-			});
-			
-			
-			// 외래내역 선택 환자 진료조회 부분
-			$(document).on("dblclick", ".daypl", function(event){
-				var pNo = $(this).children().eq(1).text();
-				var pDate = $(this).children().eq(8).text();
-				//console.log(pNo);
-				//console.log(pDate);
-				
-				$.ajax({
-					url:"detailPatients.me",
-					data:{
-						patientsNo:pNo,
-						receiptDate:pDate
-					},
-					type:"post",
-					success:function(map){
-						//console.log(map);
-						/* 작업일자 부분 */
-						$.each(map.dateBar, function(i, obj){
-							$("#medicalDate").val(obj.receiptDate);
-							$("#dChartNo").text(obj.chartNo);
-							$("#hdChart").val(obj.chartNo);
-							$("#dPatientsName").text(obj.patientsName);
-							$("#dGenAge").text("("+obj.gender+" / "+obj.age+"세)");
-							$("#dInsurance").text(obj.insurance);
-						});
-						
-						
-						/* 바이탈 부분 */
-						var valueV="";
-						console.log(map.v);								
-						if(map.v.length == 0){
-							valueV += "<tr>" +
-										  "<td><input type='date' name='receiptDate' id='vitalDate'></td>" + 
-										  "<td><input type='text' name='maxBp' value='0' onFocus="+"this.value='';return true;"+"></td>" +
-										  "<td><input type='text' name='minBp' value='0' onFocus="+"this.value='';return true;"+"></td>" +
-										  "<td><input type='text' name='beforeBs' value='0' onFocus="+"this.value='';return true;"+"></td>" +
-										  "<td><input type='text' name='afterBs' value='0' onFocus="+"this.value='';return true;"+"></td>" +
-										  "<td><input type='text' name='weight' value='0.0' onFocus="+"this.value='';return true;"+"></td>" +
-										  "<td><input type='text' name='height' value='0.0' onFocus="+"this.value='';return true;"+"></td>" +
-										  "<td><input type='text' name='fever' value='0.0' onFocus="+"this.value='';return true;"+"></td>" +
-									  "</tr>";
-						}else{
-							$.each(map.v, function(i, obj){
-								valueV += "<tr>" +
-											"<td><input type='date' name='receiptDate' value='"+ obj.receiptDate +"'></td>" +
-											"<td><input type='text' name='maxBp' value='" + obj.maxBp + "'></td>" +
-											"<td><input type='text' name='minBp' value='" + obj.minBp + "'></td>" +
-											"<td><input type='text' name='beforeBs' value='" + obj.beforeBs + "'></td>" +
-											"<td><input type='text' name='afterBs' value='" + obj.afterBs + "'></td>" +
-											"<td><input type='text' name='weight' value='" + obj.weight + "'></td>" +
-											"<td><input type='text' name='height' value='" + obj.height + "'></td>" +
-										 	"<td><input type='text' name='fever' value='" + obj.fever + "'></td>" +
-										 "</tr>";
-							});	
-						}
-						$("#vitalTable tbody").html(valueV);
-						
-						
-						/* 증상 부분 */
-						var valueS = "";
-						if(map.s.length != 0){
-							$.each(map.s, function(i, obj){
-								//console.log(obj.symptomHistory);
-								valueS += obj.symptomHistory;
-							});
-						}
-						$("#symptom").val(valueS);		
-						/* 과거증상내역 부분 */
-						var symHistory = "";
-						$.each(map.sList, function(i, obj){
-							symHistory += "<br>***** 작업일자 : " + obj.receiptDate + " *****" + "<br>" +
-										  obj.symptomHistory;
-						});
-						$("#symptomHistoryBox").html(symHistory);
-						
-						
-						/* 상병 부분 */
-						var valueD = "";
-						// 조회 결과가 있을 경우
-						$.each(map.dHistory, function(i, obj){
-							var dkn = obj.diseaseKorName.replace(/\s/gi, "");
-							var sq = ("■");
-							nl = obj.userLicense;
-							console.log(map.dHistory);
-							
-							if(i==0){
-								valueD +=  "<tr class='row100 yes'>" + 
-											   "<td class='column100 column1 sq' data-column='column1'>"+ sq +"</td>" +
-											   "<td class='column100 column2' data-column='column2'><input type='text' class='pTextbox' value="+ obj.diseaseCode +"></td>" +
-											   "<td class='column100 column3' data-column='column3'>"+ dkn +"</td>" + 
-											   "<td class='column100 column4 nv' data-column='column4'>"+ 1 +"</td>" +
-											   "<td class='column100 column5' data-column='column5'>"+ obj.userDepartment +"</td>" +
-											   "<td class='column100 column6 nl' data-column='column6'>"+ obj.userLicense +"</td>" +
-											   "<td style='display:none'><input type='hidden' name='diseaseNo' class='dno' value="+ obj.diseaseNo +"></td>" +
-										   "</tr>";
-							}else{
-								valueD +=  "<tr class='row100 yes'>" + 
-											   "<td class='column100 column1 sq' data-column='column1'></td>" +
-											   "<td class='column100 column2' data-column='column2'><input type='text' class='pTextbox' value="+ obj.diseaseCode +"></td>" +
-											   "<td class='column100 column3' data-column='column3'>"+ dkn +"</td>" + 
-											   "<td class='column100 column4 nv' data-column='column4'>"+ 2 +"</td>" +
-											   "<td class='column100 column5' data-column='column5'>"+ obj.userDepartment +"</td>" +
-											   "<td class='column100 column6 nl' data-column='column6'></td>" +
-											   "<td style='display:none'><input type='hidden' name='diseaseNo' class='dno' value="+ obj.diseaseNo +"></td>" +
-										   "</tr>";
-							}
-						});
-						if(map.dHistory.length==0){
-							// 새로 추가하는 경우에 기준점을 잡기 위해 클래스 넣는 부분
-							valueD +=  "<tr class='row100 yes' style='display:none'>" + 
-									   "</tr>";
-							// 조회 결과가 없을 경우
-							for(var i=0; i<=5; i++){
-								valueD +=  "<tr class='row100'>" + 
-											   "<td class='column100 column1 sq' data-column='column1'></td>" +
-											   "<td class='column100 column2' data-column='column2'><input type='text'class='pTextbox pReset' ></td>" +
-											   "<td class='column100 column3' data-column='column3'></td>" + 
-											   "<td class='column100 column4' data-column='column4'></td>" +
-											   "<td class='column100 column5' data-column='column5'></td>" +
-											   "<td class='column100 column6' data-column='column6'></td>" +
-										   "</tr>";
-							}
-						}else{
-							if(map.dHistory.length==1){
-								for(var i=0; i<=4; i++){
-									valueD +=  "<tr class='row100'>" + 
-												   "<td class='column100 column1 sq' data-column='column1'></td>" +
-												   "<td class='column100 column2' data-column='column2'><input type='text'class='pTextbox pReset' ></td>" +
-												   "<td class='column100 column3' data-column='column3'></td>" + 
-												   "<td class='column100 column4' data-column='column4'></td>" +
-												   "<td class='column100 column5' data-column='column5'></td>" +
-												   "<td class='column100 column6' data-column='column6'></td>" +
-											   "</tr>";
-								}
-							}else if(map.dHistory.length==2){
-								for(var i=0; i<=3; i++){
-									valueD +=  "<tr class='row100'>" + 
-												   "<td class='column100 column1 sq' data-column='column1'></td>" +
-												   "<td class='column100 column2' data-column='column2'><input type='text'class='pTextbox pReset' ></td>" +
-												   "<td class='column100 column3' data-column='column3'></td>" + 
-												   "<td class='column100 column4 nv' data-column='column4'></td>" +
-												   "<td class='column100 column5' data-column='column5'></td>" +
-												   "<td class='column100 column6' data-column='column6'></td>" +
-											   "</tr>";
-								}
-							}else if(map.dHistory.length==3){
-								for(var i=0; i<=2; i++){
-									valueD +=  "<tr class='row100'>" + 
-												   "<td class='column100 column1 sq' data-column='column1'></td>" +
-												   "<td class='column100 column2' data-column='column2'><input type='text'class='pTextbox pReset' ></td>" +
-												   "<td class='column100 column3' data-column='column3'></td>" + 
-												   "<td class='column100 column4' data-column='column4'></td>" +
-												   "<td class='column100 column5' data-column='column5'></td>" +
-												   "<td class='column100 column6' data-column='column6'></td>" +
-											   "</tr>";
-								}
-							}else if(map.dHistory.lenth==4){
-								for(var i=0; i<=1; i++){
-									valueD +=  "<tr class='row100'>" + 
-												   "<td class='column100 column1 sq' data-column='column1'></td>" +
-												   "<td class='column100 column2' data-column='column2'><input type='text'class='pTextbox pReset' ></td>" +
-												   "<td class='column100 column3' data-column='column3'></td>" + 
-												   "<td class='column100 column4' data-column='column4'></td>" +
-												   "<td class='column100 column5' data-column='column5'></td>" +
-												   "<td class='column100 column6' data-column='column6'></td>" +
-											   "</tr>";
-								}
-							}
-						}
-						$("#diseaseTable tbody").html(valueD);
-						
-						
-						/* 처방 부분 */
-						var valueP = "";
-						// 조회결과가 있을 경우
-						$.each(map.pList, function(i, obj){	
-							//console.log(map.pList.length);
-							valueP +=  "<tr class='row100 pYes' style='display:none'>" + 
-								   	   "</tr>";
-							valueP += "<tr class='row100 pYes pdb'>" + 
-											"<td class='' data-column='column1' style='display:none'>"+ obj.prescripUserCode +"</td>" +
-											"<td class='' data-column='column1'><input type='text' class='preTextbox' value="+ obj.prescripUserCode +"></td>" +
-											"<td class='' data-column='column2'>"+ obj.prescripName +"</td>" +
-											"<td class='' data-column='column3'><input type='text' class='pTextbox totalAd' value="+ obj.totalAd +"></td>" +
-											"<td class='' data-column='column4'><input type='text' class='pTextbox' value="+ obj.numTimes +"></td>" +
-											"<td class='' data-column='column5'><input type='text' class='pTextbox' value="+ obj.numDays +"></td>" +
-											"<td class='' data-column='column6'><input type='text' class='pTextbox' value="+ obj.salaryClassific +"></td>";
-											if(obj.prescripType=='처치'){
-												valueP += "<td class='' data-column='column7'>PT</td>";	
-											}else if(obj.prescripType=='방사선'){
-												valueP += "<td class='' data-column='column7'>Xray</td>";	
-											}else{
-												valueP += "<td class='' data-column='column7'></td>";
-											}
-											// 단가 금액 설정 부분
-											valueP += "<td class='' data-column='column8'>"+ (obj.totalAd * obj.prescripInsup) +"</td>";
-											// 야간 여부 체크 확인 부분
-											if(obj.nighttime=='N'){
-												valueP += "<td class='' data-column='column9'><input type='checkbox' class='nCheck' name='box'></td>";
-											}else {
-												valueP += "<td class='' data-column='column9'><input type='checkbox' class='nCheck' name='box' checked></td>";
-											}
-											// 응급 여부 체크 확인 부분
-											if(obj.emergency=='N'){
-												valueP += "<td class='' data-column='column10'><input type='checkbox' class='eCheck'></td>"; 
-											}else {
-												valueP += "<td class='' data-column='column10'><input type='checkbox' class='eCheck' checked></td>";
-											}
-						  valueP += "</tr>";
-						});
-						if(map.pList.length==1){
-							for(var i=0; i<=5; i++){
-								valueP += "<tr class='row100 pdb'>" + 
-												"<td class='' data-column='column1' style='display:none'>" +
-												"<td class='' data-column='column1'><input type='text' class='preTextbox preReset'></td>" +
-												"<td class='' data-column='column2'></td>" +
-												"<td class='' data-column='column3'><input type='text' class='othi totalAd'></td>" +
-												"<td class='' data-column='column4'><input type='text' class='othi'></td>" +
-												"<td class='' data-column='column5'><input type='text' class='othi'></td>" +
-												"<td class='' data-column='column6'><input type='text' class='othi'></td>" +
-												"<td class='' data-column='column7'></td>" +
-												"<td class='' data-column='column8'></td>" +
-												"<td class='' data-column='column9'><input type='checkbox' class='nCheck' name='box'></td>" +
-												"<td class='' data-column='column10'><input type='checkbox'class='eCheck' class='eCheck'></td>" +
-										  "</tr>";
-							}
-						}else if(map.pList.length==2){
-							for(var i=0; i<=4; i++){
-								valueP += "<tr class='row100 pdb'>" + 
-												"<td class='' data-column='column1' style='display:none'>" +
-												"<td class='' data-column='column1'><input type='text' class='preTextbox preReset'></td>" +
-												"<td class='' data-column='column2'></td>" +
-												"<td class='' data-column='column3'><input type='text' class='othi totalAd'></td>" +
-												"<td class='' data-column='column4'><input type='text' class='othi'></td>" +
-												"<td class='' data-column='column5'><input type='text' class='othi'></td>" +
-												"<td class='' data-column='column6'><input type='text' class='othi'></td>" +
-												"<td class='' data-column='column7'></td>" +
-												"<td class='' data-column='column8'></td>" +
-												"<td class='' data-column='column9'><input type='checkbox' class='nCheck' name='box'></td>" +
-												"<td class='' data-column='column10'><input type='checkbox' class='eCheck'></td>" +
-										  "</tr>";
-							}
-						}else if(map.pList.length==3){
-							for(var i=0; i<=3; i++){
-								valueP += "<tr class='row100 pdb'>" + 
-												"<td class='' data-column='column1' style='display:none'>" +
-												"<td class='' data-column='column1'><input type='text' class='preTextbox preReset'></td>" +
-												"<td class='' data-column='column2'></td>" +
-												"<td class='' data-column='column3'><input type='text' class='othi totalAd'></td>" +
-												"<td class='' data-column='column4'><input type='text' class='othi'></td>" +
-												"<td class='' data-column='column5'><input type='text' class='othi'></td>" +
-												"<td class='' data-column='column6'><input type='text' class='othi'></td>" +
-												"<td class='' data-column='column7'></td>" +
-												"<td class='' data-column='column8'></td>" +
-												"<td class='' data-column='column9'><input type='checkbox' class='nCheck' name='box'></td>" +
-												"<td class='' data-column='column10'><input type='checkbox' class='eCheck'></td>" +
-										  "</tr>";
-							}
-						}else if(map.pList.length==4){
-							for(var i=0; i<=2; i++){
-								valueP += "<tr class='row100 pdb'>" + 
-												"<td class='' data-column='column1' style='display:none'>" +
-												"<td class='' data-column='column1'><input type='text' class='preTextbox preReset'></td>" +
-												"<td class='' data-column='column2'></td>" +
-												"<td class='' data-column='column3'><input type='text' class='othi totalAd'></td>" +
-												"<td class='' data-column='column4'><input type='text' class='othi'></td>" +
-												"<td class='' data-column='column5'><input type='text' class='othi'></td>" +
-												"<td class='' data-column='column6'><input type='text' class='othi'></td>" +
-												"<td class='' data-column='column7'></td>" +
-												"<td class='' data-column='column8'></td>" +
-												"<td class='' data-column='column9'><input type='checkbox' class='nCheck' name='box'></td>" +
-												"<td class='' data-column='column10'><input type='checkbox' class='eCheck'></td>" +
-										  "</tr>";
-							}
-						}else if(map.pList.length==5){
-							for(var i=0; i<=1; i++){
-								valueP += "<tr class='row100 pdb'>" + 
-												"<td class='' data-column='column1' style='display:none'>" +
-												"<td class='' data-column='column1'><input type='text' class='preTextbox preReset'></td>" +
-												"<td class='' data-column='column2'></td>" +
-												"<td class='' data-column='column3'><input type='text' class='othi totalAd'></td>" +
-												"<td class='' data-column='column4'><input type='text' class='othi'></td>" +
-												"<td class='' data-column='column5'><input type='text' class='othi'></td>" +
-												"<td class='' data-column='column6'><input type='text' class='othi'></td>" +
-												"<td class='' data-column='column7'></td>" +
-												"<td class='' data-column='column8'></td>" +
-												"<td class='' data-column='column9'><input type='checkbox' class='nCheck' name='box'></td>" +
-												"<td class='' data-column='column10'><input type='checkbox' class='eCheck'></td>" +
-										  "</tr>";
-							}
-						}
-						if(map.pList.length==0){
-							if(adhd == '초진'){
-								valueP +=  "<tr class='row100 pYes' style='display:none'>" + 
-								   		   "</tr>";
-								valueP += "<tr class='row100 pYes pdb'>" +  
-												"<td class='' data-column='column1' style='display:none'>AA154</td>" +
-												"<td class='' data-column='column1'><input type='text' class='preTextbox value='AA154'></td>" +
-												"<td class='' data-column='column2'>초진진찰료-의과의원보건의료원내의과</td>" +
-												"<td class='' data-column='column3'><input type='text' class='othi totalAd' name='totalAd' value='1'></td>" +
-												"<td class='' data-column='column4'><input type='text' class='othi' name='numTimes' value='1'></td>" +
-												"<td class='' data-column='column5'><input type='text' class='othi' name='numDays' value='1'></td>" +
-												"<td class='' data-column='column6'><input type='text' class='othi' name='salaryClassific' value='1'></td>" +
-												"<td class='' data-column='column7'></td>" +
-												"<td class='' data-column='column8'name='prescripInsup'>15690</td>" +
-												"<td class='' data-column='column9'><input type='checkbox' name='nighttime'class='nCheck'></td>" +
-												"<td class='' data-column='column10'><input type='checkbox' name='emergency' class='eCheck'></td>" +
-												"<td class='insertPreValue' style='display:none'>0<input type='hidden' value='AA154'></td>" +
-										  "</tr>";
-							}else{
-								valueP +=  "<tr class='row100 pYes' style='display:none'>" + 
-						   		   "</tr>";
-								valueP += "<tr class='row100 pYes pdb'>" +  
-												"<td class='' data-column='column1' style='display:none'>AA254</td>" +
-												"<td class='' data-column='column1'><input type='text' class='preTextbox' value='AA254'></td>" +
-												"<td class='' data-column='column2'>재진진찰료-의과의원보건의료원내의과</td>" +
-												"<td class='' data-column='column3'><input type='text' class='othi totalAd' name='totalAd' value='1'></td>" +
-												"<td class='' data-column='column4'><input type='text' class='othi' name='numTimes' value='1'></td>" +
-												"<td class='' data-column='column5'><input type='text' class='othi' name='numDays' value='1'></td>" +
-												"<td class='' data-column='column6'><input type='text' class='othi' name='salaryClassific' value='1'></td>" +
-												"<td class='' data-column='column7'></td>" +
-												"<td class='' data-column='column8'name='prescripInsup'>11210</td>" +
-												"<td class='' data-column='column9'><input type='checkbox' name='nighttime'class='nCheck'></td>" +
-												"<td class='' data-column='column10'><input type='checkbox' name='emergency' class='eCheck'></td>" +
-												"<td class='insertPreValue' style='display:none'>0<input type='hidden' value='AA254'></td>" +
-										  "</tr>";
-							}
-							for(var i=0; i<=5; i++){
-								valueP += "<tr class='row100 pdb'>" + 
-												"<td class='' data-column='column1' style='display:none'>" +
-												"<td class='' data-column='column1'><input type='text' class='preTextbox preReset'></td>" +
-												"<td class='' data-column='column2'></td>" +
-												"<td class='' data-column='column3'><input type='text' class='othi totalAd'></td>" +
-												"<td class='' data-column='column4'><input type='text' class='othi'></td>" +
-												"<td class='' data-column='column5'><input type='text' class='othi'></td>" +
-												"<td class='' data-column='column6'><input type='text' class='othi'></td>" +
-												"<td class='' data-column='column7'></td>" +
-												"<td class='' data-column='column8'></td>" +
-												"<td class='' data-column='column9'><input type='checkbox' class='nCheck' name='box'></td>" +
-												"<td class='' data-column='column10'><input type='checkbox' class='eCheck'></td>" +
-										  "</tr>";	
-							}
-						}
-						$("#prescriptionTable tbody").html(valueP);
-						$('#patientSearch').modal("hide");
-						
-						document.getElementById("vitalDate").value = new Date().toISOString().substring(0, 10);
-					}, error: function(){
-						console.log("ajax 외래내역 to Page 통신 실패");
-					}
-				});
-			});
-			
-  			
-  		});
-  	</script>
+        $(function(){
+           $(document).ready(function(){
+              
+              $("#modalPatients").click(function(){
+                 var mDate = $("#medicalDate").val();
+                 //console.log(mDate);
+                 var mpl = "";
+                 $.ajax({
+                    url:"modalPaientsList.js",
+                    data:{
+                       receiptDate:mDate
+                    },
+                    type:"post",
+                    success: function(mpList){
+                       $.each(mpList, function(i, obj){
+                          mpl += "<tr class='row100 daypl disName'>" +
+                                   "<td data-column='column1'>"+ (i+1) +"</td>" +
+                                 "<td data-column='column2'>"+ obj.patientsNo +"</td>" +
+                                 "<td data-column='column3'>"+ obj.chartNo +"</td>" +
+                                 "<td data-column='column4'>"+ obj.patientsName +"</td>" +
+                                 "<td data-column='column5'>"+ obj.patientsPno +"</td>" +
+                                 "<td data-column='column6'>"+ obj.insurance +"</td>" +
+                                 "<td data-column='column7'>"+ obj.adhd +"</td>" +
+                                 "<td data-column='column8'>"+ obj.mo +"</td>" +
+                                 "<td data-column='column9'>"+ obj.receiptDate +"</td>" +
+                              "</tr>";
+                       });
+                       $("#parientsListTable tbody").html(mpl);
+                    }, error: function(){
+                       console.log("ajax 외래내역 modal 통신 실패");
+                    }
+                 });
+              });
+              var checkVal = 0;
+              var startDay = $("#startDay").val();
+              var endDay = $("#endDay").val();
+              // 검색 기간 활성화/비활성화 설정 부분
+              $("#betDay").click(function(){
+                 $("input[id='startDay']").attr('disabled', false);
+                 $("input[id='endDay']").attr('disabled', false);
+                 checkVal = 1;
+              });
+              $("#toDay").click(function(){
+                 $("input[id='startDay']").attr('disabled', true);
+                 $("input[id='endDay']").attr('disabled', true);
+                 checkVal = 0;
+              });
+              $("#startDay").change(function(){
+                 //console.log("333");
+                 startDay = $("#startDay").val();
+              });
+              $("#endDay").change(function(){
+                 //console.log("333");
+                 endDay = $("#endDay").val();
+              });
+              
+              // 환자 조회 실행 부분
+              $(document).on("click", "#patientsSearchBtn", function(){
+                 //console.log("333");
+                 //console.log(checkVal);
+                 //console.log(startDay);
+                 //console.log(endDay);
+                 
+                 var btl = "";
+                 $.ajax({
+                    url:"betweenDayList.js",
+                    data:{
+                       startDay: startDay,
+                       endDay: endDay
+                    },
+                    type:"post",
+                    success: function(betList){
+                       $.each(betList, function(i, obj){
+                          btl += "<tr class='row100 daypl disName'>" +
+                                   "<td data-column='column1'>"+ (i+1) +"</td>" +
+                                 "<td data-column='column2'>"+ obj.patientsNo +"</td>" +
+                                 "<td data-column='column3'>"+ obj.chartNo +"</td>" +
+                                 "<td data-column='column4'>"+ obj.patientsName +"</td>" +
+                                 "<td data-column='column5'>"+ obj.patientsPno +"</td>" +
+                                 "<td data-column='column6'>"+ obj.insurance +"</td>" +
+                                 "<td data-column='column7'>"+ obj.adhd +"</td>" +
+                                 "<td data-column='column8'>"+ obj.mo +"</td>" +
+                                 "<td data-column='column9'>"+ obj.receiptDate +"</td>" +
+                              "</tr>";
+                              
+                       });
+                       $("#parientsListTable tbody").html(btl);
+                    }, error: function(){
+                       console.log("ajax 기간사이 진료환자 조회 통신 실패");
+                    }
+                 });
+              });  
+           
+           });
+         $("#patientsSearch").keyup(function(){
+            var k = $(this).val();
+            $("#parientsListTable > tbody > tr").hide();
+            var temp = $("#parientsListTable > tbody > tr > td:nth-child(4):contains('" + k + "')");
+                     
+            $(temp).parent().show();
+         });
+         
+         // 정렬기준 변경하는 부분
+         $("#hpPati").click(function(){
+            // 환자번호로 정렬
+            /* $("#hpPati").css("background", "darkgray");
+            $("#hpName").css("background", "lightgray");
+            $("#hpPno").css("background", "lightgray");
+            $("#hpDate").css("background", "lightgray"); */
+            
+            startDay = $("#startDay").val();
+            endDay = $("#endDay").val();
+            //console.log(startDay);
+            //console.log(endDay);
+            var notl = "";
+            $.ajax({
+               url:"sortpNo.js",
+               data:{
+                  startDay:startDay,
+                  endDay:endDay
+               },
+               type:"post",
+               success: function(sortList){
+                  $.each(sortList, function(i, obj){
+                     notl += "<tr class='row100 daypl disName'>" +
+                              "<td data-column='column1'>"+ (i+1) +"</td>" +
+                              "<td data-column='column2'>"+ obj.patientsNo +"</td>" +
+                              "<td data-column='column3'>"+ obj.chartNo +"</td>" +
+                              "<td data-column='column4'>"+ obj.patientsName +"</td>" +
+                              "<td data-column='column5'>"+ obj.patientsPno +"</td>" +
+                              "<td data-column='column6'>"+ obj.insurance +"</td>" +
+                              "<td data-column='column7'>"+ obj.adhd +"</td>" +
+                              "<td data-column='column8'>"+ obj.mo +"</td>" +
+                              "<td data-column='column9'>"+ obj.receiptDate +"</td>" +
+                           "</tr>";
+                  })
+                  $("#parientsListTable tbody").html(notl);   
+                  notl = "";
+                  
+               },error: function(){
+                  console.log("ajax 환자번호 정렬 통신 실패");
+               }
+            });
+         });
+         $("#hpName").click(function(){
+            // 수진자명으로 정렬
+            /* $("#hpPati").css("background", "lightgray");
+            $("#hpName").css("background", "darkgray");
+            $("#hpPno").css("background", "lightgray");
+            $("#hpDate").css("background", "lightgray"); */
+            
+            var natl = "";
+            startDay = $("#startDay").val();
+            endDay = $("#endDay").val();
+            $.ajax({
+               url:"sortpName.js",
+               data:{
+                  startDay:startDay,
+                  endDay:endDay
+               },
+               type:"post",
+               success: function(sortList){
+                  $.each(sortList, function(i, obj){
+                     natl += "<tr class='row100 daypl disName'>" +
+                              "<td data-column='column1'>"+ (i+1) +"</td>" +
+                              "<td data-column='column2'>"+ obj.patientsNo +"</td>" +
+                              "<td data-column='column3'>"+ obj.chartNo +"</td>" +
+                              "<td data-column='column4'>"+ obj.patientsName +"</td>" +
+                              "<td data-column='column5'>"+ obj.patientsPno +"</td>" +
+                              "<td data-column='column6'>"+ obj.insurance +"</td>" +
+                              "<td data-column='column7'>"+ obj.adhd +"</td>" +
+                              "<td data-column='column8'>"+ obj.mo +"</td>" +
+                              "<td data-column='column9'>"+ obj.receiptDate +"</td>" +
+                           "</tr>";
+                  })
+                  $("#parientsListTable tbody").html(natl);
+                  natl = "";
+                  
+               },error: function(){
+                  console.log("ajax 환자이름 정렬 통신 실패");
+               }
+            });
+         });
+         $("#hpPno").click(function(){
+            // 주민번호로 정렬
+            /* $("#hpPati").css("background", "lightgray");
+            $("#hpName").css("background", "lightgray");
+            $("#hpPno").css("background", "darkgray");
+            $("#hpDate").css("background", "lightgray"); */
+            
+            var pnotl = "";
+            startDay = $("#startDay").val();
+            endDay = $("#endDay").val();
+            $.ajax({
+               url:"sortpPno.js",
+               data:{
+                  startDay:startDay,
+                  endDay:endDay
+               },
+               type:"post",
+               success: function(sortList){
+                  $.each(sortList, function(i, obj){
+                     pnotl += "<tr class='row100 daypl disName'>" +
+                              "<td data-column='column1'>"+ (i+1) +"</td>" +
+                              "<td data-column='column2'>"+ obj.patientsNo +"</td>" +
+                              "<td data-column='column3'>"+ obj.chartNo +"</td>" +
+                              "<td data-column='column4'>"+ obj.patientsName +"</td>" +
+                              "<td data-column='column5'>"+ obj.patientsPno +"</td>" +
+                              "<td data-column='column6'>"+ obj.insurance +"</td>" +
+                              "<td data-column='column7'>"+ obj.adhd +"</td>" +
+                              "<td data-column='column8'>"+ obj.mo +"</td>" +
+                              "<td data-column='column9'>"+ obj.receiptDate +"</td>" +
+                           "</tr>";
+                  })
+                  $("#parientsListTable tbody").html(pnotl);
+                  pnotl = "";
+                  
+               },error: function(){
+                  console.log("ajax 환자이름 정렬 통신 실패");
+               }
+            });
+         });
+         $("#hpDate").click(function(){
+            // 진료일로 정렬
+            /* $("#hpPati").css("background", "lightgray");
+            $("#hpName").css("background", "lightgray");
+            $("#hpPno").css("background", "lightgray");
+            $("#hpDate").css("background", "darkgray"); */
+            
+            var pdtl = "";
+            startDay = $("#startDay").val();
+            endDay = $("#endDay").val();
+            $.ajax({
+               url:"betweenDayList.js",
+               data:{
+                  startDay:startDay,
+                  endDay:endDay
+               },
+               type:"post",
+               success: function(sortList){
+                  $.each(sortList, function(i, obj){
+                     pdtl += "<tr class='row100 daypl disName'>" +
+                              "<td data-column='column1'>"+ (i+1) +"</td>" +
+                              "<td data-column='column2'>"+ obj.patientsNo +"</td>" +
+                              "<td data-column='column3'>"+ obj.chartNo +"</td>" +
+                              "<td data-column='column4'>"+ obj.patientsName +"</td>" +
+                              "<td data-column='column5'>"+ obj.patientsPno +"</td>" +
+                              "<td data-column='column6'>"+ obj.insurance +"</td>" +
+                              "<td data-column='column7'>"+ obj.adhd +"</td>" +
+                              "<td data-column='column8'>"+ obj.mo +"</td>" +
+                              "<td data-column='column9'>"+ obj.receiptDate +"</td>" +
+                           "</tr>";
+                  })
+                  $("#parientsListTable tbody").html(pdtl);
+                  pnotl = "";
+                  
+               },error: function(){
+                  console.log("ajax 환자이름 정렬 통신 실패");
+               }
+            });
+         });
+         
+         
+         // 외래내역 선택 환자 진료조회 부분
+         $(document).on("dblclick", ".daypl", function(event){
+            var pNo = $(this).children().eq(1).text();
+            var pMo = $(this).children().eq(7).text();
+            var pDate = $(this).children().eq(8).text();
+            //console.log(pNo);
+            //console.log(pDate);
+            
+            $.ajax({
+               url:"detailPatients.me",
+               data:{
+                  patientsNo:pNo,
+                  mo:pMo,
+                  receiptDate:pDate
+               },
+               type:"post",
+               success:function(map){
+                  //console.log(map);
+                  /* 작업일자 부분 */
+                  $.each(map.dateBar, function(i, obj){
+                     $("#medicalDate").val(obj.receiptDate);
+                     $("#dChartNo").text(obj.chartNo);
+                     $("#hdChart").val(obj.chartNo);
+                     $("#dPatientsName").text(obj.patientsName);
+                     $("#dGenAge").text("("+obj.gender+" / "+obj.age+"세)");
+                     $("#dInsurance").text(obj.insurance);
+                  });
+                  
+                  
+                  /* 바이탈 부분 */
+                  var valueV="";
+                  console.log(map.v);                        
+                  if(map.v.length == 0){
+                     valueV += "<tr>" +
+                                "<td><input type='date' name='receiptDate' id='vitalDate'></td>" + 
+                                "<td><input type='text' name='maxBp' value='0' onFocus="+"this.value='';return true;"+"></td>" +
+                                "<td><input type='text' name='minBp' value='0' onFocus="+"this.value='';return true;"+"></td>" +
+                                "<td><input type='text' name='beforeBs' value='0' onFocus="+"this.value='';return true;"+"></td>" +
+                                "<td><input type='text' name='afterBs' value='0' onFocus="+"this.value='';return true;"+"></td>" +
+                                "<td><input type='text' name='weight' value='0.0' onFocus="+"this.value='';return true;"+"></td>" +
+                                "<td><input type='text' name='height' value='0.0' onFocus="+"this.value='';return true;"+"></td>" +
+                                "<td><input type='text' name='fever' value='0.0' onFocus="+"this.value='';return true;"+"></td>" +
+                             "</tr>";
+                  }else{
+                     $.each(map.v, function(i, obj){
+                        valueV += "<tr>" +
+                                 "<td><input type='date' name='receiptDate' value='"+ obj.receiptDate +"'></td>" +
+                                 "<td><input type='text' name='maxBp' value='" + obj.maxBp + "'></td>" +
+                                 "<td><input type='text' name='minBp' value='" + obj.minBp + "'></td>" +
+                                 "<td><input type='text' name='beforeBs' value='" + obj.beforeBs + "'></td>" +
+                                 "<td><input type='text' name='afterBs' value='" + obj.afterBs + "'></td>" +
+                                 "<td><input type='text' name='weight' value='" + obj.weight + "'></td>" +
+                                 "<td><input type='text' name='height' value='" + obj.height + "'></td>" +
+                                  "<td><input type='text' name='fever' value='" + obj.fever + "'></td>" +
+                               "</tr>";
+                     });   
+                  }
+                  $("#vitalTable tbody").html(valueV);
+                  
+                  
+                  /* 증상 부분 */
+                  var valueS = "";
+                  if(map.s.length != 0){
+                     $.each(map.s, function(i, obj){
+                        //console.log(obj.symptomHistory);
+                        valueS += obj.symptomHistory;
+                     });
+                  }
+                  $("#symptom").val(valueS);      
+                  /* 과거증상내역 부분 */
+                  var symHistory = "";
+                  $.each(map.sList, function(i, obj){
+                     symHistory += "<br>***** 작업일자 : " + obj.receiptDate + " *****" + "<br>" +
+                                obj.symptomHistory;
+                  });
+                  $("#symptomHistoryBox").html(symHistory);
+                  
+                  
+                  /* 상병 부분 */
+                  var valueD = "";
+                  // 조회 결과가 있을 경우
+                  $.each(map.dHistory, function(i, obj){
+                     var dkn = obj.diseaseKorName.replace(/\s/gi, "");
+                     var sq = ("■");
+                     nl = obj.userLicense;
+                     console.log(map.dHistory);
+                     
+                     if(i==0){
+                        valueD +=  "<tr class='row100 yes'>" + 
+                                    "<td class='column100 column1 sq' data-column='column1'>"+ sq +"</td>" +
+                                    "<td class='column100 column2' data-column='column2'><input type='text' class='pTextbox' value="+ obj.diseaseCode +"></td>" +
+                                    "<td class='column100 column3' data-column='column3'>"+ dkn +"</td>" + 
+                                    "<td class='column100 column4 nv' data-column='column4'>"+ 1 +"</td>" +
+                                    "<td class='column100 column5' data-column='column5'>"+ obj.userDepartment +"</td>" +
+                                    "<td class='column100 column6 nl' data-column='column6'>"+ obj.userLicense +"</td>" +
+                                    "<td style='display:none'><input type='hidden' name='diseaseNo' class='dno' value="+ obj.diseaseNo +"></td>" +
+                                 "</tr>";
+                     }else{
+                        valueD +=  "<tr class='row100 yes'>" + 
+                                    "<td class='column100 column1 sq' data-column='column1'></td>" +
+                                    "<td class='column100 column2' data-column='column2'><input type='text' class='pTextbox' value="+ obj.diseaseCode +"></td>" +
+                                    "<td class='column100 column3' data-column='column3'>"+ dkn +"</td>" + 
+                                    "<td class='column100 column4 nv' data-column='column4'>"+ 2 +"</td>" +
+                                    "<td class='column100 column5' data-column='column5'>"+ obj.userDepartment +"</td>" +
+                                    "<td class='column100 column6 nl' data-column='column6'></td>" +
+                                    "<td style='display:none'><input type='hidden' name='diseaseNo' class='dno' value="+ obj.diseaseNo +"></td>" +
+                                 "</tr>";
+                     }
+                  });
+                  if(map.dHistory.length==0){
+                     // 새로 추가하는 경우에 기준점을 잡기 위해 클래스 넣는 부분
+                     valueD +=  "<tr class='row100 yes' style='display:none'>" + 
+                              "</tr>";
+                     // 조회 결과가 없을 경우
+                     for(var i=0; i<=5; i++){
+                        valueD +=  "<tr class='row100'>" + 
+                                    "<td class='column100 column1 sq' data-column='column1'></td>" +
+                                    "<td class='column100 column2' data-column='column2'><input type='text'class='pTextbox pReset' ></td>" +
+                                    "<td class='column100 column3' data-column='column3'></td>" + 
+                                    "<td class='column100 column4' data-column='column4'></td>" +
+                                    "<td class='column100 column5' data-column='column5'></td>" +
+                                    "<td class='column100 column6' data-column='column6'></td>" +
+                                 "</tr>";
+                     }
+                  }else{
+                     if(map.dHistory.length==1){
+                        for(var i=0; i<=4; i++){
+                           valueD +=  "<tr class='row100'>" + 
+                                       "<td class='column100 column1 sq' data-column='column1'></td>" +
+                                       "<td class='column100 column2' data-column='column2'><input type='text'class='pTextbox pReset' ></td>" +
+                                       "<td class='column100 column3' data-column='column3'></td>" + 
+                                       "<td class='column100 column4' data-column='column4'></td>" +
+                                       "<td class='column100 column5' data-column='column5'></td>" +
+                                       "<td class='column100 column6' data-column='column6'></td>" +
+                                    "</tr>";
+                        }
+                     }else if(map.dHistory.length==2){
+                        for(var i=0; i<=3; i++){
+                           valueD +=  "<tr class='row100'>" + 
+                                       "<td class='column100 column1 sq' data-column='column1'></td>" +
+                                       "<td class='column100 column2' data-column='column2'><input type='text'class='pTextbox pReset' ></td>" +
+                                       "<td class='column100 column3' data-column='column3'></td>" + 
+                                       "<td class='column100 column4 nv' data-column='column4'></td>" +
+                                       "<td class='column100 column5' data-column='column5'></td>" +
+                                       "<td class='column100 column6' data-column='column6'></td>" +
+                                    "</tr>";
+                        }
+                     }else if(map.dHistory.length==3){
+                        for(var i=0; i<=2; i++){
+                           valueD +=  "<tr class='row100'>" + 
+                                       "<td class='column100 column1 sq' data-column='column1'></td>" +
+                                       "<td class='column100 column2' data-column='column2'><input type='text'class='pTextbox pReset' ></td>" +
+                                       "<td class='column100 column3' data-column='column3'></td>" + 
+                                       "<td class='column100 column4' data-column='column4'></td>" +
+                                       "<td class='column100 column5' data-column='column5'></td>" +
+                                       "<td class='column100 column6' data-column='column6'></td>" +
+                                    "</tr>";
+                        }
+                     }else if(map.dHistory.lenth==4){
+                        for(var i=0; i<=1; i++){
+                           valueD +=  "<tr class='row100'>" + 
+                                       "<td class='column100 column1 sq' data-column='column1'></td>" +
+                                       "<td class='column100 column2' data-column='column2'><input type='text'class='pTextbox pReset' ></td>" +
+                                       "<td class='column100 column3' data-column='column3'></td>" + 
+                                       "<td class='column100 column4' data-column='column4'></td>" +
+                                       "<td class='column100 column5' data-column='column5'></td>" +
+                                       "<td class='column100 column6' data-column='column6'></td>" +
+                                    "</tr>";
+                        }
+                     }
+                  }
+                  $("#diseaseTable tbody").html(valueD);
+                  
+                  
+                  /* 처방 부분 */
+                  var valueP = "";
+                  // 조회결과가 있을 경우
+                  $.each(map.pList, function(i, obj){   
+                     //console.log(map.pList.length);
+                     valueP +=  "<tr class='row100 pYes' style='display:none'>" + 
+                                 "</tr>";
+                     valueP += "<tr class='row100 pYes pdb'>" + 
+                                 "<td class='' data-column='column1' style='display:none'>"+ obj.prescripUserCode +"</td>" +
+                                 "<td class='' data-column='column1'><input type='text' class='preTextbox' value="+ obj.prescripUserCode +"></td>" +
+                                 "<td class='' data-column='column2'>"+ obj.prescripName +"</td>" +
+                                 "<td class='' data-column='column3'><input type='text' class='pTextbox totalAd' value="+ obj.totalAd +"></td>" +
+                                 "<td class='' data-column='column4'><input type='text' class='pTextbox' value="+ obj.numTimes +"></td>" +
+                                 "<td class='' data-column='column5'><input type='text' class='pTextbox' value="+ obj.numDays +"></td>" +
+                                 "<td class='' data-column='column6'><input type='text' class='pTextbox' value="+ obj.salaryClassific +"></td>";
+                                 if(obj.prescripType=='처치'){
+                                    valueP += "<td class='' data-column='column7'>PT</td>";   
+                                 }else if(obj.prescripType=='방사선'){
+                                    valueP += "<td class='' data-column='column7'>Xray</td>";   
+                                 }else{
+                                    valueP += "<td class='' data-column='column7'></td>";
+                                 }
+                                 // 단가 금액 설정 부분
+                                 valueP += "<td class='' data-column='column8'>"+ (obj.totalAd * obj.prescripInsup) +"</td>";
+                                 // 야간 여부 체크 확인 부분
+                                 if(obj.nighttime=='N'){
+                                    valueP += "<td class='' data-column='column9'><input type='checkbox' class='nCheck' name='box'></td>";
+                                 }else {
+                                    valueP += "<td class='' data-column='column9'><input type='checkbox' class='nCheck' name='box' checked></td>";
+                                 }
+                                 // 응급 여부 체크 확인 부분
+                                 if(obj.emergency=='N'){
+                                    valueP += "<td class='' data-column='column10'><input type='checkbox' class='eCheck'></td>"; 
+                                 }else {
+                                    valueP += "<td class='' data-column='column10'><input type='checkbox' class='eCheck' checked></td>";
+                                 }
+                    valueP += "</tr>";
+                  });
+                  if(map.pList.length==1){
+                     for(var i=0; i<=5; i++){
+                        valueP += "<tr class='row100 pdb'>" + 
+                                    "<td class='' data-column='column1' style='display:none'>" +
+                                    "<td class='' data-column='column1'><input type='text' class='preTextbox preReset'></td>" +
+                                    "<td class='' data-column='column2'></td>" +
+                                    "<td class='' data-column='column3'><input type='text' class='othi totalAd'></td>" +
+                                    "<td class='' data-column='column4'><input type='text' class='othi'></td>" +
+                                    "<td class='' data-column='column5'><input type='text' class='othi'></td>" +
+                                    "<td class='' data-column='column6'><input type='text' class='othi'></td>" +
+                                    "<td class='' data-column='column7'></td>" +
+                                    "<td class='' data-column='column8'></td>" +
+                                    "<td class='' data-column='column9'><input type='checkbox' class='nCheck' name='box'></td>" +
+                                    "<td class='' data-column='column10'><input type='checkbox'class='eCheck' class='eCheck'></td>" +
+                                "</tr>";
+                     }
+                  }else if(map.pList.length==2){
+                     for(var i=0; i<=4; i++){
+                        valueP += "<tr class='row100 pdb'>" + 
+                                    "<td class='' data-column='column1' style='display:none'>" +
+                                    "<td class='' data-column='column1'><input type='text' class='preTextbox preReset'></td>" +
+                                    "<td class='' data-column='column2'></td>" +
+                                    "<td class='' data-column='column3'><input type='text' class='othi totalAd'></td>" +
+                                    "<td class='' data-column='column4'><input type='text' class='othi'></td>" +
+                                    "<td class='' data-column='column5'><input type='text' class='othi'></td>" +
+                                    "<td class='' data-column='column6'><input type='text' class='othi'></td>" +
+                                    "<td class='' data-column='column7'></td>" +
+                                    "<td class='' data-column='column8'></td>" +
+                                    "<td class='' data-column='column9'><input type='checkbox' class='nCheck' name='box'></td>" +
+                                    "<td class='' data-column='column10'><input type='checkbox' class='eCheck'></td>" +
+                                "</tr>";
+                     }
+                  }else if(map.pList.length==3){
+                     for(var i=0; i<=3; i++){
+                        valueP += "<tr class='row100 pdb'>" + 
+                                    "<td class='' data-column='column1' style='display:none'>" +
+                                    "<td class='' data-column='column1'><input type='text' class='preTextbox preReset'></td>" +
+                                    "<td class='' data-column='column2'></td>" +
+                                    "<td class='' data-column='column3'><input type='text' class='othi totalAd'></td>" +
+                                    "<td class='' data-column='column4'><input type='text' class='othi'></td>" +
+                                    "<td class='' data-column='column5'><input type='text' class='othi'></td>" +
+                                    "<td class='' data-column='column6'><input type='text' class='othi'></td>" +
+                                    "<td class='' data-column='column7'></td>" +
+                                    "<td class='' data-column='column8'></td>" +
+                                    "<td class='' data-column='column9'><input type='checkbox' class='nCheck' name='box'></td>" +
+                                    "<td class='' data-column='column10'><input type='checkbox' class='eCheck'></td>" +
+                                "</tr>";
+                     }
+                  }else if(map.pList.length==4){
+                     for(var i=0; i<=2; i++){
+                        valueP += "<tr class='row100 pdb'>" + 
+                                    "<td class='' data-column='column1' style='display:none'>" +
+                                    "<td class='' data-column='column1'><input type='text' class='preTextbox preReset'></td>" +
+                                    "<td class='' data-column='column2'></td>" +
+                                    "<td class='' data-column='column3'><input type='text' class='othi totalAd'></td>" +
+                                    "<td class='' data-column='column4'><input type='text' class='othi'></td>" +
+                                    "<td class='' data-column='column5'><input type='text' class='othi'></td>" +
+                                    "<td class='' data-column='column6'><input type='text' class='othi'></td>" +
+                                    "<td class='' data-column='column7'></td>" +
+                                    "<td class='' data-column='column8'></td>" +
+                                    "<td class='' data-column='column9'><input type='checkbox' class='nCheck' name='box'></td>" +
+                                    "<td class='' data-column='column10'><input type='checkbox' class='eCheck'></td>" +
+                                "</tr>";
+                     }
+                  }else if(map.pList.length==5){
+                     for(var i=0; i<=1; i++){
+                        valueP += "<tr class='row100 pdb'>" + 
+                                    "<td class='' data-column='column1' style='display:none'>" +
+                                    "<td class='' data-column='column1'><input type='text' class='preTextbox preReset'></td>" +
+                                    "<td class='' data-column='column2'></td>" +
+                                    "<td class='' data-column='column3'><input type='text' class='othi totalAd'></td>" +
+                                    "<td class='' data-column='column4'><input type='text' class='othi'></td>" +
+                                    "<td class='' data-column='column5'><input type='text' class='othi'></td>" +
+                                    "<td class='' data-column='column6'><input type='text' class='othi'></td>" +
+                                    "<td class='' data-column='column7'></td>" +
+                                    "<td class='' data-column='column8'></td>" +
+                                    "<td class='' data-column='column9'><input type='checkbox' class='nCheck' name='box'></td>" +
+                                    "<td class='' data-column='column10'><input type='checkbox' class='eCheck'></td>" +
+                                "</tr>";
+                     }
+                  }
+                  if(map.pList.length==0){
+                     if(adhd == '초진'){
+                        valueP +=  "<tr class='row100 pYes' style='display:none'>" + 
+                                    "</tr>";
+                        valueP += "<tr class='row100 pYes pdb'>" +  
+                                    "<td class='' data-column='column1' style='display:none'>AA154</td>" +
+                                    "<td class='' data-column='column1'><input type='text' class='preTextbox value='AA154'></td>" +
+                                    "<td class='' data-column='column2'>초진진찰료-의과의원보건의료원내의과</td>" +
+                                    "<td class='' data-column='column3'><input type='text' class='othi totalAd' name='totalAd' value='1'></td>" +
+                                    "<td class='' data-column='column4'><input type='text' class='othi' name='numTimes' value='1'></td>" +
+                                    "<td class='' data-column='column5'><input type='text' class='othi' name='numDays' value='1'></td>" +
+                                    "<td class='' data-column='column6'><input type='text' class='othi' name='salaryClassific' value='1'></td>" +
+                                    "<td class='' data-column='column7'></td>" +
+                                    "<td class='' data-column='column8'name='prescripInsup'>15690</td>" +
+                                    "<td class='' data-column='column9'><input type='checkbox' name='nighttime'class='nCheck'></td>" +
+                                    "<td class='' data-column='column10'><input type='checkbox' name='emergency' class='eCheck'></td>" +
+                                    "<td class='insertPreValue' style='display:none'>0<input type='hidden' value='AA154'></td>" +
+                                "</tr>";
+                     }else{
+                        valueP +=  "<tr class='row100 pYes' style='display:none'>" + 
+                              "</tr>";
+                        valueP += "<tr class='row100 pYes pdb'>" +  
+                                    "<td class='' data-column='column1' style='display:none'>AA254</td>" +
+                                    "<td class='' data-column='column1'><input type='text' class='preTextbox' value='AA254'></td>" +
+                                    "<td class='' data-column='column2'>재진진찰료-의과의원보건의료원내의과</td>" +
+                                    "<td class='' data-column='column3'><input type='text' class='othi totalAd' name='totalAd' value='1'></td>" +
+                                    "<td class='' data-column='column4'><input type='text' class='othi' name='numTimes' value='1'></td>" +
+                                    "<td class='' data-column='column5'><input type='text' class='othi' name='numDays' value='1'></td>" +
+                                    "<td class='' data-column='column6'><input type='text' class='othi' name='salaryClassific' value='1'></td>" +
+                                    "<td class='' data-column='column7'></td>" +
+                                    "<td class='' data-column='column8'name='prescripInsup'>11210</td>" +
+                                    "<td class='' data-column='column9'><input type='checkbox' name='nighttime'class='nCheck'></td>" +
+                                    "<td class='' data-column='column10'><input type='checkbox' name='emergency' class='eCheck'></td>" +
+                                    "<td class='insertPreValue' style='display:none'>0<input type='hidden' value='AA254'></td>" +
+                                "</tr>";
+                     }
+                     for(var i=0; i<=5; i++){
+                        valueP += "<tr class='row100 pdb'>" + 
+                                    "<td class='' data-column='column1' style='display:none'>" +
+                                    "<td class='' data-column='column1'><input type='text' class='preTextbox preReset'></td>" +
+                                    "<td class='' data-column='column2'></td>" +
+                                    "<td class='' data-column='column3'><input type='text' class='othi totalAd'></td>" +
+                                    "<td class='' data-column='column4'><input type='text' class='othi'></td>" +
+                                    "<td class='' data-column='column5'><input type='text' class='othi'></td>" +
+                                    "<td class='' data-column='column6'><input type='text' class='othi'></td>" +
+                                    "<td class='' data-column='column7'></td>" +
+                                    "<td class='' data-column='column8'></td>" +
+                                    "<td class='' data-column='column9'><input type='checkbox' class='nCheck' name='box'></td>" +
+                                    "<td class='' data-column='column10'><input type='checkbox' class='eCheck'></td>" +
+                                "</tr>";   
+                     }
+                  }
+                  $("#prescriptionTable tbody").html(valueP);
+                  $('#patientSearch').modal("hide");
+                  
+                  
+                  document.getElementById("vitalDate").value = new Date().toISOString().substring(0, 10);
+               }, error: function(){
+                  console.log("ajax 외래내역 to Page 통신 실패");
+               }
+            });
+         });
+         
+           
+        });
+     </script>
   	
   	
   	<!-- 상병 코드조회 modal 영역 -->
