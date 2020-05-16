@@ -174,5 +174,10 @@ public class MedicalController {
 		return "redirect:medicalMain.me?receiptDate="+nowDate;
 	}
 	
+	@RequestMapping("userPage.me")
+	public String userPage() {
+		return "common/appoiPage";
+	}
+	
 
 }

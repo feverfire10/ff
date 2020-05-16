@@ -12,13 +12,13 @@
 <body>
 	<jsp:include page="user/userLoginForm.jsp"/>	
 	
-	<div>
+	<div id="userPage">
 		사용자화면
 	</div>
+	<script>
+		$("#userPage").click(function(){
+			location.href="userPage.me";
+		});
+	</script>
 </body>
 </html>
-
-
-
-
-
