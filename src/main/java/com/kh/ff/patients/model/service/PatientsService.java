@@ -21,7 +21,7 @@ public interface PatientsService {
 	int updatePatient(Patients p);
 	
 	// 환자 + 접수 조회
-	Patients selectPatientsChart(Patients p);
+	//Patients selectPatientsChart(Patients p);
 	
 	// 환자 검색
 	ArrayList<Patients> selectPatients(SearchCondition sc);
