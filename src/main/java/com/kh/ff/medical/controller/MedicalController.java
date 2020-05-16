@@ -178,6 +178,10 @@ public class MedicalController {
 	public String userPage() {
 		return "common/appoiPage";
 	}
+	@RequestMapping("test.me")
+	public String test() {
+		return "common/test";
+	}
 	
 
 }

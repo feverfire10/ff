@@ -68,20 +68,29 @@
 	}
 	
 </style>
+
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=69b0a9018799ca073e6a3156072740a5"></script>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=69b0a9018799ca073e6a3156072740a5&libraries=LIBRARY"></script>
+<!-- services 라이브러리 불러오기 -->
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=69b0a9018799ca073e6a3156072740a5&libraries=services"></script>
+<!-- services와 clusterer, drawing 라이브러리 불러오기 -->
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=69b0a9018799ca073e6a3156072740a5&libraries=services,clusterer,drawing"></script>
+<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+
 <!-- jQuery CDN -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<!-- modal bootstrap js -->
+<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> -->
+
+<%-- <!-- modal bootstrap js -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <!-- modal bootstrap css -->
-<link rel="stylesheet" href="${pageContext.servletContext.contextPath}/resources/medical/modal/css/bootstrap.css">
+<link rel="stylesheet" href="${pageContext.servletContext.contextPath}/resources/medical/modal/css/bootstrap.css"> --%>
 </head>
 <body>
 	<div id="outer">
 		<!-- 중앙 화면 부분 -->
 		<div id="mid-left">
 			<img src="resources/images/mid-left-main.jpg" style="width: 750px; position: absolute;"/>
-			<button type="button" id="apiBtn" data-toggle="modal" data-target="#apiModal">위치보기</button>
+			<button type="button" id="apiBtn" onclick="displayApi();">위치보기</button>
 		</div>
 		<div id="mid-right">
 			<div id="mid_head">
@@ -118,25 +127,10 @@
 			</div>
 		</div>	
 		<!-- 지도 API 부분 -->
-		<div id="modal_api_area">
-			<input type='text' value='서울 강남구 테헤란로14길 6 남도빌딩 2층, 3층, 4층'>
-		</div>
-		<div class="modal fade" id="apiModal" role="dialog">
-	    <div class="apiModal">    
-	
-	      <!-- Modal content-->
-	      <div class="modal-content">
-	        <div class="modal-header">
-	          <h4 class="codeTitle">상병코드조회</h4>
-	          <button type="button" class="close" data-dismiss="modal">×</button>
-	        </div>
-	        
-	        <div id="map" style="width:500px;height:400px;"></div>
-			
-	     
-	      </div>
-	    </div>
-  	</div>
+		<div id="apiArea" style="display: none;">
+			<div id="map" style="width:500px;height:400px;"></div>
+			<input type='text' id="inputAddress" value='서울 강남구 테헤란로14길 6 남도빌딩 '>
+  		</div>
 		
 		
 		
@@ -150,16 +144,92 @@
 				window.open("http://pf.kakao.com/_xcxnmaxb");
 			}
 		};
+		var container = document.getElementById('map');
+		
+		
 		
 		// 지도 api 부분
-		var container = document.getElementById('map');
-		var options = {
-			center: new kakao.maps.LatLng(33.450701, 126.570667),
-			level: 3
-		};
+		function displayApi(){
+			// 열어줄 div
+			var container = document.getElementById("apiArea");
+			//console.log(container);
+			// 주소값 저장
+			var addr = document.getElementById("inputAddress").value;
+			console.log(addr);
+			var options = {
+				center: new kakao.maps.LatLng(33.450701, 126.570667),
+				level: 3	// 지도 확대 레벨
+			};
+			// 지도 생성
+			var map = new kakao.maps.Map(container, options);
+			
+			// 주소-좌표 변환 객체를 생성합니다
+	         var geocoder = new kakao.maps.services.Geocoder();
+	         // 주소로 좌표를 검색합니다
+	         geocoder.addressSearch(addr, function(result, status) {
+	             // 정상적으로 검색이 완료됐으면 
+	              if (status === kakao.maps.services.Status.OK) {
 
-		var map = new kakao.maps.Map(container, options);
-		
+	                 var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+
+	                 // 결과값으로 받은 위치를 마커로 표시합니다
+	                 var marker = new kakao.maps.Marker({
+	                     map: map,
+	                     position: coords
+	                 });
+
+	                 // 인포윈도우로 장소에 대한 설명을 표시합니다
+	                 var infowindow = new kakao.maps.InfoWindow({
+	                     content: '<div style="width:150px;text-align:center;padding:6px 0;">병원위치</div>'
+	                 });
+	                 infowindow.open(map, marker);
+
+	                 // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+	                 map.setCenter(coords);
+	             }   
+	         });
+	         
+         var container = document.getElemetById('map');			// 지도를 표시할 div
+         mapOption ={
+       		 center: new daum.maps.Map(container, mapOption),	// 지도의 중심좌표
+       		 leve: 1											// 지도의 확대 레벨
+         };
+         // 지도를 미리 생성
+		 var map = new daum.maps.Map(Container, mpaOption);
+         // 주소-좌표 변환 객체를 생성
+         var geocoder = new daum.maps.services.Geocoder();
+         // 마커를 미리 생성
+         var marker = new daum.maps.Marker({
+        	 position: new daum.maps.Latlng(0, 0),
+        	 map: map
+         });
+         
+         new daum.Postcode({
+        	oncomplete: function(data){
+        		var addr = data.address;						// 최종 주소 변수
+        		 // 주소 정보를 해당 필드에 넣는다.
+        		var addr = document.getElementById("inputAddress").value;
+        		// 담길 주소값 : 서울 강남구 테헤란로14길 6 남도빌딩
+        		geocoder.addressSearch(addr, function(results, status){
+        			// 정상적으로 검색이 완료되었을 경우
+        			if(status == daum.maps.services.Status.OK){
+        				var result = results[0];					// 첫번재 결과의 값을 활용
+        				
+        				// 해당 주소에 대한 좌표를 받아서
+        				var coords = new daum.maps.LatLng(result.y, result.x);
+        				// 지도를 보여준다.
+        				container.style.display = "block";
+        				map.relayout();
+        				// 지도 중심을 변경한다.
+        				map.setCenter(coords);
+        				// 마커를 결과값으로 받은 위치로 옮긴다.
+        				marker.setPosition(coords);
+        			}
+       			});
+       		}
+         }).open();
+		}
+		      
 	</script>
 
 </body>
