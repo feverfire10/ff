@@ -32,7 +32,7 @@ p{
 </style>
 </head>
 <body>
-	<p><img src="resources/images/logo3.png" style="width:300px;height:300px;margin-top:100px;margin-right:45px;"></p>
+	<p><img src="resources/images/logo33.png" style="width:300px;height:300px;margin-top:150px;margin-right:25px;"></p>
 	<div class="container">
 	    <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
 	        <div class="panel panel-success">

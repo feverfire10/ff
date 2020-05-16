@@ -19,54 +19,6 @@
 	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <style>
 
-      /* 사이드 메뉴바 부분 */
-   .move_share1 {
-       POSITION: fixed;
-       MARGIN-LEFT: -600px;
-       TOP: 130px;
-       LEFT: 39%;
-       border: 1px solid #E7E7E7;
-       background: #FAFAFA;
-       padding: 10px;
-       width: 95px;
-       text-align: center;
-        border-radius: 15px;
-   }
-   .move_share2 {
-       POSITION: fixed;
-       MARGIN-LEFT: -600px;
-       TOP: 390px;
-       LEFT: 39%;
-       border: 1px solid #E7E7E7;
-       background: #FAFAFA;
-       padding: 10px;
-       width: 95px;
-       text-align: center;
-        border-radius: 15px;
-   }
-   .sideBtn {
-       width: 70px;
-       height: 40px;
-       background: aquamarine;
-       border-radius: 10px;
-       border: 0;
-       outline: none;
-       cursor: pointer;
-       font-weight: bolder;
-       font-size: 14px;
-   }
-   .sideBtn:hover {
-       background: cadetblue;
-       color: white;
-   }
-   .sideH{
-      margin: 0;
-       padding-top: 5px;
-       padding-bottom: 5px;
-   }
-
-
-
       /* 전체 감싸는 DIV*/  
       .wrap{
           width: 1300px;
@@ -317,32 +269,7 @@
 </head>
 <body>
 
-	
-	
-	<!-- 사이드 메뉴바 영역 -->
-   <div class="move_share1">
-    <h5 class="sideH">page</h5>
-    <hr>   
-    <button class="sideBtn" data-toggle="modal" data-target="#intro">원무</button>
-    <br><br>
-    <button class="sideBtn">진료</button>
-    <br><br>
-    <button class="sideBtn">지원</button>
-    <br>
- </div>
- <div class="move_share2">
-    <h5 class="sideH">menu</h5>
-    <hr>   
-    <button class="sideBtn" data-toggle="modal" data-target="#patientSearch">환자조회</button>
-    <br><br>
-    <button class="sideBtn" data-toggle="modal" data-target="#completeList">외래내역</button>
-    <br><br>
-    <button class="sideBtn" data-toggle="modal" data-target="#patientSearch">대기환자</button>
-    <br>
- </div>
-
-
-
+<jsp:include page="/WEB-INF/views/common/sideBar.jsp"></jsp:include>
 
     <!-- 본문 시작 -->
 
