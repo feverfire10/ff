@@ -106,16 +106,25 @@ div img:hover{
 		</div>
 		</c:if>
 	</div>
-	
+	<div style="display:none;">
+         <input type='date' id="nowDate" name=receiptDate>   
+      </div>
+      
 	<script>
+	$(function(){
+        document.getElementById("nowDate").value = new Date().toISOString().substring(0, 10);                  
+     });
+
 		$("#first").click(function(){
 			location.href = "patientsInfo.me";
 		});
 		
-		$("#second").click(function(){
-			location.href = "medicalMain.me";
-		});
-		
+	     $("#second").click(function(){
+	         var mDate = $("#nowDate").val();
+	         console.log(mDate);
+	         location.href = "medicalMain.me?receiptDate="+mDate;
+	      });
+	     
 		$("#third").click(function(){
 			location.href = "supportMain.me";
 		});

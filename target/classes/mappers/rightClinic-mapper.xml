@@ -58,6 +58,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result column="PRESCRIP_INSU_OFFICE" property="prescripInsuOffice" />
 	</resultMap>
 	
+	<resultMap id="vitalResultSet" type="Vital">
+		<id column="vital_no" property="vitalNo"/>
+		<result column="max_bp" property="maxBp"/>
+		<result column="min_bp" property="minBp"/>
+		<result column="before_bs" property="beforeBs"/>
+		<result column="after_bs" property="afterBs"/>
+		<result column="weight" property="weight"/>
+		<result column="height" property="height"/>
+		<result column="fever" property="fever"/>
+		<result column="receipt_date" property="receiptDate"/>
+	</resultMap>
+	
 	<select id="selPatientsList" parameterType="hashmap" resultMap="patientJsResultSet">
 		SELECT *
 		FROM TB_PATIENTS
@@ -118,5 +130,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		JOIN tb_symptomchart st USING(chart_no)
 		WHERE JS.RECEIPT_DATE = #{clickDate} AND PATIENTS_NAME = #{clickPatientsName} AND PATIENTS_PNO = #{clickPatientsPno}
 	</select>
+	
+	<select id="selectVitalList" parameterType="Vital" resultMap="vitalResultSet">
+		SELECT vt.vital_no, vt.max_bp, vt.min_bp, vt.before_bs, vt.after_bs, vt.weight, vt.height, vt.fever, CHART_NO, js.receipt_date
+		FROM TB_PATIENTS PT
+		JOIN TB_JS JS USING(PATIENTS_NO)
+		JOIN TB_VITAL VT USING(chart_no)
+		WHERE PATIENTS_NAME = #{clickPatientsName} AND PATIENTS_PNO = #{clickPatientsPno}
+		ORDER BY js.receipt_date ASC
+	</select>
 </mapper>
-
