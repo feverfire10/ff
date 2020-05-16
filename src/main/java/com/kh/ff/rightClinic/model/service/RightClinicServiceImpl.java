@@ -11,6 +11,7 @@ import com.kh.ff.rightClinic.model.vo.DiseaseRc;
 import com.kh.ff.rightClinic.model.vo.PatientJs;
 import com.kh.ff.rightClinic.model.vo.PrescriptionRc;
 import com.kh.ff.rightClinic.model.vo.SymptomRc;
+import com.kh.ff.vital.model.vo.Vital;
 
 @Service("rcService")
 public class RightClinicServiceImpl implements RightClinicService {
@@ -45,6 +46,11 @@ public class RightClinicServiceImpl implements RightClinicService {
 	public ArrayList<PrescriptionRc> selPrescriptionHistory(String clickDate, String clickPatientsName,
 			String clickPatientsPno) {
 		return rcDao.selPrescriptionHistory(sqlSession, clickDate, clickPatientsName, clickPatientsPno);
+	}
+
+	@Override
+	public ArrayList<Vital> selVitalChartList(String clickPatientsName, String clickPatientsPno) {
+		return rcDao.selVitalChartList(sqlSession, clickPatientsName, clickPatientsPno);
 	}
 	
 
