@@ -28,9 +28,9 @@ public class PatientsDao {
 		return sqlSession.update("patientsMapper.updatePatient", p);
 	}
 	
-	public Patients selectPatientsChart(SqlSessionTemplate sqlSession, Patients p) {
-		return sqlSession.selectOne("patientsMapper.selectPatientsChart", p);
-	}
+	//public Patients selectPatientsChart(SqlSessionTemplate sqlSession, Patients p) {
+	//	return sqlSession.selectOne("patientsMapper.selectPatientsChart", p);
+	//}
 	
 	public ArrayList<Patients> selectPatients(SqlSessionTemplate sqlSession, SearchCondition sc) {
 		return (ArrayList)sqlSession.selectList("patientsMapper.selectPatients", sc);

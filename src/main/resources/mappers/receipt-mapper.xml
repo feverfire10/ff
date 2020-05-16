@@ -78,6 +78,14 @@
 		INSERT INTO TB_RECEIPT VALUES(#{billFormNo}, #{totalBill}, #{discount}, #{totalPay}, #{memo}, TO_CHAR(SYSDATE, 'YYYY-MM-DD'), #{payMethod})
 	</insert>
 	
+	<update id="updateClinicState" parameterType="_int">
+		UPDATE TB_JS SET CLINIC_STATE = 4 WHERE CHART_NO = (SELECT CHART_NO FROM TB_BILL_FORM WHERE BILL_FORM_NO = #{billFormNo})
+	</update>
+	
+	<update id="updateChainNote" parameterType="Receipt">
+		UPDATE TB_PATIENTS SET CHAIN_NOTE = (CHAIN_NOTE || CHR(10) || #{memo}) WHERE PATIENTS_NO = (SELECT PATIENTS_NO FROM TB_BILL_FORM WHERE BILL_FORM_NO = #{billFormNo});
+	</update>
+	
 	<select id="selectBillFormList" parameterType="_int" resultMap="billFormResultSet">
 		SELECT BF.PATIENTS_NO, CHECKUP, DOSE, OPERATION, RADIATION, PATIENTS_NAME, PATIENTS_PNO, INSURANCE, MO, ADHD, CHART_NO
 		  FROM TB_PATIENTS
@@ -88,4 +96,16 @@
 		                      JOIN TB_JS USING (CHART_NO)
 		                     WHERE CLINIC_STATE = #{num})
 	</select>
+	
+	<select id="selectClinicState" parameterType="_int">
+		SELECT CLINIC_STATE FROM TB_JS WHERE CHART_NO = #{chartNo}
+	</select>
+	
+	<delete id="deleteReceipt">
+		DELETE TB_RECEIPT WHERE BILL_FORM_NO = (SELECT BILL_FORM_NO FROM TB_BILL_FORM WHERE CHART_NO = #{chartNo})
+	</delete>
+	
+	<update id="updateBillForm" parameterType="_int">
+		UPDATE TB_JS SET CLINIC_STATE = 2 WHERE CHART_NO = #{chartNo}
+	</update>
 </mapper>

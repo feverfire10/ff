@@ -16,6 +16,16 @@ public interface ReceiptService {
 	int selectSalaryClassific(BillForm chartNo);
 	
 	int insertReceipt(Receipt r);
+	
+	int updateClinicState(int billFormNo);
+	
+	int updateChainNote(Receipt r);
 
 	ArrayList<BillForm> selectBillFormList(int num);
+	
+	int selectClinicState(int chartNo);
+	
+	int deleteReceipt(int chartNo);
+	
+	int updateBillForm(int chartNo);
 }
