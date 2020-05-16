@@ -59,6 +59,22 @@ public class ReceiptServiceImpl implements ReceiptService{
 	}
 
 	/**
+	 *	수납성공 시 수납대기 -> 수납완료로 번호값 변경
+	 */
+	@Override
+	public int updateClinicState(int billFormNo) {
+		return rDao.updateClinicState(sqlSession, billFormNo);
+	}
+	
+	/**
+	 *  수납성공 시 환자테이블 연속메모에 영수메모값 추가하기
+	 */
+	@Override
+	public int updateChainNote(Receipt r) {
+		return rDao.updateChainNote(sqlSession, r);
+	}
+	
+	/**
 	 *	수납관리 테이블에 값 뿌리기
 	 */
 	@Override
@@ -89,5 +105,29 @@ public class ReceiptServiceImpl implements ReceiptService{
 	}
 
 	
+
+	/**
+	 *  차트번호에 대한 상태값 가져오기
+	 */
+	@Override
+	public int selectClinicState(int chartNo) {
+		return rDao.selectClinicState(sqlSession, chartNo);
+	}
+
+	/**
+	 *  상태값이 4일 경우 수납결과 DB 제거
+	 */
+	@Override
+	public int deleteReceipt(int chartNo) {
+		return rDao.deleteReceipt(sqlSession, chartNo);
+	}
+
+	/**
+	 *  차트번호에 대한 상태값 2로 변경
+	 */
+	@Override
+	public int updateBillForm(int chartNo) {
+		return rDao.updateBillForm(sqlSession, chartNo);
+	}
 
 }

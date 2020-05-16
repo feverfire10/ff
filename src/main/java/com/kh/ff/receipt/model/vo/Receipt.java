@@ -18,9 +18,9 @@ public class Receipt {
 	private int billFormNo;
 	private int totalBill;
 	private int discount;
-	private int totalPay;
+	private int cardPay;
 	private String memo;
 	private Date payDate;
-	private String payMethod;
+	private int cashPay;
 
 }

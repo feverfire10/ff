@@ -31,6 +31,14 @@ public class ReceiptDao {
 		return sqlSession.insert("receiptMapper.insertReceipt", r);
 	}
 	
+	public int updateClinicState(SqlSessionTemplate sqlSession, int billFormNo) {
+		return sqlSession.update("receiptMapper.updateClinicState", billFormNo);
+	}
+	
+	public int updateChainNote(SqlSessionTemplate sqlSession, Receipt r) {
+		return sqlSession.update("receiptMapper.updateChainNote", r);
+	}
+	
 	public ArrayList<BillForm> selectBillFormList(SqlSessionTemplate sqlSession, int num){
 		return (ArrayList)sqlSession.selectList("receiptMapper.selectBillFormList", num);
 	}
@@ -43,6 +51,17 @@ public class ReceiptDao {
 	}
 	public int medicalCompleteUpdateBillForm(int chartNo, SqlSessionTemplate sqlSession) {
 		return sqlSession.update("receiptMapper.medicalCompleteUpdateBillForm", chartNo);
+	}
+	public int selectClinicState(SqlSessionTemplate sqlSession, int chartNo) {
+		return sqlSession.selectOne("receiptMapper.selectClinicState", chartNo);
+	}
+	
+	public int deleteReceipt(SqlSessionTemplate sqlSession, int chartNo) {
+		return sqlSession.delete("receiptMapper.deleteReceipt", chartNo);
+	}
+	
+	public int updateBillForm(SqlSessionTemplate sqlSession, int chartNo) {
+		return sqlSession.update("receiptMapper.updateBillForm", chartNo);
 	}
 
 }

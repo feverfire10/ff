@@ -32,4 +32,7 @@ public interface PatientsService {
 	// 환자 관리에서 진료 상태 update
 	int updatePatients(JS jsChart);
 	
+	// 중복접수를 막기위한 JS 조회
+	JS checkJs(JS js);
+	
 }
