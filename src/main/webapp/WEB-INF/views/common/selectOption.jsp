@@ -72,6 +72,9 @@ div img:hover{
 			<p><img src="resources/images/logo33.png" style="width:300px;height:300px;margin-top:100px;margin-right:25px;"></p>
 			<h1>원무</h1>
 		</div>
+		<div style="display:none;">
+         <input type='date' id="nowDate" name=receiptDate>   
+      </div>
 		<div class="second" id="second">
 			<p><img src="resources/images/logo33.png" style="width:300px;height:300px;margin-top:100px;margin-right:25px;"></p>
 			<h1>진료</h1>
@@ -83,13 +86,18 @@ div img:hover{
 	</div>
 	
 	<script>
+	$(function(){
+        document.getElementById("nowDate").value = new Date().toISOString().substring(0, 10);;                  
+     });
 		$("#first").click(function(){
 			location.href = "patientsInfo.me";
 		});
 		
 		$("#second").click(function(){
-			location.href = "medicalMain.me";
-		});
+	         var mDate = $("#nowDate").val();
+	         console.log(mDate);
+	         location.href = "medicalMain.me?receiptDate="+mDate;
+	      });
 		
 		$("#third").click(function(){
 			location.href = "supportMain.me";

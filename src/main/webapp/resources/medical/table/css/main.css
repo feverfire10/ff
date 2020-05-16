@@ -112,7 +112,7 @@ th, td {font-weight: unset;}
 /*==================================================================
 [ Ver3 ]*/
 .table100.ver3 tbody tr {
-  border-bottom: 1px solid #e5e5e5;
+  border-bottom: 1px solid rgb(196, 235, 255);
 }
 
 .table100.ver3 td {
@@ -127,23 +127,24 @@ th, td {font-weight: unset;}
   line-height: 1.4;
   text-transform: uppercase;
 
-  background-color: lightgrey;
+  background-color: rgb(196, 235, 255);
 }
 
 /* 선택한 전체의 색 */
 .table100.ver3 .row100:hover td {
-  background-color: #DFF5F5;
+  background-color: rgb(196, 235, 255);
 }
 
 .table100.ver3 .hov-column-ver3 {
-  background-color: #fcebf5;
+  background-color: rgb(196, 235, 255);
 }
 
 .table100.ver3 .hov-column-head-ver3 {
-  background-color: #7b88e3 !important;
+  background-color: rgb(196, 235, 255) !important;
 }
 
 /* 선택한 칸의 색 */
 .table100.ver3 .row100 td:hover {
-  background-color: #C4E4E4;
+  /* background-color: rgb(196, 235, 255); */
+  background-color: rgb(172, 226, 252);
 }
