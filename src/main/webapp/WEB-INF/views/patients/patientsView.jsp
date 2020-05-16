@@ -73,14 +73,7 @@
           height: 1500px;
           margin: 0px auto;       
       }
-      /* 작업일자, 메뉴 탭 감싸는 DIV*/
-      .header{
-          width: 1280px;
-          height: 100px;
-          border: solid 1px;
-          border-color: gray;
-          margin: 5px auto;
-      }
+     
 
     /* 항목별 상단 제목 */
     .title {
@@ -129,10 +122,6 @@
         height: 35px;
     }
 
-    .btn-wrap {
-        float: left;
-        margin-left: 20px;
-    }
     .btn-menuTab {
         height: 35px;
         font-size: 15px;
@@ -309,6 +298,21 @@
         }
 
 
+		.counter {
+			float:right;
+			width:500px;
+		}
+		.counter h5{
+			float:left;
+		}
+		.counter dl{
+			float:left;
+			list-style-type:none;
+			margin-left:30px;
+		}
+
+
+
     </style>
 </head>
 <body>
@@ -345,7 +349,6 @@
 
 
     <div class="wrap">
-        <div class="header">
             <div class="menubar"> 
                 <div class="date">
                         <div class="date-work">작업일자</div>
@@ -353,15 +356,24 @@
                             <input type="text" id="datepicker" class= "datetool" name="workdate">
                         </div>
                 </div>
-                <div class="btn-wrap">
-                    <button class="btn-menuTab">환자관리</button>
-                    <button class="btn-menuTab">수납관리</button>
-                    <button class="btn-menuTab">방문자 통계</button>
-                </div>
-                <br><br>
-                <hr style="width: 100%" color="gray" size="3">
             </div>
-        </div>
+
+        	<!-- 카운터 모듈 -->
+			    <div class="counter">
+			        <h5>Counter</h5>
+			        <div class="box">
+			            <dl class="total-line">
+			                <dt>Total</dt>
+			                <dd>[##_count_total_##] </dd>
+			            </dl>
+			            <dl class="today-line">
+			                <dt>Today</dt>
+			                <dd>[##_count_today_##]</dd>
+			            </dl>
+			        </div>
+			    </div>
+        
+        
         <!-- 환자조회 -->
         <div class="upper">
             <div class="title">
@@ -415,7 +427,7 @@
             <!-- 환자 접수 -->
             <div class="join">
                 <div class="join-info">
-                    <form name="join-form" method="POST">
+                    <form name="join-form" method="POST" onsubmit="return false">
                     <div class="title">
                         &nbsp;&nbsp;&nbsp;환자 접수
                     </div>
@@ -425,20 +437,19 @@
                       <tr>
                         <th>이름</th>
                         <td>
-                          <input type="text" id="patientsName" name="patientsName">
+                          <input type="text" id="patientsName" name="patientsName" required>
                         </td>
                       </tr>
                       <tr>
                         <th>주민번호</th>
                         <td>
-                          <input type="text" style="margin-bottom: 4px;" id="patientsPno" name="patientsPno"> 
+                          <input type="text" style="margin-bottom: 4px;" id="patientsPno" name="patientsPno" required> 
                         </td>
                       </tr>
                       <tr>
                         <th>보험유형</th>
                         <td>
                             <select id="insurance" name="insurance">
-                                <option value="선택" selected="selected">선택</option>
                                 <option value="일반">일반</option>
                                 <option value="건강보험">건강보험</option>
                                 <option value="자동차보험">자동차보험</option>
@@ -474,7 +485,6 @@
                         <th>진료실</th>
                         <td>
                             <select name="Do" id="Do">
-                                <option value="진료실 선택" selected="selected">진료실 선택</option>
                                 <option value="진료실1">진료실1</option>
                                 <option value="진료실2">진료실2</option>
                             </select>
@@ -484,7 +494,6 @@
                         <th>담당의사</th>
                         <td>
                             <select name="mo" id="mo">
-                                <option value="담당의 선택" selected="selected">담당의 선택</option>
                                 <option value="홍길동">홍길동</option>
                                 <option value="임꺽정">임꺽정</option>
                             </select>
@@ -494,7 +503,6 @@
                         <th>초/재진</th>
                         <td>
                             <select name="adhd" id="adhd">
-                                <option value="초/재진 선택" selected="selected">초/재진 선택</option>
                                 <option value="초진">초진</option>
                                 <option value="재진">재진</option>
                             </select>
@@ -513,7 +521,7 @@
                     <tr>
                         <th>전화번호</th>
                         <td>
-                            <input type="tel" id="phone" name="phone">
+                            <input type="tel" id="phone" name="phone" required>
                         </td>
                     </tr>
                     <tr>
@@ -530,7 +538,7 @@
                     </tr>
                   </table>
                         <div class="btn-join">
-                            <button type="button" class="btnjoin" id="insertBtn">접수</button>
+                            <button type="submit" class="btnjoin" id="insertBtn">접수</button>
                         </div>
                     </form>
                 </div>
@@ -758,8 +766,12 @@
         
         
         
-	
+        
         $("#insertBtn").click(function(){
+        	
+        	var pno = document.getElementById("patientsPno").value;
+            var regExp = /^\d{2}(0[1-9]|1[0-2])(0[1-9]|[1-2][0-9]|3[0-1])-[1-4]\d{6}$/;
+            
         	$.ajax({
         		url:"insert.p",
         		data:{patientsName:$("#patientsName").val(),
@@ -778,6 +790,11 @@
         		type:"POST",
         		contentType: "application/x-www-form-urlencoded; charset=UTF-8",
         		success:function(result){
+        			if(regExp.test(patientsPno)){
+        	            alert("정상적으로 입력했습니다!");
+        	        }else{
+        	        	alertify.alert("주민번호 형식에 맞게 기입해 주세요.");
+        	        }
         			alertify.alert("접수되었습니다.");
         			document.getElementById("waitBtn").click();
         		},error:function(){
