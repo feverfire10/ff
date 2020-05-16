@@ -28,17 +28,16 @@
        padding: 10px;
        width: 95px;
        text-align: center;
-        border-radius: 5px;
+        border-radius: 15px;
    }
    .sideBtn {
        width: 70px;
        height: 40px;
-       background: rgb(1, 153, 220);
-       border-radius: 5px;
+       background: aquamarine;
+       border-radius: 10px;
        border: 0;
        outline: none;
        cursor: pointer;
-       color : white;
        font-weight: bolder;
        font-size: 14px;
    }
@@ -57,11 +56,11 @@
 	<div class="move_share1">
       <h5 class="sideH">page</h5>
       <hr>   
-      <button class="sideBtn" data-toggle="modal" data-target="#intro" onclick="location.href='patientsInfo.me'">원무</button>
+      <button class="sideBtn" data-toggle="modal" data-target="#intro">원무</button>
       <br><br>
-      <button class="sideBtn" onclick="location.href='medicalMain.me'">진료</button>
+      <button class="sideBtn">진료</button>
       <br><br>
-      <button class="sideBtn" onclick="location.href='supportMain.me'">지원</button>
+      <button class="sideBtn">지원</button>
       <br>
    </div>
    <div class="move_share2">

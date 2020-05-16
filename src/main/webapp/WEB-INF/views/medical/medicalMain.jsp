@@ -8,7 +8,9 @@
 <title>Insert title here</title>
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/moonspam/NanumSquare@1.0/nanumsquare.css">
 <style>
- 
+	body {
+	    background: azure !important;
+	}
 	#outer{
 	    width: 1300px;
 		min-width: 900px;
@@ -16,45 +18,31 @@
 		margin-left:auto;
 		margin-right:auto;
 		font-family: 'NanumSquare', sans-serif ;
-		background: rgb(250, 253, 255);
+		background: white;
 	}
 	#dateTable, #vitalTable, #diseaseTable, #prescriptionTable{
 		width:100%;
-		/* border:1px solid gray; */
+		border:1px solid gray;
 		text-align:center;
 		text-align-last: center;
 		border-collapse: collapse;	
-		height: 43px;
 	}
 	#symptomArea {
 	    width: 50%;
 	    float: left;
 	}
-	textarea#symptom {font-size: large; border : none; resize: none;}
+	textarea#symptom {font-size: large;}
 	div#diseaseArea {
 	    display: inline-block;
 	    width: 100%;
 	}
 	tr, td, th {
-    	/* border: 1px solid gray; */
-    	height : 43px;
+    	border: 1px solid gray;
+    	height : 30px;
     }
-    #diseaseTable>thead>tr>th {
-    	background-color: rgb(1, 153, 220);
-    	color : white;
-    	font-size: 14px;
-    }
-    
-    #prescriptionTable>thead>tr>th {
-        background-color: rgb(1, 153, 220);
-    	color : white;
-    	font-size: 14px;
-    }
-    
     .r1 {
-    	background-color: rgb(1, 153, 220);
-    	color:white;
-    	font-size:14px;
+    	background: lightgrey;
+    	
     }
     textarea{
     	box-sizing: border-box;
@@ -63,7 +51,7 @@
     	height:200px;
     	border-radius : 5px;
     }
-    div#topDate {margin-top: 50px; border : 1px solid silver;}
+    div#topDate {margin-top: 50px;}
     #medicalDate, #vitalDate{
     	height:100%;
     	width:100%;
@@ -82,13 +70,13 @@
     #btnArea {
 	    height: 60px;
 	    text-align: right;
-	    /* background: lightgrey; */
+	    background: lightgrey;
 	    margin-bottom: 50px;
 	}
     .btnF {
 	    height: 40px;
 	    width: 70px;
-	    background-color: rgb(1, 153, 220);
+	    background-color: rgb(78,232,178);
 	    border-radius: 7px;
 	    color: white;
 	    font-weight: bolder;
@@ -96,7 +84,7 @@
 	    outline: none;
         margin-top: 10px;
 	}
-	.btnF:hover {background: #286090;}
+	.btnF:hover {background: cadetblue;}
 	input[type="checkbox"]{	
 		margin-left: auto !important;
 	    margin-right: auto !important;
@@ -108,11 +96,11 @@
 	    width: 200px;
 	    height: 30px;
 	}
-	.standBtn:hover{color: rgb(1, 153, 220);}
+	.standBtn:hover{color: cadetblue;}
 	.standBtn.on{
 		border-bottom: 2px solid cadetblue;
 		font-weight: 700;
-		color: rgb(1, 153, 220);
+		color: cadetblue;
 	}
 	.listBox{
 		display: none;
@@ -132,8 +120,8 @@
 	}
 	.listBox1.listBox.on {padding: 0;}
 	.listBox2.listBox {padding: 0;}
-	#standTable>thead>tr {text-align-last: center; background-color: rgb(1,153,220);color:white;}
-	#holdTable {text-align-last: center; background-color: rgb(1,153,220);color:white;}
+	#standTable {text-align-last: center;}
+	#holdTable {text-align-last: center;}
 	.jList {cursor:pointer;}
 	.column100{cursor:pointer;}
 	div#symptomHistoryArea {
@@ -163,9 +151,9 @@
 	
 	/* 클릭시 div 색 설정부분 */
 	.transColor {
-	    border: 5px solid rgb(138, 219, 255);
+	    border: 5px solid aquamarine;
 	    -moz-box-shadow: 3px 3px 3px 3px #999;
-	    /* box-shadow: 3px 3px 3px 3px rgba(138, 219, 255, 1); */
+	    box-shadow: 5px 5px 5px 5px rgba(171, 219, 181, 1);
 	}
 	h3.valueH {
 	    margin: 0;
@@ -173,6 +161,54 @@
 	    height: 50px;
 	    line-height: 53px;
 	}
+	
+	
+	/* 사이드 메뉴바 부분 */
+	.move_share1 {
+	    POSITION: fixed;
+	    MARGIN-LEFT: -600px;
+	    TOP: 130px;
+	    LEFT: 730px;
+	    border: 1px solid #E7E7E7;
+	    background: #FAFAFA;
+	    padding: 10px;
+	    width: 95px;
+	    text-align: center;
+        border-radius: 15px;
+	}
+	.move_share2 {
+	    POSITION: fixed;
+	    MARGIN-LEFT: -600px;
+	    TOP: 390px;
+	    LEFT: 730px;
+	    border: 1px solid #E7E7E7;
+	    background: #FAFAFA;
+	    padding: 10px;
+	    width: 95px;
+	    text-align: center;
+        border-radius: 15px;
+	}
+	.sideBtn {
+	    width: 70px;
+	    height: 40px;
+	    background: aquamarine;
+	    border-radius: 10px;
+	    border: 0;
+	    outline: none;
+	    cursor: pointer;
+	    font-weight: bolder;
+	    font-size: 14px;
+	}
+	.sideBtn:hover {
+	    background: cadetblue;
+	    color: white;
+	}
+	.sideH{
+		margin: 0;
+	    padding-top: 5px;
+	    padding-bottom: 5px;
+	}
+	
 	
 	/* 마우스 우클릭 메뉴 스타일  */
 	* {
@@ -202,12 +238,12 @@
 	  text-decoration: none;
 	  transition: ease .2s;
 	}
-	.contextmenu li: {
-	  background: rgb(196, 235, 255);
+	.contextmenu li:hover {
+	  background: lightblue;
 	  border-left: 3px solid cadetblue;
 	}
 	.contextmenu li:hover a {
-	  color: rgb(196, 235, 255);
+	  color: #FFFFFF;
 	}
 	
 	/* 테이블 관련 스타일 */
@@ -246,7 +282,7 @@
 	    color: white;
 	    border-radius: 10px;
 	}
-	.searchBtn:hover{color: rgb(196, 235, 255);}
+	.searchBtn:hover{color: black;}
 	.codeContent {border-radius: 20px !important;}
 	.searchArea {align-self: center;}
 	/* 처방코드조회 modal */
@@ -368,23 +404,7 @@
     }
     hr.mhLine {margin-top: 0;}
     tr#mlhead {cursor: pointer;}
-    th.hPick:hover {background: rgb(196, 235, 255); !important;}
-    
-    
-    
-    .tb_header_th{
-    	background-color: rgb(1, 153, 220);
-    	color : white;
-    	font-size : 14px;
-    }
-    
-    .areaA{
-    	border-left: 1px solid silver;
-    	border-right : 1px solid silver;
-    	border-bottom : 1px solid silver;
-    }
-    
-
+    th.hPick:hover {background: darkgray !important;}
 </style>
 <!-- jQuery CDN -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -399,7 +419,30 @@
 <link rel="stylesheet" type="text/css" href="${pageContext.servletContext.contextPath}/resources/medical/table/css/main.css">
 </head>
 <body>
-	<jsp:include page="/WEB-INF/views/common/sideBar.jsp"></jsp:include>
+
+	<!-- 사이드 메뉴바 영역 -->
+	<div class="move_share1">
+		<h5 class="sideH">page</h5>
+		<hr>	
+		<button class="sideBtn" data-toggle="modal" data-target="#intro">원무</button>
+		<br><br>
+		<button class="sideBtn">진료</button>
+		<br><br>
+		<button class="sideBtn">지원</button>
+		<br>
+	</div>
+	<div class="move_share2">
+		<h5 class="sideH">menu</h5>
+		<hr>	
+		<button class="sideBtn" data-toggle="modal" data-target="#completeList">환자조회</button>
+		<br><br>
+		<button id="modalPatients" class="sideBtn" data-toggle="modal" data-target="#patientSearch">외래내역</button>
+		<br><br>
+		<button class="sideBtn" data-toggle="modal" data-target="#patientSearch">대기환자</button>
+		<br>
+	</div>
+	
+	
 	<!-- modal 영역 -->
   	<!-- 환자조회 modal 영역 -->
   	<div class="modal fade" id="#completeList" role="dialog">
@@ -589,40 +632,172 @@
 							
 				$(temp).parent().show();
 			});
+			
 			// 정렬기준 변경하는 부분
 			$("#hpPati").click(function(){
 				// 환자번호로 정렬
-				$("#hpPati").css("background", "darkgray");
+				/* $("#hpPati").css("background", "darkgray");
 				$("#hpName").css("background", "lightgray");
 				$("#hpPno").css("background", "lightgray");
-				$("#hpDate").css("background", "lightgray");
+				$("#hpDate").css("background", "lightgray"); */
+				
+				startDay = $("#startDay").val();
+				endDay = $("#endDay").val();
+				//console.log(startDay);
+				//console.log(endDay);
+				var notl = "";
+				$.ajax({
+					url:"sortpNo.js",
+					data:{
+						startDay:startDay,
+						endDay:endDay
+					},
+					type:"post",
+					success: function(sortList){
+						$.each(sortList, function(i, obj){
+							notl += "<tr class='row100 daypl disName'>" +
+										"<td data-column='column1'>"+ (i+1) +"</td>" +
+										"<td data-column='column2'>"+ obj.patientsNo +"</td>" +
+										"<td data-column='column3'>"+ obj.chartNo +"</td>" +
+										"<td data-column='column4'>"+ obj.patientsName +"</td>" +
+										"<td data-column='column5'>"+ obj.patientsPno +"</td>" +
+										"<td data-column='column6'>"+ obj.insurance +"</td>" +
+										"<td data-column='column7'>"+ obj.adhd +"</td>" +
+										"<td data-column='column8'>"+ obj.mo +"</td>" +
+										"<td data-column='column9'>"+ obj.receiptDate +"</td>" +
+									"</tr>";
+						})
+						$("#parientsListTable tbody").html(notl);	
+						notl = "";
+						
+					},error: function(){
+						console.log("ajax 환자번호 정렬 통신 실패");
+					}
+				});
 			});
 			$("#hpName").click(function(){
 				// 수진자명으로 정렬
-				$("#hpPati").css("background", "lightgray");
+				/* $("#hpPati").css("background", "lightgray");
 				$("#hpName").css("background", "darkgray");
 				$("#hpPno").css("background", "lightgray");
-				$("#hpDate").css("background", "lightgray");
+				$("#hpDate").css("background", "lightgray"); */
+				
+				var natl = "";
+				startDay = $("#startDay").val();
+				endDay = $("#endDay").val();
+				$.ajax({
+					url:"sortpName.js",
+					data:{
+						startDay:startDay,
+						endDay:endDay
+					},
+					type:"post",
+					success: function(sortList){
+						$.each(sortList, function(i, obj){
+							natl += "<tr class='row100 daypl disName'>" +
+										"<td data-column='column1'>"+ (i+1) +"</td>" +
+										"<td data-column='column2'>"+ obj.patientsNo +"</td>" +
+										"<td data-column='column3'>"+ obj.chartNo +"</td>" +
+										"<td data-column='column4'>"+ obj.patientsName +"</td>" +
+										"<td data-column='column5'>"+ obj.patientsPno +"</td>" +
+										"<td data-column='column6'>"+ obj.insurance +"</td>" +
+										"<td data-column='column7'>"+ obj.adhd +"</td>" +
+										"<td data-column='column8'>"+ obj.mo +"</td>" +
+										"<td data-column='column9'>"+ obj.receiptDate +"</td>" +
+									"</tr>";
+						})
+						$("#parientsListTable tbody").html(natl);
+						natl = "";
+						
+					},error: function(){
+						console.log("ajax 환자이름 정렬 통신 실패");
+					}
+				});
 			});
 			$("#hpPno").click(function(){
 				// 주민번호로 정렬
-				$("#hpPati").css("background", "lightgray");
+				/* $("#hpPati").css("background", "lightgray");
 				$("#hpName").css("background", "lightgray");
 				$("#hpPno").css("background", "darkgray");
-				$("#hpDate").css("background", "lightgray");
+				$("#hpDate").css("background", "lightgray"); */
+				
+				var pnotl = "";
+				startDay = $("#startDay").val();
+				endDay = $("#endDay").val();
+				$.ajax({
+					url:"sortpPno.js",
+					data:{
+						startDay:startDay,
+						endDay:endDay
+					},
+					type:"post",
+					success: function(sortList){
+						$.each(sortList, function(i, obj){
+							pnotl += "<tr class='row100 daypl disName'>" +
+										"<td data-column='column1'>"+ (i+1) +"</td>" +
+										"<td data-column='column2'>"+ obj.patientsNo +"</td>" +
+										"<td data-column='column3'>"+ obj.chartNo +"</td>" +
+										"<td data-column='column4'>"+ obj.patientsName +"</td>" +
+										"<td data-column='column5'>"+ obj.patientsPno +"</td>" +
+										"<td data-column='column6'>"+ obj.insurance +"</td>" +
+										"<td data-column='column7'>"+ obj.adhd +"</td>" +
+										"<td data-column='column8'>"+ obj.mo +"</td>" +
+										"<td data-column='column9'>"+ obj.receiptDate +"</td>" +
+									"</tr>";
+						})
+						$("#parientsListTable tbody").html(pnotl);
+						pnotl = "";
+						
+					},error: function(){
+						console.log("ajax 환자이름 정렬 통신 실패");
+					}
+				});
 			});
 			$("#hpDate").click(function(){
 				// 진료일로 정렬
-				$("#hpPati").css("background", "lightgray");
+				/* $("#hpPati").css("background", "lightgray");
 				$("#hpName").css("background", "lightgray");
 				$("#hpPno").css("background", "lightgray");
-				$("#hpDate").css("background", "darkgray");
+				$("#hpDate").css("background", "darkgray"); */
+				
+				var pdtl = "";
+				startDay = $("#startDay").val();
+				endDay = $("#endDay").val();
+				$.ajax({
+					url:"betweenDayList.js",
+					data:{
+						startDay:startDay,
+						endDay:endDay
+					},
+					type:"post",
+					success: function(sortList){
+						$.each(sortList, function(i, obj){
+							pdtl += "<tr class='row100 daypl disName'>" +
+										"<td data-column='column1'>"+ (i+1) +"</td>" +
+										"<td data-column='column2'>"+ obj.patientsNo +"</td>" +
+										"<td data-column='column3'>"+ obj.chartNo +"</td>" +
+										"<td data-column='column4'>"+ obj.patientsName +"</td>" +
+										"<td data-column='column5'>"+ obj.patientsPno +"</td>" +
+										"<td data-column='column6'>"+ obj.insurance +"</td>" +
+										"<td data-column='column7'>"+ obj.adhd +"</td>" +
+										"<td data-column='column8'>"+ obj.mo +"</td>" +
+										"<td data-column='column9'>"+ obj.receiptDate +"</td>" +
+									"</tr>";
+						})
+						$("#parientsListTable tbody").html(pdtl);
+						pnotl = "";
+						
+					},error: function(){
+						console.log("ajax 환자이름 정렬 통신 실패");
+					}
+				});
 			});
 			
 			
 			// 외래내역 선택 환자 진료조회 부분
 			$(document).on("dblclick", ".daypl", function(event){
 				var pNo = $(this).children().eq(1).text();
+				var pMo = $(this).children().eq(7).text();
 				var pDate = $(this).children().eq(8).text();
 				//console.log(pNo);
 				//console.log(pDate);
@@ -631,6 +806,7 @@
 					url:"detailPatients.me",
 					data:{
 						patientsNo:pNo,
+						mo:pMo,
 						receiptDate:pDate
 					},
 					type:"post",
@@ -966,6 +1142,7 @@
 						$("#prescriptionTable tbody").html(valueP);
 						$('#patientSearch').modal("hide");
 						
+						
 						document.getElementById("vitalDate").value = new Date().toISOString().substring(0, 10);
 					}, error: function(){
 						console.log("ajax 외래내역 to Page 통신 실패");
@@ -1207,7 +1384,7 @@
 			$(document).on("click", ".yes", function(){
 				dLine = $(this);
 				//console.log(dLine.text());
-				dLine.css("background", "rgb(196, 235, 255)");
+				dLine.css("background", "lightblue");
 				dLine.siblings().css("background", "transparent");
 				
 			});
@@ -1562,7 +1739,7 @@
 				var pLine = null;
 				$(document).on("click", ".pYes", function(){
 					pLine = $(this);
-					pLine.css("background", "rgb(196, 235, 255)");
+					pLine.css("background", "lightblue");
 					pLine.siblings().css("background", "transparent");
 					
 				});
@@ -1911,17 +2088,17 @@
 			<div id="topDate" class="areaA">
 				<table id="dateTable">
 					<tr>
-						<th class="tb_header_th"><b>작업일자</b></th>
+						<th>작업일자</th>
 						<td style="width:142px;">
 							<input type="date" id="medicalDate" name="medicalDate">
 						</td>
-						<th class="tb_header_th"><b>차트번호</b></th>
+						<th>차트번호</th>
 						<td id="dChartNo">&nbsp;&nbsp;&nbsp;</td>
 						<td style="display:none;"><input type="text" id="hdChart" name="chartNo"></td>
-						<th class="tb_header_th"><b>수진자명</b></th>
+						<th>수진자명</th>
 						<td id="dPatientsName">&nbsp;&nbsp;&nbsp;</td>
 						<td id="dGenAge">&nbsp;&nbsp;&nbsp;</td>
-						<th class="tb_header_th"><b>보험유형</b></th>
+						<th>보험유형</th>
 						<td id="dInsurance">&nbsp;&nbsp;&nbsp;</td>
 					</tr>
 				</table>
@@ -2995,7 +3172,7 @@
 				areaA.not($(this)).removeClass('transColor');
 				
 				// 헤더 배경색 바꿔주는 부분
-				$(this).find('.valueH').css('background', 'rgb(214, 242, 255)');
+				$(this).find('.valueH').css('background', 'cadetblue');
 				areaA.not($(this)).find('.valueH').css('background', 'transparent');
 			});
 		</script>

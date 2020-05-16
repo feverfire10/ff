@@ -88,4 +88,53 @@
 		                      JOIN TB_JS USING (CHART_NO)
 		                     WHERE CLINIC_STATE = #{num})
 	</select>
+	
+	<select id="medicalCompleteSelectBillForm" resultType="_int">
+		SELECT COUNT(*) FROM TB_BILL_FORM
+		WHERE CHART_NO=#{chartNo}
+	</select>
+	<insert id="medicalCompleteInsertBillForm" parameterType="_int">
+		INSERT INTO TB_BILL_FORM VALUES(SEQ_BF_NO.NEXTVAL, (SELECT PATIENTS_NO FROM TB_JS WHERE CHART_NO = #{chartNo}), TO_CHAR(SYSDATE, 'YYYY-MM-DD'), DEFAULT,
+        (SELECT SUM(PRESCRIP_INSUP * TOTAL_AD)
+        FROM TB_PRESCRIPTION 
+        JOIN TB_PRESCRIPTIONCHART USING (PRESCRIP_USER_CODE) 
+        WHERE CHART_NO = #{chartNo}
+        AND PRESCRIP_TYPE = '진찰료'), NULL, NULL, (SELECT SUM(PRESCRIP_INSUP * TOTAL_AD)
+        FROM TB_PRESCRIPTION 
+        JOIN TB_PRESCRIPTIONCHART USING (PRESCRIP_USER_CODE) 
+        WHERE CHART_NO = #{chartNo}
+        AND PRESCRIP_TYPE = '투약'), NULL, NULL, (SELECT SUM(PRESCRIP_INSUP * TOTAL_AD)
+        FROM TB_PRESCRIPTION 
+        JOIN TB_PRESCRIPTIONCHART USING (PRESCRIP_USER_CODE) 
+        WHERE CHART_NO = #{chartNo}
+        AND PRESCRIP_TYPE = '처치'), NULL, (SELECT SUM(PRESCRIP_INSUP * TOTAL_AD)
+        FROM TB_PRESCRIPTION 
+        JOIN TB_PRESCRIPTIONCHART USING (PRESCRIP_USER_CODE) 
+        WHERE CHART_NO = #{chartNo}
+        AND PRESCRIP_TYPE = '방사선'), NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, #{chartNo})
+	</insert>
+	<update id="medicalCompleteUpdateBillForm" parameterType="_int">
+		UPDATE TB_BILL_FORM SET
+	        CHECKUP = (SELECT SUM(PRESCRIP_INSUP * TOTAL_AD)
+	                     FROM TB_PRESCRIPTION 
+	                     JOIN TB_PRESCRIPTIONCHART USING (PRESCRIP_USER_CODE) 
+	                     WHERE CHART_NO = #{chartNo}
+	                     AND PRESCRIP_TYPE = '진찰료'),
+	         DOSE = (SELECT SUM(PRESCRIP_INSUP * TOTAL_AD)
+	                     FROM TB_PRESCRIPTION 
+	                     JOIN TB_PRESCRIPTIONCHART USING (PRESCRIP_USER_CODE) 
+	                     WHERE CHART_NO = #{chartNo}
+	                     AND PRESCRIP_TYPE = '투약'),
+	         OPERATION = (SELECT SUM(PRESCRIP_INSUP * TOTAL_AD)
+	                         FROM TB_PRESCRIPTION 
+	                         JOIN TB_PRESCRIPTIONCHART USING (PRESCRIP_USER_CODE) 
+	                         WHERE CHART_NO = #{chartNo}
+	                         AND PRESCRIP_TYPE = '처치'),
+	         RADIATION = (SELECT SUM(PRESCRIP_INSUP * TOTAL_AD)
+	                         FROM TB_PRESCRIPTION 
+	                         JOIN TB_PRESCRIPTIONCHART USING (PRESCRIP_USER_CODE) 
+	                         WHERE CHART_NO = #{chartNo}
+	                         AND PRESCRIP_TYPE = '방사선')
+		WHERE CHART_NO=#{chartNo}
+	</update>
 </mapper>

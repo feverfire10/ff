@@ -44,5 +44,33 @@ public class JsController {
 		response.setContentType("application/json; charset=utf-8");
 		new Gson().toJson(betList, response.getWriter());
 	}
+	
+	@RequestMapping(value="sortpNo.js")
+	public void sortpNo(String startDay, String endDay, HttpServletResponse response) throws JsonIOException, IOException {
+		Js j = new Js();
+		j.setStartDay(startDay);
+		j.setEndDay(endDay);
+		ArrayList<Js> sortList = jService.sortpNo(j);
+		response.setContentType("application/json; charset=utf-8");
+		new Gson().toJson(sortList, response.getWriter());
+	}
+	@RequestMapping(value="sortpName.js")
+	public void sortpName(String startDay, String endDay, HttpServletResponse response) throws JsonIOException, IOException {
+		Js j = new Js();
+		j.setStartDay(startDay);
+		j.setEndDay(endDay);
+		ArrayList<Js> sortList = jService.sortpName(j);
+		response.setContentType("application/json; charset=utf-8");
+		new Gson().toJson(sortList, response.getWriter());
+	}
+	@RequestMapping(value="sortpPno.js")
+	public void sortpPno(String startDay, String endDay, HttpServletResponse response) throws JsonIOException, IOException {
+		Js j = new Js();
+		j.setStartDay(startDay);
+		j.setEndDay(endDay);
+		ArrayList<Js> sortList = jService.sortpPno(j);
+		response.setContentType("application/json; charset=utf-8");
+		new Gson().toJson(sortList, response.getWriter());
+	}
 
 }

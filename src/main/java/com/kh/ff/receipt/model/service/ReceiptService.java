@@ -18,4 +18,8 @@ public interface ReceiptService {
 	int insertReceipt(Receipt r);
 
 	ArrayList<BillForm> selectBillFormList(int num);
+	
+	int medicalCompleteSelectBillForm(int chartNo);
+	int medicalCompleteInsertBillForm(int chartNo);
+	int medicalCompleteUpdateBillForm(int chartNo);
 }

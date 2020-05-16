@@ -21,42 +21,36 @@ public class PrescriptionController {
 	@RequestMapping(value="selectPrescriptionAll.pr", produces="application/json")
 	public String selectPrescriptionAll() {
 		ArrayList<Prescription> pAllList = pService.selectPrescriptionAll();
-		
 		return new Gson().toJson(pAllList);
 	}
 	@ResponseBody
 	@RequestMapping(value="selectPrescriptionBase.pr", produces="application/json")
 	public String selectPrescriptionBase() {
 		ArrayList<Prescription> bList = pService.selectPrescriptionBase();
-		
 		return new Gson().toJson(bList);
 	}
 	@ResponseBody
 	@RequestMapping(value="selectPrescriptionMedi.pr", produces="application/json")
 	public String selectPrescriptionMedi() {
 		ArrayList<Prescription> mList = pService.selectPrescriptionMedi();
-		
 		return new Gson().toJson(mList);
 	}
 	@ResponseBody
 	@RequestMapping(value="selectPrescriptionHand.pr", produces="application/json")
 	public String selectPrescriptionHand() {
 		ArrayList<Prescription> hList = pService.selectPrescriptionHand();
-		
 		return new Gson().toJson(hList);
 	}
 	@ResponseBody
 	@RequestMapping(value="selectPrescriptionXray.pr", produces="application/json")
 	public String selectPrescriptionXray() {
 		ArrayList<Prescription> xList = pService.selectPrescriptionXray();
-		
 		return new Gson().toJson(xList);
 	}
 	@ResponseBody
 	@RequestMapping(value="selectPrescriptionCheckup.pr", produces="application/json")
 	public String selectPrescriptionCheckup() {
 		ArrayList<Prescription> cList = pService.selectPrescriptionCheckup();
-		
 		return new Gson().toJson(cList);
 	}
 	

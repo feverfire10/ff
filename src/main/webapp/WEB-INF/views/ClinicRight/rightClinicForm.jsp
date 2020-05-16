@@ -6,17 +6,17 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.min.js"></script>
-	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>
-	<link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" />
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<link rel="stylesheet" type="text/css"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" />
 	<link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/FullCalendar/vendor/css/fullcalendar.min.css" />
-	<link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/FullCalendar/vendor/css/bootstrap.min.css">
-	<link rel="stylesheet" href='${ pageContext.servletContext.contextPath }/resources/FullCalendar/vendor/css/select2.min.css' />
-	<link rel="stylesheet" href='${ pageContext.servletContext.contextPath }/resources/FullCalendar/vendor/css/bootstrap-datetimepicker.min.css' />
-	<link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/FullCalendar/css/main.css">
-	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,500,600">
-	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/FullCalendar/vendor/css/bootstrap.min.css">
+    <link rel="stylesheet" href='${ pageContext.servletContext.contextPath }/resources/FullCalendar/vendor/css/select2.min.css' />
+    <link rel="stylesheet" href='${ pageContext.servletContext.contextPath }/resources/FullCalendar/vendor/css/bootstrap-datetimepicker.min.css' />
+    <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/FullCalendar/css/main.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,500,600">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 <style>
 #wrapper {
 	width: 426px;
@@ -113,18 +113,12 @@ input[type="date"]::-webkit-outer-spin-button, input[type="date"]::-webkit-inner
 	border-left: 1px solid silver;
 }
 
-.tb_body1_tb{
+.tb_body1_tb, .tb_body2_tb {
 	width: 100%;
 	border-collapse: collapse;
 	white-space: nowrap;
 	text-align: center;
-}
-
-.tb_body2_tb{
-	width: 100%;
-	border-collapse: collapse;
-	white-space: nowrap;
-	text-align: center;
+	margin-top: 13px;
 }
 
 .tb_body2_tb>tbody>tr:first-child {
@@ -143,9 +137,8 @@ input[type="date"]::-webkit-outer-spin-button, input[type="date"]::-webkit-inner
 }
 
 .div_body1_div1 {
-	height: 394px;
-    overflow-y: scroll;
-    margin-top: 13px;
+	height: 438px;
+	overflow-y: scroll;
 }
 
 .tb_body1_tr:hover {
@@ -157,7 +150,6 @@ input[type="date"]::-webkit-outer-spin-button, input[type="date"]::-webkit-inner
 .div_checkbox{
 	margin-top: 15px;
 	margin-left: 15px;
-	margin-bottom: 15px;
 }
 
 .tb_body1_tr {
@@ -203,14 +195,6 @@ input[type="date"]::-webkit-outer-spin-button, input[type="date"]::-webkit-inner
 	margin-bottom: 5px;
 	background-color: rgb(1, 153, 220);
 	border: none;
-}
-
-.btn_vital{
-    margin-top: 3px;
-    margin-left: 0px;
-    margin-bottom: 0px;
-    background-color: rgb(1, 153, 220);
-    border: none;
 }
 
 .tb_header_td1 {
@@ -406,13 +390,12 @@ input[type="date"]::-webkit-outer-spin-button, input[type="date"]::-webkit-inner
 		});
 	});
 </script>
-</head> 
+</head>
 <body>
 	<!--가즈아 ~! -->
 	<div class="div_main" id="div_main">
 		<div class="div_header" id="div_header">
 			<table class="tb_header" id="tb_header">
-			<jsp:include page="/WEB-INF/views/common/sideBar.jsp"></jsp:include>
 				<tr>
 					<td class="tb_header_td1"><b>작업일자</b></td>
 					<td class="tb_header_td2"><input type="date" id="medicalDate"></td>
@@ -441,6 +424,7 @@ input[type="date"]::-webkit-outer-spin-button, input[type="date"]::-webkit-inner
 				<button class="btn btn-primary" id="btn_WaitTreatment">진료대기</button>
 				<button class="btn btn-primary" id="btn_medicalTreatment">진료보류</button>
 				<button class="btn btn-primary" id="btn_waitReserv">예약대기</button>
+				<button class="btn btn-primary" id="btn_vital">바이탈</button>
 				<div class="div_body1_div1">
 				<table class="tb_body1_tb" id="tb_body1_tb">
 					<tr style="line-height: 43px;">
@@ -477,7 +461,6 @@ input[type="date"]::-webkit-outer-spin-button, input[type="date"]::-webkit-inner
 				  <input id="cbYak" type="checkbox" checked="checked">
 				  <span class="checkmark"></span>
 				</label>
-				<button class="btn btn-primary btn_vital" id="btn_vital">바이탈</button>
 				</div>
 			<div class="div_body2_div2">
 				<table class="tb_body2_tb" id="tb_body2_tb">
@@ -494,7 +477,6 @@ input[type="date"]::-webkit-outer-spin-button, input[type="date"]::-webkit-inner
 						<th>응급</th>
 					</tr>
 				</table>
-				<div class="div_Chart" style="display : none;"><canvas id="myChart" width="1270" height="280"></canvas></div>
 			</div>
 		</div>
 		<div class="div_body3" id="div_body3">
@@ -507,47 +489,44 @@ input[type="date"]::-webkit-outer-spin-button, input[type="date"]::-webkit-inner
 	        	$("input:checkbox[id='cbSb']").prop("checked", true);
 	        	$("input:checkbox[id='cbJs']").prop("checked", true);
 	        	$("input:checkbox[id='cbYak']").prop("checked", true);
-	        	$(".diseaseHistory").css('visibility','visible');
-				$(".PrescriptionHistory").css('visibility','visible');
-				$("#body3_txt").css('visibility','visible');
-	        }else{
-	        	$("input:checkbox[id='cbSb']").prop("checked", false);
-	        	$("input:checkbox[id='cbJs']").prop("checked", false);
-	        	$("input:checkbox[id='cbYak']").prop("checked", false);
-	        	$(".diseaseHistory").css('visibility','collapse');
-				$(".PrescriptionHistory").css('visibility','collapse');
-				$("#body3_txt").css('visibility','collapse');
+	        	$("input:checkbox[id='cbPt']").prop("checked", true);
+	        	$("input:checkbox[id='cbXray']").prop("checked", true);
 	        }
 	    });
 	
 		$("#cbSb").change(function(){
 			if($("#cbSb").is(":checked")){
-				$(".diseaseHistory").css('visibility','visible');
 			}else{
-				$(".diseaseHistory").css('visibility','collapse');
 				$("input:checkbox[id='cbAll']").prop("checked", false);
 			}
 		});
 		$("#cbJs").change(function(){
 			if($("#cbJs").is(":checked")){
-				$(".PrescriptionHistory").css('visibility','visible');
 			}else{
-				$(".PrescriptionHistory").css('visibility','collapse');
 				$("input:checkbox[id='cbAll']").prop("checked", false);
 			}
 		});
 		$("#cbYak").change(function(){
 			if($("#cbYak").is(":checked")){
-				$("#body3_txt").css('visibility','visible');
 			}else{
-				$("#body3_txt").css('visibility','collapse');
+				$("input:checkbox[id='cbAll']").prop("checked", false);
+			}
+		});
+		$("#cbPt").change(function(){
+			if($("#cbPt").is(":checked")){
+			}else{
+				$("input:checkbox[id='cbAll']").prop("checked", false);
+			}
+		});
+		$("#cbXray").change(function(){
+			if($("#cbXray").is(":checked")){
+			}else{
 				$("input:checkbox[id='cbAll']").prop("checked", false);
 			}
 		});
 		
 		$(function() {
 			$("#btn_WaitTreatment").click(function(){
-				$(".div_Chart").css("display","none");
 				var clickChartNum ="";
 				var clickPatientsName ="";
 				var clickPatientsPno ="";
@@ -556,124 +535,30 @@ input[type="date"]::-webkit-outer-spin-button, input[type="date"]::-webkit-inner
 		});
 		$(function() {
 			$("#btn_medicalTreatment").click(function(){
-				$(".div_Chart").css("display","none");
 				goajax1(1);
 			});
 		});
 		$(function() {
 			$("#btn_waitReserv").click(function(){
-				$(".div_Chart").css("display","none");
 				goajax1(2);
 			});
 		});
 		$(function() {
 			$("#btn_vital").click(function(){
-				govital();
+				goajax1(3);
 			});
 		});
-		
-		function govital(){
-			if(clickPatientsName == ""){
-				return;
-			}
-			$.ajax({
-				url : "vitalChart.rc",
-				data : {
-					clickPatientsName : clickPatientsName,
-					clickPatientsPno : clickPatientsPno
-				},
-				type : "get",
-				success : function(list) {
-						console.log(list);
-
-					var dd = '';
-					var ctx = document.getElementById('myChart');
-					var myChart = new Chart(ctx, {
-						type: 'line',
-						data: {
-							labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-							datasets: [
-								{
-									label: '체온',	data: [12, 19, 3, 5, 2, 3],borderWidth: 1,
-									backgroundColor: ['rgba(220, 1, 1, 0.2)'],borderColor: ['rgba(255, 99, 132, 1)'],
-									pointRadius: 5, pointHoverRadius: 5, fill : 'start'
-								},
-								{
-									label: '몸무게',	data: [12, 19, 3, 5, 2, 3],borderWidth: 1,
-									backgroundColor: ['rgba(220, 209, 1, 0.2)'],borderColor: ['rgba(255, 99, 132, 1)'],
-									pointRadius: 5, pointHoverRadius: 5, fill : 0
-								},
-								{
-									label: '식전혈당',	data: [12, 19, 3, 5, 2, 3],borderWidth: 1,
-									backgroundColor: ['rgba(23, 220, 1, 0.2)'],borderColor: ['rgba(255, 99, 132, 1)'],
-									pointRadius: 5, pointHoverRadius: 5, fill : 1
-								},
-								{
-									label: '식후혈당',	data: [12, 19, 3, 5, 2, 3],borderWidth: 1,
-									backgroundColor: ['rgba(1, 220, 187, 0.2)'],borderColor: ['rgba(255, 99, 132, 1)'],
-									pointRadius: 5, pointHoverRadius: 5, fill : 2
-								},
-								{
-									label: '최저혈압',	data: [12, 19, 3, 5, 2, 3],borderWidth: 1,
-									backgroundColor: ['rgba(0, 76, 255, 0.2)'],borderColor: ['rgba(255, 99, 132, 1)'],
-									pointRadius: 5, pointHoverRadius: 5, fill : 3
-								},
-								{
-									label: '최고혈압',	data: [12, 19, 3, 5, 2, 3],borderWidth: 1,
-									backgroundColor: ['rgba(166, 0, 255, 0.2)'],borderColor: ['rgba(255, 99, 132, 1)'],
-									pointRadius: 5, pointHoverRadius: 5, fill : 4
-								}
-							]
-						},
-						options: {
-							responsive: false,
-							scales: {
-								yAxes: [{
-									ticks: {
-										beginAtZero: true
-									}
-								}]
-							}
-						}
-					});
-					$("#tb_body2_tb tbody").empty();
-					$(".div_Chart").css("display","block");
-					
-					$.each(list, function(i, obj) { // list[i] == obj
-						myChart.data.labels[i] = obj.receiptDate;
-						myChart.data.datasets[0].data[i] = obj.fever;
-						myChart.data.datasets[1].data[i] = obj.weight;
-						myChart.data.datasets[2].data[i] = obj.beforeBs;
-						myChart.data.datasets[3].data[i] = obj.afterBs;
-						myChart.data.datasets[4].data[i] = obj.minBp;
-						myChart.data.datasets[5].data[i] = obj.maxBp;
-						
-					});
-					
-					myChart.update();
-				},
-				error : function(request, status, error) {
-					alert("code = " + request.status + " message = "
-							+ request.responseText + " error = " + error); // 실패 시 처리
-				}
-			});
-			
-		
-			
-
-		}
 		
 		function goajax1(clinicState){	
 			$.ajax({
 				url : "selPatients.rc",
-				data : { 
+				data : {
 					receiptDate : $("#medicalDate").val(),
 					clinicState : clinicState
 					
 				},
 				type : "get",
 				success : function(list) {
-					console.log(list);
 					$('#calendar').fullCalendar('removeEvents'); //원래있던 이벤트 싹다 지워줌
 				    view = calendar.fullCalendar('getView');
 				    view.unrenderDates();
@@ -759,7 +644,6 @@ input[type="date"]::-webkit-outer-spin-button, input[type="date"]::-webkit-inner
 		if(clickPatientsName == ""){
 			return;
 		}
-		$(".div_Chart").css("display","none");
 		$("#tb_body2_tb tbody").empty();
 		$.ajax({
 			url : "DiseaseHistory.rc",
@@ -785,7 +669,7 @@ input[type="date"]::-webkit-outer-spin-button, input[type="date"]::-webkit-inner
 			//console.log(list);
 				$.each(list, function(i, obj) { // list[i] == obj
 					
-					value += "<tr class='tb_body2_tr diseaseHistory'>"
+					value += "<tr class='tb_body2_tr'>"
 							+ "<td>" + obj.diseaseCode + "</td>"
 							+ "<td>" + obj.diseaseKname + "</td>"
 							+ "<td>" + "" + "</td>"
@@ -817,7 +701,7 @@ input[type="date"]::-webkit-outer-spin-button, input[type="date"]::-webkit-inner
 			var	value = "";
 			//console.log(list);
 				$.each(list, function(i, obj) { // list[i] == obj
-				value += "<tr class='tb_body2_tr PrescriptionHistory'>"
+				value += "<tr class='tb_body2_tr'>"
 							+ "<td>" + obj.prescripUserCode + "</td>"
 							+ "<td>" + obj.prescripName + "</td>"
 							+ "<td>" + obj.totalAd + "</td>"
