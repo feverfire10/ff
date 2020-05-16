@@ -13,6 +13,7 @@ public interface UserService {
 	
 	// 신규유저가입 서비스
 	int insertUser(User u);
+	int insertPower(Power p);
 	
 	// 유저 업데이트 서비스
 	int updateUser(User u);
@@ -21,7 +22,7 @@ public interface UserService {
 	int updatePower(Power p);
 	
 	// 유저 삭제 서비스
-	int deleteUser(User u);
+	int deleteUser(String userCode);
 	
 	// 유저코드 중복체크용 서비스
 	int idCheck(String userCode);
@@ -31,5 +32,9 @@ public interface UserService {
 	int userListCount();
 	// 현재요청한 페이지에 보여져야할 리스트 조회용 서비스
 	ArrayList<User> selectUserList(PageInfo pi);
+
+	User selectUser(String userCode);
+
+	Power selectPower(String userCode);
 
 }
