@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="supportMapper">
+
+	<resultMap type="Support" id="supportResultSet">
+		<id property="chartNo" column="chart_no"/>
+		<result property="receiptDate" column="receipt_date"/>
+		<result property="patientsName" column="patients_name"/>
+		<result property="patientsPrivateNo" column="patients_pno"/>
+		<result property="insurance" column="insurance"/>
+		<result property="prescripType" column="prescrip_type"/>
+		<result property="prescripUserCode" column="prescrip_user_code"/>
+		<result property="prescripName" column="prescrip_name"/>
+		<result property="numTimes" column="num_times"/>
+		<result property="nightTime" column="nighttime"/>
+		<result property="emergency" column="emergency"/>
+		<result property="mo" column="mo"/>
+		<result property="clincState" column="clinic_state"/>
+	</resultMap>
+	
+	<select id="supportSelectList" parameterType="hashmap"  resultMap="supportResultSet">
+		SELECT *
+		FROM TB_PATIENTS PT
+		JOIN TB_JS JS USING(PATIENTS_NO)
+		JOIN tb_prescriptionchart PSC USING(chart_no)
+		JOIN tb_prescription PS USING(PRESCRIP_USER_CODE)
+		WHERE RECEIPT_DATE=to_char(SYSDATE,'yyyy-mm-dd') AND PRESCRIP_TYPE='방사선' AND CLINIC_STATE='1';
+	</select>
+	
+	
+
+</mapper>

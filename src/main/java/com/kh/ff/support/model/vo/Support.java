@@ -12,7 +12,7 @@ import lombok.ToString;
 @AllArgsConstructor
 @ToString
 public class Support {
-	private int chartNo;					// 차트번호
+	private int chartNo;				// 차트번호
 	private String receiptDate;			// 내원날짜
 	private String patientsName;		// 환자명
 	private String patientsPrivateNo;	// 주민번호
@@ -24,5 +24,5 @@ public class Support {
 	private String nightTime;			// 야간
 	private String emergency;			// 응급
 	private String mo;					// 담당의
-	private int clinicState;				// 진료상태
+	private int clinicState;			// 진료상태
 }

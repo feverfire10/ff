@@ -35,9 +35,9 @@
 					
 					<c:forEach items="${ list }" var="u">
 						<tr>
-							<td>${ u.userNo }</td>
 							<td>${ u.userCode }</td>
 							<td>${ u.userName }</td>
+							<td>${ u.userNo }</td>
 							<td>${ u.userLicense }</td>
 							<td>${ u.userDepartment }</td>
 							<td>${ u.userDoctor }</td>

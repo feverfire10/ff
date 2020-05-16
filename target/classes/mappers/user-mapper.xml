@@ -18,9 +18,16 @@
 		<result property="userExpirationDate" column="user_edate"/>
 		<result property="userStatus" column="user_status"/>
 		<result property="powerMaster" column="power_master"/>
+		<result property="powerReceipt" column="power_receipt"/>
+		<result property="powerClinic" column="power_clinic"/>
+		<result property="powerList" column="power_list"/>
+		<result property="powerSub" column="power_sub"/>
+		<result property="powerResult" column="power_result"/>
+		<result property="powerSheet" column="power_sheet"/>
+		<result property="powerMessage" column="power_message"/>
 	</resultMap>
 	
-	<resultMap type="Power" id="powerResultSet">
+	 	<resultMap type="Power" id="powerResultSet">
 		<id property="userCode" column="user_code"/>
 		<result property="powerMaster" column="power_master"/>
 		<result property="powerReceipt" column="power_receipt"/>
@@ -33,21 +40,28 @@
 	</resultMap>
 	
 	<select id="loginUser" parameterType="User" resultMap="userResultSet">
-		select user_code, user_password, power_master from tb_user join tb_power using(user_code)
+		select user_code, user_password, power_master, power_receipt, power_clinic, power_sub
+		from tb_user 
+		join tb_power using(user_code)
 		where user_code=#{userCode} and user_password=#{userPassword} and user_status='Y'
 	</select>
 	
 	<insert id="insertUser" parameterType="User">
 		insert into tb_user
-		values(seq_user_no.nextval, #{userPassWord}, #{userName}, #{userDepartment}, #{userNo}, #{userLicense},
-			   #{userSocialNo}, #{userEmail}, #{userDoctor}, default, #{userExpirationDate}, default)
+		values(#{userCode}, #{userPassword}, #{userName}, #{userDepartment}, seq_user_no.nextval, #{userLicense},
+			   #{userSocialNo}, #{userEmail}, #{userDoctor}, to_char(sysdate,'YYYY-mm-dd'), to_char(sysdate+(interval '30' year),'yyyy-mm-dd'), default)
+	</insert>
+	
+	<insert id="insertPower" parameterType="Power">
+		insert into tb_power
+		values(#{userCode}, nvl(#{powerMaster},'N'), nvl(#{powerReceipt},'N'), nvl(#{powerClinic},'N'), nvl(#{powerList},'N'), nvl(#{powerSub},'N'), 
+		       nvl(#{powerResult},'N'), nvl(#{powerSheet},'N'), nvl(#{powerMessage},'N'))
 	</insert>
 	
 	<update id="updateUser" parameterType="User">
 		update tb_user
-		set user_password=#{userPassWord}, user_name=#{userName}, user_department= #{userDepartment},
-		    user_license=#{userLicense}, uuser_sno=#{userSocialNo}, user_email=#{userEmail},
-		    user_doctor=#{userDoctor}, user_adate=sysdate, user_edate=#{userExpirationDate}
+		set user_password=#{userPassword}, user_name=#{userName}, user_department= #{userDepartment},
+		    user_license=#{userLicense}, user_email=#{userEmail}, user_doctor=#{userDoctor}
 		where user_code=#{userCode}
 	</update>
 	
@@ -80,8 +94,21 @@
 	<select id="selectUserList" resultMap="userResultSet">
 		select *
 		from tb_user
+		join tb_power using(user_code)
 		where user_status='Y'
 		order by user_no asc
 	</select>
 
+	<select id="selectUser" resultMap="userResultSet">
+		select *
+		from tb_user
+		join tb_power using(user_code)
+		where user_code=#{userCode};
+	</select>
+	
+	<select id="selectPower" resultMap="powerResultSet">
+		select *
+		form tb_power
+		where user_code=#{userCode}
+	</select>
 </mapper>
