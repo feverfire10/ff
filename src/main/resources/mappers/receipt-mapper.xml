@@ -83,7 +83,7 @@
 	</update>
 	
 	<update id="updateChainNote" parameterType="Receipt">
-		UPDATE TB_PATIENTS SET CHAIN_NOTE = (CHAIN_NOTE || CHR(10) || #{memo}) WHERE PATIENTS_NO = (SELECT PATIENTS_NO FROM TB_BILL_FORM WHERE BILL_FORM_NO = #{billFormNo});
+		UPDATE TB_PATIENTS SET CHAIN_NOTE = (CHAIN_NOTE || CHR(10) || #{memo}) WHERE PATIENTS_NO = (SELECT PATIENTS_NO FROM TB_BILL_FORM WHERE BILL_FORM_NO = #{billFormNo})
 	</update>
 	
 	<select id="selectBillFormList" parameterType="_int" resultMap="billFormResultSet">
@@ -97,7 +97,7 @@
 		                     WHERE CLINIC_STATE = #{num})
 	</select>
 	
-	<select id="selectClinicState" parameterType="_int">
+	<select id="selectClinicState" parameterType="_int" resultType="_int">
 		SELECT CLINIC_STATE FROM TB_JS WHERE CHART_NO = #{chartNo}
 	</select>
 	

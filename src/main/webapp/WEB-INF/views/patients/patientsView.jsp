@@ -415,7 +415,7 @@
             <!-- 환자 접수 -->
             <div class="join">
                 <div class="join-info">
-                    <form name="join-form" method="POST">
+                    <form name="join-form" method="POST" onsubmit="return false">
                     <div class="title">
                         &nbsp;&nbsp;&nbsp;환자 접수
                     </div>
@@ -438,7 +438,6 @@
                         <th>보험유형</th>
                         <td>
                             <select id="insurance" name="insurance">
-                                <option value="선택" selected="selected">선택</option>
                                 <option value="일반">일반</option>
                                 <option value="건강보험">건강보험</option>
                                 <option value="자동차보험">자동차보험</option>
@@ -474,7 +473,6 @@
                         <th>진료실</th>
                         <td>
                             <select name="Do" id="Do">
-                                <option value="진료실 선택" selected="selected">진료실 선택</option>
                                 <option value="진료실1">진료실1</option>
                                 <option value="진료실2">진료실2</option>
                             </select>
@@ -484,7 +482,6 @@
                         <th>담당의사</th>
                         <td>
                             <select name="mo" id="mo">
-                                <option value="담당의 선택" selected="selected">담당의 선택</option>
                                 <option value="홍길동">홍길동</option>
                                 <option value="임꺽정">임꺽정</option>
                             </select>
@@ -494,7 +491,6 @@
                         <th>초/재진</th>
                         <td>
                             <select name="adhd" id="adhd">
-                                <option value="초/재진 선택" selected="selected">초/재진 선택</option>
                                 <option value="초진">초진</option>
                                 <option value="재진">재진</option>
                             </select>
@@ -530,7 +526,7 @@
                     </tr>
                   </table>
                         <div class="btn-join">
-                            <button type="button" class="btnjoin" id="insertBtn">접수</button>
+                            <button type="submit" class="btnjoin" id="insertBtn">접수</button>
                         </div>
                     </form>
                 </div>
@@ -715,7 +711,7 @@
                   </div>
                       <div class="btn-box">            
                         <button class="btn-form" onclick="selectBillForm();">수납</button>
-                        <button class="btn-form">삭제</button>
+                        <button class="btn-form" onclick="updateBillForm();">삭제</button>
                       </div>
 
         </div>
@@ -759,7 +755,7 @@
         
         
 	
-        $("#insertBtn").click(function(){
+        $("#insertBtn").submit(function(){
         	$.ajax({
         		url:"insert.p",
         		data:{patientsName:$("#patientsName").val(),
@@ -1087,11 +1083,11 @@
         							"<td>" + obj.adhd + "</td>" + 
         							"<td>정형외과</td>" + 
         							"<td>" + obj.chartNo + "</td>" + 
-        							"<td>" + obj.mo + "</td>" + 
-        							"<td>" + (obj.dose + obj.checkup + obj.operation + obj.radiation) + "</td>"; 
+        							"<td>" + obj.mo + "</td>"; 
         				if(tap == "receiptWait"){
-        					value += "<td>" + "</td>" + 
-        							 "<td>" + "</td>" + 
+        					value += "<td>" + (obj.dose + obj.checkup + obj.operation + obj.radiation) + "</td>" + 
+        							 "<td>" + "</td>" +
+        							 "<td>" + "</td>" +
         							 "<td>" + "</td>" + 
         							 "<td>" + "</td>" +
 									 "<td>" + "</td>" + 
@@ -1099,7 +1095,9 @@
 									 "</tr>";
         				} else {
        						 value += "<td>" + "</td>" + 
-							 		  "<td>" + "</td>" + 
+       							 	  "<td>" + "현금자리" + "</td>" + 
+							 		  "<td>" + "카드자리" + "</td>" +
+							 		  "<td>" + "</td>" +
        							      "</tr>";
         				}
         				indexNo += 1;
@@ -1110,6 +1108,20 @@
         		}
         	});
         	
+        }
+        
+        function updateBillForm(){
+        	console.log(cnoReceipt);
+        	$.ajax({
+        		url:"updateBillForm.bf",
+        		type:"POST",
+        		data:{chartNo:cnoReceipt},
+        		success:function(msg){
+        			alertify.alert(msg);
+        		},error:function(){
+        			console.log("ajax 실패함");
+        		}
+        	});
         }
         
     </script>
