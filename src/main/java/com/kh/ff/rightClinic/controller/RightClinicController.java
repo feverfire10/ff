@@ -29,6 +29,7 @@ import com.kh.ff.rightClinic.model.vo.DiseaseRc;
 import com.kh.ff.rightClinic.model.vo.PatientJs;
 import com.kh.ff.rightClinic.model.vo.PrescriptionRc;
 import com.kh.ff.rightClinic.model.vo.SymptomRc;
+import com.kh.ff.vital.model.vo.Vital;
 
 @Controller
 public class RightClinicController {
@@ -113,6 +114,14 @@ public class RightClinicController {
 		System.out.println(clickPatientsName);
 		System.out.println(clickPatientsPno);
 		ArrayList<PrescriptionRc> list = rcService.selPrescriptionHistory(clickDate, clickPatientsName, clickPatientsPno);
+
+		return new Gson().toJson(list);
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "vitalChart.rc", produces="application/json; charset=utf-8")
+	public String selVitalChartList(String clickPatientsName, String clickPatientsPno) {
+		ArrayList<Vital> list = rcService.selVitalChartList(clickPatientsName, clickPatientsPno);
 
 		return new Gson().toJson(list);
 	}

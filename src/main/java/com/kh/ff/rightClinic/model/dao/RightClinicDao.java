@@ -11,6 +11,7 @@ import com.kh.ff.rightClinic.model.vo.DiseaseRc;
 import com.kh.ff.rightClinic.model.vo.PatientJs;
 import com.kh.ff.rightClinic.model.vo.PrescriptionRc;
 import com.kh.ff.rightClinic.model.vo.SymptomRc;
+import com.kh.ff.vital.model.vo.Vital;
 
 @Repository("rcDao")
 public class RightClinicDao {
@@ -61,5 +62,13 @@ public class RightClinicDao {
 		params.put("clickPatientsPno", clickPatientsPno);
 
 		return (ArrayList) sqlSession.selectList("rightClinicMapper.selSymptomHistory", params);
+	}
+	
+	public ArrayList<Vital> selVitalChartList(SqlSessionTemplate sqlSession, String clickPatientsName, String clickPatientsPno){
+		HashMap<String, String> params = new HashMap<String, String>();
+		params.put("clickPatientsName", clickPatientsName);
+		params.put("clickPatientsPno", clickPatientsPno);
+
+		return (ArrayList) sqlSession.selectList("rightClinicMapper.selectVitalList", params);
 	}
 }

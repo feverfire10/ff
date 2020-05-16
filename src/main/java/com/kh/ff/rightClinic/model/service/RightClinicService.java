@@ -6,6 +6,7 @@ import com.kh.ff.rightClinic.model.vo.DiseaseRc;
 import com.kh.ff.rightClinic.model.vo.PatientJs;
 import com.kh.ff.rightClinic.model.vo.PrescriptionRc;
 import com.kh.ff.rightClinic.model.vo.SymptomRc;
+import com.kh.ff.vital.model.vo.Vital;
 
 public interface RightClinicService {
 	
@@ -18,6 +19,8 @@ public interface RightClinicService {
 	ArrayList<SymptomRc> selSymptomHistory(String clickDate, String clickPatientsName, String clickPatientsPno);
 	
 	ArrayList<PrescriptionRc> selPrescriptionHistory(String clickDate, String clickPatientsName, String clickPatientsPno);
+	
+	ArrayList<Vital> selVitalChartList(String clickPatientsName, String clickPatientsPno);
 }
 
 

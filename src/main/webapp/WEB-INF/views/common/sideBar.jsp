@@ -33,7 +33,7 @@
    .sideBtn {
        width: 70px;
        height: 40px;
-       background: aquamarine;
+       background: rgb(1, 153, 220);
        border-radius: 10px;
        border: 0;
        outline: none;
