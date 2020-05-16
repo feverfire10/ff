@@ -60,8 +60,8 @@ public class UserServiceImpl implements UserService{
 	 * 유저 삭제 서비스
 	 */
 	@Override
-	public int deleteUser(User u) {
-		return uDao.deleteUser(sqlSession, u);
+	public int deleteUser(String userCode) {
+		return uDao.deleteUser(sqlSession, userCode);
 	}
 
 	/**

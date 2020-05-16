@@ -69,18 +69,42 @@ div img:hover{
 			</a>
 		</c:if>
 		<br><br><br>
-		<div class="first" id="first">
+		<c:if test="${ userLogin.powerReceipt eq 'Y' }">
+			<div class="first" id="first">
 			<p><img src="resources/images/logo33.png" style="width:300px;height:300px;margin-top:100px;margin-right:25px;"></p>
 			<h1>원무</h1>
 		</div>
-		<div class="second" id="second">
+		</c:if>
+		<c:if test="${ userLogin.powerReceipt eq 'N' }">
+			<div class="first" id="noFirst">
+			<p><img src="resources/images/logo33.png" style="width:300px;height:300px;margin-top:100px;margin-right:25px;"></p>
+			<h1>원무</h1>
+		</div>
+		</c:if>
+		<c:if test="${ userLogin.powerClinic eq 'Y' }">
+			<div class="second" id="second">
 			<p><img src="resources/images/logo33.png" style="width:300px;height:300px;margin-top:100px;margin-right:25px;"></p>
 			<h1>진료</h1>
 		</div>
-		<div class="third" id="third">
+		</c:if>
+		<c:if test="${ userLogin.powerClinic eq 'N' }">
+			<div class="second" id="noSecond">
+			<p><img src="resources/images/logo33.png" style="width:300px;height:300px;margin-top:100px;margin-right:25px;"></p>
+			<h1>진료</h1>
+		</div>
+		</c:if>
+		<c:if test="${ userLogin.powerSub eq 'Y' }">
+			<div class="third" id="third">
 			<p><img src="resources/images/logo33.png" style="width:300px;height:300px;margin-top:100px;margin-right:25px;"></p>
 			<h1>지원</h1>
 		</div>
+		</c:if>
+		<c:if test="${ userLogin.powerSub eq 'N' }">
+			<div class="third" id="noThird">
+			<p><img src="resources/images/logo33.png" style="width:300px;height:300px;margin-top:100px;margin-right:25px;"></p>
+			<h1>지원</h1>
+		</div>
+		</c:if>
 	</div>
 	
 	<script>
@@ -94,6 +118,18 @@ div img:hover{
 		
 		$("#third").click(function(){
 			location.href = "supportMain.me";
+		});
+		
+		$("#noFirst").click(function(){
+			window.alert("권한이 없습니다!!");
+		});
+		
+		$("#noSecond").click(function(){
+			window.alert("권한이 없습니다!!");
+		});
+		
+		$("#noThird").click(function(){
+			window.alert("권한이 없습니다!!");
 		});
 	</script>
 </body>

@@ -22,7 +22,7 @@ public interface UserService {
 	int updatePower(Power p);
 	
 	// 유저 삭제 서비스
-	int deleteUser(User u);
+	int deleteUser(String userCode);
 	
 	// 유저코드 중복체크용 서비스
 	int idCheck(String userCode);

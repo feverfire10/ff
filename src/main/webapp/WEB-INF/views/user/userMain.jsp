@@ -163,6 +163,7 @@
 #userList td{
 	text-align:center;
 }
+#reset :hover{cursor:pointer;}
 </style>
 </head>
 <body>
@@ -189,7 +190,7 @@
    </div>
 	<div class="userOuter">
 		<fieldset>
-			<legend><h2>사용자 정보</h2></legend>
+			<legend><h2 id="reset">사용자 정보</h2></legend>
 				<form id="enrollForm" action="userInsert.me" method="post">
 					<div class="userLeft">
 							<table id="selectUser">
@@ -238,7 +239,7 @@
 							<div style="margin-top: 30px;">
 								<button type="submit" id="btns" class="newUser">신규등록</button>
 								<button type="button" id="btns" class="updateUser">사용자수정</button>
-								<button type="button" id="btns" class="deleteUser">사용자삭제</button>
+								<button type="button" id="btns" class="deleteUser" onclick="removeCheck()">사용자삭제</button>
 							</div>
 						</div>
 						<div class="userRight">
@@ -359,11 +360,21 @@
 	
 		</div>
 		<script>
+		var aaaa="";
+			$("#reset").click(function(){
+				location.href = "userList.me";
+			});
+			
+			$(".deleteUser").click(function(){
+				location.href="userDelete.me?aaaa="+aaaa;
+			});
+			
 			$(function(){
+				
 				$("#userList tbody tr").click(function(){
 					var str ="";
 					var tdArr= new Array();
-					
+					1
 					var tr=$(this);
 					var td=tr.children();
 					
@@ -374,8 +385,10 @@
 					})
 					
 					console.log(tdArr);
-					
+					console.log(aaaa);
 					var userCode = td.eq(0).text();
+					aaaa = userCode;
+					console.log(aaaa);
 					var userName = td.eq(1).text();
 					var userNo = td.eq(2).text();
 					var userLicense = td.eq(3).text();
@@ -404,7 +417,7 @@
 					$("#userDoctor").val(userDoctor);
 					$("#userApplicationDate").val(userApplicationDate);
 					$("#userExpirationDate").val(userExpirationDate);
-					$("#userSocialNo").val(userSocialNo);
+					$("#userSocialNo").val(userSocialNo).attr('readonly',true);
 					$("#userPassword").val(userPassword);
 					$("#userEmail").val(userEmail);
 					if(powerMaster =="Y"){

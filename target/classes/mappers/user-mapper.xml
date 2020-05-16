@@ -40,7 +40,9 @@
 	</resultMap>
 	
 	<select id="loginUser" parameterType="User" resultMap="userResultSet">
-		select user_code, user_password, power_master from tb_user join tb_power using(user_code)
+		select user_code, user_password, power_master, power_receipt, power_clinic, power_sub
+		from tb_user 
+		join tb_power using(user_code)
 		where user_code=#{userCode} and user_password=#{userPassword} and user_status='Y'
 	</select>
 	
@@ -59,8 +61,7 @@
 	<update id="updateUser" parameterType="User">
 		update tb_user
 		set user_password=#{userPassword}, user_name=#{userName}, user_department= #{userDepartment},
-		    user_license=#{userLicense}, uuser_sno=#{userSocialNo}, user_email=#{userEmail},
-		    user_doctor=#{userDoctor}, user_adate=sysdate, user_edate=#{userExpirationDate}
+		    user_license=#{userLicense}, user_email=#{userEmail}, user_doctor=#{userDoctor}
 		where user_code=#{userCode}
 	</update>
 	

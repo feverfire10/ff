@@ -1,6 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<% request.setCharacterEncoding("utf-8"); %>
+
+<% response.setContentType("text/html; charset=utf-8"); %>
+
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -312,6 +321,22 @@ p{
 	    			}
 				});
 			});
+		});
+		
+		$("#supportListOne tbody tr").click(function(){
+			var str="";
+			var tdArr=new Array();
+			
+			var tr=$(this);
+			var td=tr.children();
+			
+			console.log(tr.text());
+			
+			td.each(function(i){
+				tdArr.push(td.eq(i).text());
+			})
+			
+			console.log(tdArr);
 		});
 	</script>
 </body>

@@ -17,11 +17,6 @@ public class SupportServiceImpl implements SupportService{
 	@Autowired
 	private SupportDao supDao;
 	
-	@Override
-	public Support supportSelectPatient(int chartNo) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	@Override
 	public ArrayList<Support> supportSelectList(String receiptDate,String prescripType, String clinicState) {

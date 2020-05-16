@@ -33,8 +33,8 @@ public class UserDao {
 		return sqlSession.update("userMapper.updatePower", p);
 	}
 	
-	public int deleteUser(SqlSessionTemplate sqlSession, User u) {
-		return sqlSession.update("userMapper.deleteUser", u);
+	public int deleteUser(SqlSessionTemplate sqlSession, String userCode) {
+		return sqlSession.update("userMapper.deleteUser", userCode);
 	}
 	
 	public int idCheck(SqlSessionTemplate sqlSession, String userCode) {

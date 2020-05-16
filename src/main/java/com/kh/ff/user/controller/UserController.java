@@ -61,13 +61,14 @@ public class UserController {
 	}
 	
 	@RequestMapping("userUpdate.me")
-	public String updateUser(User u, Model model, HttpSession session) {
-		int result = uService.updateUser(u);
+	public String updateUser(User u,Power p, Model model, HttpSession session) {
+		int result1 = uService.updateUser(u);
+		int result2 = uService.updatePower(p);
 		
-		if(result > 0) {
+		if(result1 > 0 && result2 > 0) {
 			session.setAttribute("userLogin", uService.userLogin(u));
 			session.setAttribute("msg", "사용자정보를 수정했습니다.");
-			return "redirect:userMain.me";
+			return "redirect:userList.me";
 		}else {
 			model.addAttribute("msg", "사용자정보 수정 실패");
 			return "common/errorPage";
@@ -89,13 +90,13 @@ public class UserController {
 	}
 	
 	@RequestMapping("userDelete.me")
-	public String deleteUser(User u, HttpSession session, Model model) {
-		int result = uService.deleteUser(u);
+	public String deleteUser(String aaaa, HttpSession session, Model model) {
+		String userCode = aaaa;
+		System.out.println(aaaa);
+		int result = uService.deleteUser(userCode);
 		
 		if(result > 0) {
-			session.setAttribute("userLogin", uService.userLogin(u));
-			session.setAttribute("msg", "사용자를 탈퇴 시켰습니다.");
-			return "redirect:userMain.me";
+			return "redirect:userList.me";
 		}else {
 			model.addAttribute("msg", "사용자 탈퇴 실패");
 			return "common/errorPage";
