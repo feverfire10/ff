@@ -162,6 +162,7 @@
 	outline:none;
 	float:right;
 }
+/*  */
 .searchUser2:hover{cursor:pointer;}
 #pagingArea{width:fit-content;margin:auto;}
 #userList{border-collapse: collapse;}
