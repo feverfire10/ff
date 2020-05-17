@@ -22,11 +22,3 @@ public interface RightClinicService {
 	
 	ArrayList<Vital> selVitalChartList(String clickPatientsName, String clickPatientsPno);
 }
-
-
-
-
-
-
-
-

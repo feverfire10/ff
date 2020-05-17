@@ -431,8 +431,10 @@
             <div class="discount">
                 <fieldset>
                     <legend>할인설정</legend>
-                    <br><br>
-                    <label>금액</label> <input type="number" id="discount2" name="discount2" value="">
+                    <br>
+                    <label>할인할 금액</label> <input type="number" id="discount2" name="discount2" value="">
+                    <br>
+                    <label>&nbsp;&nbsp; 현금 금액</label> <input type="number" id="cash" name="cash" value="">
                 </fieldset>
             </div>
             <div class="memos">
@@ -446,7 +448,7 @@
                 </dl>
             </div>
             <div class="btnDivs">
-                <div class="quarter upside"><button class="btn btn-primary" id="charge">수납</button></div>
+                <div class="quarter upside"><button class="btn btn-primary" onclick="testCharge();" id="charge">수납</button></div>
                 <div class="quarter upside"><button class="btn btn-primary" id="cancel">취소</button></div>
                 <div class="quarter downside"></div>
                 <div class="quarter downside"></div>
@@ -475,27 +477,42 @@
         // 하나 입력 시 동시입력
         $("#discount2").keydown(function(){
         	$("#discount1").val($(this).val());
-        	$("#total2").val(bonin - $(this).val());
         	$("#card").val(bonin - $(this).val());
         });
         // 마지막에 입력 시 입력되게 함
         $("#discount2").change(function(){
         	$("#discount1").val($(this).val());
-        	$("#total2").val(bonin - $(this).val());
         	$("#card").val(bonin - $(this).val());
         });
+        $("#cash").keydown(function(){
+        	$("#card").val(bonin - $(this).val() - $("#discount1").val());
+        });
+        $("#cash").change(function(){
+        	$("#card").val(bonin - $(this).val() - $("#discount1").val());
+        });
        	
+        
+        // 결제 전 확인
+        function testCharge(){
+        	var item = bonin - $("#cash").val() - $("#discount1").val();
+        	console.log(item);
+        	if(item != 0){
+        		inicis();
+        	} else {
+        		chargeSuc();
+        	}
+        }
         
         
         // 결제 시작
         var IMP = window.IMP; // 생략가능
 		IMP.init('imp11743566'); // 'iamport' 대신 부여받은 "가맹점 식별코드"를 사용
-        $("#charge").click(function(){
+        function inicis(){
 			IMP.request_pay({
 			    pg : 'inicis', // version 1.1.0부터 지원.
 			    pay_method : 'card',
 			    merchant_uid : 'merchant_' + new Date().getTime(),
-			    name : '주문명:결제테스트',
+			    name : 'KH의원 진료비',
 			    amount : $("#card").val(),
 			    buyer_email : 'feverfire10@gmail.com',
 			    buyer_name : 'KH의원',
@@ -516,7 +533,7 @@
 			    }
 			    alert(msg);
 			});
-        });
+        }
 		
 		var billFormNo = "<c:out value='${bf.billFormNo}'/>";
 		billFormNo *= 1;
@@ -527,17 +544,15 @@
 				data:{billFormNo:billFormNo,
 					  totalBill:$("#totalBill").val(),
 					  discount:$("#discount2").val(),
-					  totalPay:$("#total2").val(),
+					  cardPay:$("#card").val(),
 					  memo:$("#ys").val(),
-					  payMethod:'card'},
+					  cashPay:$("#cash").val()},
 				success:function(result){
 					if(result > 0){
 						alertify.alert("데이터베이스 저장 성공");
 						// 수납창 자동으로 닫게하는 구문
 						self.opener = self;
 						self.close();
-					} else {
-						alertify.alert("실패함;;");
 					}
 				}
 			});

@@ -22,6 +22,14 @@
 		<result property="chartNo" column="CHART_NO"/>
 	</resultMap>
 	
+	<resultMap type="JS" id="jsResultSet">
+		<id property="chartNo" column="CHART_NO"/>
+		<result property="receiptDate" column="RECEIPT_DATE"/>
+		<result property="clinicState" column="CLINIC_STATE"/>
+		<result property="patientsNo" column="PATIENTS_NO"/>
+		<result property="patientsPno" column="PATIENTS_PNO"/>
+	</resultMap>
+	
 	<!-- <resultMap id="patientsResultSet" type="Patients">
 		
 	</resultMap> -->
@@ -72,5 +80,10 @@
 	<update id="updatePatients" parameterType="JS">
 		UPDATE TB_JS SET CLINIC_STATE = #{clinicState} WHERE CHART_NO = #{chartNo}
 	</update>
+	
+	<select id="checkJs" parameterType="JS" resultMap="jsResultSet">
+		SELECT * FROM TB_JS WHERE RECEIPT_DATE = #{receiptDate} AND PATIENTS_PNO = #{patientsPno}
+	</select>
+	 
 
 </mapper>

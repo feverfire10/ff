@@ -74,8 +74,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		SELECT *
 		FROM TB_PATIENTS
 		JOIN TB_JS USING(PATIENTS_NO)
- 		<!-- JOIN tb_prescriptionchart PSC USING(chart_no)
-		JOIN tb_prescription PS USING(PRESCRIP_USER_CODE) -->
 		<where>
 	    <if test="patientsName != null">
 	         PATIENTS_NAME = #{patientsName}
@@ -142,4 +140,3 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		ORDER BY js.receipt_date ASC
 	</select>
 </mapper>
-

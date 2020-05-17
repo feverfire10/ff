@@ -28,9 +28,9 @@ public class PatientsDao {
 		return sqlSession.update("patientsMapper.updatePatient", p);
 	}
 	
-	public Patients selectPatientsChart(SqlSessionTemplate sqlSession, Patients p) {
-		return sqlSession.selectOne("patientsMapper.selectPatientsChart", p);
-	}
+	//public Patients selectPatientsChart(SqlSessionTemplate sqlSession, Patients p) {
+	//	return sqlSession.selectOne("patientsMapper.selectPatientsChart", p);
+	//}
 	
 	public ArrayList<Patients> selectPatients(SqlSessionTemplate sqlSession, SearchCondition sc) {
 		return (ArrayList)sqlSession.selectList("patientsMapper.selectPatients", sc);
@@ -42,6 +42,10 @@ public class PatientsDao {
 	
 	public int updatePatients(SqlSessionTemplate sqlSession, JS jsChart) {
 		return sqlSession.update("patientsMapper.updatePatients", jsChart);
+	}
+	
+	public JS checkJs(SqlSessionTemplate sqlSession, JS js) {
+		return sqlSession.selectOne("patientsMapper.checkJs", js);
 	}
 	
 	

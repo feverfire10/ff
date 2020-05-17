@@ -19,6 +19,7 @@ import com.kh.ff.js.model.service.JsService;
 import com.kh.ff.js.model.vo.Js;
 import com.kh.ff.prescription.model.service.PrescriptionService;
 import com.kh.ff.prescription.model.vo.Prescription;
+import com.kh.ff.receipt.model.service.ReceiptService;
 import com.kh.ff.symptom.model.service.SymptomService;
 import com.kh.ff.symptom.model.vo.Symptom;
 import com.kh.ff.vital.model.service.VitalService;
@@ -37,13 +38,15 @@ public class MedicalController {
 	private DiseaseService dService;
 	@Autowired
 	private PrescriptionService pService;
+	@Autowired
+	private ReceiptService rService;
 
 	@RequestMapping("medicalMain.me")
 	public String medecalMain(Js j, Model model) {
-		//System.out.println(j);
+		System.out.println(j);
 		ArrayList<Js> list = jService.selectStateList(j);
 		ArrayList<Js> hList = jService.selectHoldList(j);
-		
+		System.out.println(list);
 		model.addAttribute("list", list);
 		model.addAttribute("hList", hList);
 		
@@ -108,7 +111,19 @@ public class MedicalController {
 			}			
 		}
 		jService.updateClinicState(j.getChartNo());
-		//pService.insertBillForm(p);
+		
+		// 차트번호로 영수폼 존재하는지 확인하는 서비스 연결
+		int selectResult = rService.medicalCompleteSelectBillForm(j.getChartNo());
+		//System.out.println(selectResult);
+		if(selectResult > 0) {
+			// 존재함
+			System.out.println(111);
+			rService.medicalCompleteUpdateBillForm(j.getChartNo());
+		}else {
+			// 없음
+			System.out.println(222);
+			rService.medicalCompleteInsertBillForm(j.getChartNo());
+		}
 		
 		return "redirect:medicalMain.me?receiptDate="+nowDate;
 	}
@@ -142,9 +157,30 @@ public class MedicalController {
 			}			
 		}
 		jService.completePatients(j.getChartNo());
-		//pService.insertBillForm(p);
+		
+		// 차트번호로 영수폼 존재하는지 확인하는 서비스 연결
+		int selectResult = rService.medicalCompleteSelectBillForm(j.getChartNo());
+		//System.out.println(selectResult);
+		if(selectResult > 0) {
+			// 존재함
+			System.out.println(111);
+			rService.medicalCompleteUpdateBillForm(j.getChartNo());
+		}else {
+			// 없음
+			System.out.println(222);
+			rService.medicalCompleteInsertBillForm(j.getChartNo());
+		}
 		
 		return "redirect:medicalMain.me?receiptDate="+nowDate;
+	}
+	
+	@RequestMapping("userPage.me")
+	public String userPage() {
+		return "common/appoiPage";
+	}
+	@RequestMapping("test.me")
+	public String test() {
+		return "common/test";
 	}
 	
 

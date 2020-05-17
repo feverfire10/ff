@@ -39,10 +39,10 @@ public class PatientsServiceImpl implements PatientsService {
 		return paDao.updatePatient(sqlSession, p);
 	}
 	
-	@Override
-	public Patients selectPatientsChart(Patients p) {
-		return paDao.selectPatientsChart(sqlSession, p);
-	}
+	//@Override
+	//public Patients selectPatientsChart(Patients p) {
+	//	return paDao.selectPatientsChart(sqlSession, p);
+	//}
 
 	@Override
 	public ArrayList<Patients> selectPatients(SearchCondition sc) {
@@ -57,6 +57,11 @@ public class PatientsServiceImpl implements PatientsService {
 	@Override
 	public int updatePatients(JS jsChart) {
 		return paDao.updatePatients(sqlSession, jsChart);
+	}
+
+	@Override
+	public JS checkJs(JS js) {
+		return paDao.checkJs(sqlSession, js);
 	}
 	
 

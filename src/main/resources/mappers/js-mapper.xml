@@ -15,7 +15,7 @@
 	</resultMap>
 	
 	<select id="selectStateList" parameterType="Js" resultMap="jsResultSet">
-		SELECT PATIENTS_NAME, PATIENTS_NO, AGE, ADHD, MO, RECEIPT_DATE
+		SELECT PATIENTS_NAME, PATIENTS_NO, AGE, ADHD, MO, RECEIPT_DATE, CHART_NO
 		FROM (SELECT PATIENTS_NO, TO_CHAR(SYSDATE, 'YYYY') - SUBSTR((CASE
 		                                                                WHEN SUBSTR(PATIENTS_PNO, 8, 1) IN ('1', '2')
 		                                                                THEN
@@ -88,5 +88,27 @@
 		JOIN TB_PATIENTS USING(PATIENTS_NO)
 		WHERE RECEIPT_DATE BETWEEN #{startDay} AND #{endDay} AND CLINIC_STATE=2
 		ORDER BY RECEIPT_DATE
+	</select>
+	
+	<select id="sortpNo" parameterType="Js" resultMap="jsResultSet">
+		SELECT PATIENTS_NO, CHART_NO, PATIENTS_NAME, PATIENTS_PNO, INSURANCE, ADHD, MO, RECEIPT_DATE
+		FROM TB_JS
+		JOIN TB_PATIENTS USING(PATIENTS_NO)
+		WHERE RECEIPT_DATE BETWEEN #{startDay} AND #{endDay} AND CLINIC_STATE=2
+		ORDER BY PATIENTS_NO
+	</select>
+	<select id="sortpName" parameterType="Js" resultMap="jsResultSet">
+		SELECT PATIENTS_NO, CHART_NO, PATIENTS_NAME, PATIENTS_PNO, INSURANCE, ADHD, MO, RECEIPT_DATE
+		FROM TB_JS
+		JOIN TB_PATIENTS USING(PATIENTS_NO)
+		WHERE RECEIPT_DATE BETWEEN #{startDay} AND #{endDay} AND CLINIC_STATE=2
+		ORDER BY PATIENTS_NAME
+	</select>
+	<select id="sortpPno" parameterType="Js" resultMap="jsResultSet">
+		SELECT PATIENTS_NO, CHART_NO, PATIENTS_NAME, PATIENTS_PNO, INSURANCE, ADHD, MO, RECEIPT_DATE, SUBSTR(PATIENTS_PNO, 1, 6) AS PNO
+		FROM TB_JS
+		JOIN TB_PATIENTS USING(PATIENTS_NO)
+		WHERE RECEIPT_DATE BETWEEN #{startDay} AND #{endDay} AND CLINIC_STATE=2
+		ORDER BY PNO
 	</select>
 </mapper>
