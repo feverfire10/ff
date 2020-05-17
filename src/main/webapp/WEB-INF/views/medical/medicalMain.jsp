@@ -401,6 +401,7 @@
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/common/sideBar.jsp"></jsp:include>
+	
 	<!-- modal 영역 -->
   	<!-- 환자조회 modal 영역 -->
   	<div class="modal fade" id="#completeList" role="dialog">
@@ -2042,6 +2043,7 @@
 
 	<!-- 가운데 화면 시작 -->
 	<div id="outer">
+		<button onclick="location.href='rcMain.rc'" class="btnF" style="width:150px;">오른쪽 클리닉</button>
 		<!-- 작업일자 영역 -->
 		<form id="mediForm" method="post" action="">
 			<div id="topDate" class="areaA">
@@ -3136,7 +3138,7 @@
 			});
 		</script>
 		
-		<button onclick="location.href='rcMain.rc'">오른쪽 클리닉</button>
+		
 		
 		<!-- 처방 코드 입력시 나타나는 div 영역 -->
 		<div class="container-table100">
@@ -3204,5 +3206,6 @@
 		</script>
 		
 	</div>
+	
 </body>
 </html>

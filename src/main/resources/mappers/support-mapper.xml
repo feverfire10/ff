@@ -4,93 +4,94 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="supportMapper">
 
-	<resultMap type="Support" id="supportResultSet">
-		<id property="chartNo" column="chart_no"/>
-		<result property="receiptDate" column="receipt_date"/>
-		<result property="patientsName" column="patients_name"/>
-		<result property="patientsPrivateNo" column="patients_pno"/>
-		<result property="insurance" column="insurance"/>
-		<result property="prescripType" column="prescrip_type"/>
-		<result property="prescripUserCode" column="prescrip_user_code"/>
-		<result property="prescripName" column="prescrip_name"/>
-		<result property="numTimes" column="num_times"/>
-		<result property="nightTime" column="nighttime"/>
-		<result property="emergency" column="emergency"/>
-		<result property="mo" column="mo"/>
-		<result property="clinicState" column="clinic_state"/>
-		<result property="ddo" column="do"/>
-	</resultMap>
-	
-	<select id="supportSelectList" parameterType="hashmap"  resultMap="supportResultSet">
-		SELECT *
-		FROM TB_PATIENTS PT
-		JOIN TB_JS JS USING(PATIENTS_NO)
-		JOIN tb_prescriptionchart PSC USING(chart_no)
-		JOIN tb_prescription PS USING(PRESCRIP_USER_CODE)
-		WHERE RECEIPT_DATE=to_char(SYSDATE,'yyyy-mm-dd') AND PRESCRIP_TYPE='방사선' AND CLINIC_STATE='1';
-	</select>
-	
-	<select id="supWaitList" resultType="_int">
-		SELECT count(*)
-		FROM TB_PATIENTS PT
-		JOIN TB_JS JS USING(PATIENTS_NO)
-		JOIN tb_prescriptionchart PSC USING(chart_no)
-		JOIN tb_prescription PS USING(PRESCRIP_USER_CODE)
-		WHERE PRESCRIP_TYPE='처치' OR PRESCRIP_TYPE='방사선' AND CLINIC_STATE='1'
-	</select>
-	
-	<select id="selectWaitOne" resultMap="supportResultSet">
-		SELECT *
-		FROM TB_PATIENTS PT
-		JOIN TB_JS JS USING(PATIENTS_NO)
-		JOIN tb_prescriptionchart PSC USING(chart_no)
-		JOIN tb_prescription PS USING(PRESCRIP_USER_CODE)
-		WHERE PRESCRIP_TYPE='처치' AND CLINIC_STATE='1' AND RECEIPT_DATE=TO_CHAR(SYSDATE, 'yyyy-mm-dd')
-		order by chart_no
-	</select>
-	
-	<select id="selectWaitTwo" resultMap="supportResultSet">
-		SELECT *
-		FROM TB_PATIENTS PT
-		JOIN TB_JS JS USING(PATIENTS_NO)
-		JOIN tb_prescriptionchart PSC USING(chart_no)
-		JOIN tb_prescription PS USING(PRESCRIP_USER_CODE)
-		WHERE PRESCRIP_TYPE='방사선' AND CLINIC_STATE='1' AND RECEIPT_DATE=TO_CHAR(SYSDATE, 'yyyy-mm-dd')
-		order by chart_no
-	</select>
-	
-	<select id="supCompleteList" resultType="_int">
-		SELECT count(*)
-		FROM TB_PATIENTS PT
-		JOIN TB_JS JS USING(PATIENTS_NO)
-		JOIN tb_prescriptionchart PSC USING(chart_no)
-		JOIN tb_prescription PS USING(PRESCRIP_USER_CODE)
-		WHERE PRESCRIP_TYPE='처치' OR PRESCRIP_TYPE='방사선' AND CLINIC_STATE='2'
-	</select>
-	
-	<select id="selectCompleteOne" resultMap="supportResultSet">
-		SELECT *
-		FROM TB_PATIENTS PT
-		JOIN TB_JS JS USING(PATIENTS_NO)
-		JOIN tb_prescriptionchart PSC USING(chart_no)
-		JOIN tb_prescription PS USING(PRESCRIP_USER_CODE)
-		WHERE PRESCRIP_TYPE='처치' AND CLINIC_STATE='2' AND RECEIPT_DATE=TO_CHAR(SYSDATE, 'yyyy-mm-dd')
-		order by chart_no
-	</select>
-	
-	<select id="selectCompleteTwo" resultMap="supportResultSet">
-		SELECT *
-		FROM TB_PATIENTS PT
-		JOIN TB_JS JS USING(PATIENTS_NO)
-		JOIN tb_prescriptionchart PSC USING(chart_no)
-		JOIN tb_prescription PS USING(PRESCRIP_USER_CODE)
-		WHERE PRESCRIP_TYPE='방사선' AND CLINIC_STATE='2' AND RECEIPT_DATE=TO_CHAR(SYSDATE, 'yyyy-mm-dd')
-		order by chart_no
-	</select>
-	
-	<update id="updateClinic" parameterType="Support">
-		update tb_js
-		set clinic_state='2'
-		where chart_no=#{chartNo}
-	</update>
+   <resultMap type="Support" id="supportResultSet">
+      <id property="chartNo" column="chart_no"/>
+      <result property="receiptDate" column="receipt_date"/>
+      <result property="patientsName" column="patients_name"/>
+      <result property="patientsPrivateNo" column="patients_pno"/>
+      <result property="insurance" column="insurance"/>
+      <result property="prescripType" column="prescrip_type"/>
+      <result property="prescripUserCode" column="prescrip_user_code"/>
+      <result property="prescripName" column="prescrip_name"/>
+      <result property="numTimes" column="num_times"/>
+      <result property="nightTime" column="nighttime"/>
+      <result property="emergency" column="emergency"/>
+      <result property="mo" column="mo"/>
+      <result property="clinicState" column="clinic_state"/>
+      <result property="ddo" column="do"/>
+      <result property="actionYN" column="action_yn"/>
+   </resultMap>
+   
+   <select id="supportSelectList" parameterType="hashmap"  resultMap="supportResultSet">
+      SELECT *
+      FROM TB_PATIENTS PT
+      JOIN TB_JS JS USING(PATIENTS_NO)
+      JOIN tb_prescriptionchart PSC USING(chart_no)
+      JOIN tb_prescription PS USING(PRESCRIP_USER_CODE)
+      WHERE RECEIPT_DATE=to_char(SYSDATE,'yyyy-mm-dd') AND PRESCRIP_TYPE='방사선' AND CLINIC_STATE='1'
+   </select>
+   
+   <select id="supWaitList" resultType="_int">
+      SELECT count(*)
+      FROM TB_PATIENTS PT
+      JOIN TB_JS JS USING(PATIENTS_NO)
+      JOIN tb_prescriptionchart PSC USING(chart_no)
+      JOIN tb_prescription PS USING(PRESCRIP_USER_CODE)
+      WHERE PRESCRIP_TYPE='처치' OR PRESCRIP_TYPE='방사선' AND CLINIC_STATE='1' AND ACTION_YN='N'
+   </select>
+   
+   <select id="selectWaitOne" resultMap="supportResultSet">
+      SELECT *
+      FROM TB_PATIENTS PT
+      JOIN TB_JS JS USING(PATIENTS_NO)
+      JOIN tb_prescriptionchart PSC USING(chart_no)
+      JOIN tb_prescription PS USING(PRESCRIP_USER_CODE)
+      WHERE PRESCRIP_TYPE='처치' AND CLINIC_STATE='1' AND RECEIPT_DATE=TO_CHAR(SYSDATE, 'yyyy-mm-dd') AND ACTION_YN='N'
+      order by chart_no
+   </select>
+   
+   <select id="selectWaitTwo" resultMap="supportResultSet">
+      SELECT *
+      FROM TB_PATIENTS PT
+      JOIN TB_JS JS USING(PATIENTS_NO)
+      JOIN tb_prescriptionchart PSC USING(chart_no)
+      JOIN tb_prescription PS USING(PRESCRIP_USER_CODE)
+      WHERE PRESCRIP_TYPE='방사선' AND CLINIC_STATE='1' AND RECEIPT_DATE=TO_CHAR(SYSDATE, 'yyyy-mm-dd') AND ACTION_YN='N'
+      order by chart_no
+   </select>
+   
+   <select id="supCompleteList" resultType="_int">
+      SELECT count(*)
+      FROM TB_PATIENTS PT
+      JOIN TB_JS JS USING(PATIENTS_NO)
+      JOIN tb_prescriptionchart PSC USING(chart_no)
+      JOIN tb_prescription PS USING(PRESCRIP_USER_CODE) 
+      WHERE PRESCRIP_TYPE='처치' OR PRESCRIP_TYPE='방사선' AND CLINIC_STATE='1' AND ACTION_YN='Y'
+   </select>
+   
+   <select id="selectCompleteOne" resultMap="supportResultSet">
+      SELECT *
+      FROM TB_PATIENTS PT
+      JOIN TB_JS JS USING(PATIENTS_NO)
+      JOIN tb_prescriptionchart PSC USING(chart_no)
+      JOIN tb_prescription PS USING(PRESCRIP_USER_CODE)
+      WHERE PRESCRIP_TYPE='처치' AND CLINIC_STATE='1' AND RECEIPT_DATE=TO_CHAR(SYSDATE, 'yyyy-mm-dd') AND ACTION_YN='Y'
+      order by chart_no
+   </select>
+   
+   <select id="selectCompleteTwo" resultMap="supportResultSet">
+      SELECT *
+      FROM TB_PATIENTS PT
+      JOIN TB_JS JS USING(PATIENTS_NO)
+      JOIN tb_prescriptionchart PSC USING(chart_no)
+      JOIN tb_prescription PS USING(PRESCRIP_USER_CODE)
+      WHERE PRESCRIP_TYPE='방사선' AND CLINIC_STATE='1' AND RECEIPT_DATE=TO_CHAR(SYSDATE, 'yyyy-mm-dd') AND ACTION_YN='Y'
+      order by chart_no
+   </select>
+   
+   <update id="updateClinic" parameterType="Support">
+      update tb_prescriptionchart
+      set ACTION_YN='Y'
+      where chart_no=#{chartNo}
+   </update>
 </mapper>

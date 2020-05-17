@@ -334,8 +334,8 @@
 
    
    
-   <!-- 사이드 메뉴바 영역 -->
-   <div class="move_share1">
+    <!-- 사이드 메뉴바 영역 -->
+  <!-- <div class="move_share1">
     <h5 class="sideH">page</h5>
     <hr>   
     <button class="sideBtn" data-toggle="modal" data-target="#intro">원무</button>
@@ -354,8 +354,8 @@
     <br><br>
     <button class="sideBtn" data-toggle="modal" data-target="#patientSearch">대기환자</button>
     <br>
- </div>
-
+ </div> -->
+	<jsp:include page="/WEB-INF/views/common/sideBar.jsp"></jsp:include>
 
 
 
@@ -373,7 +373,7 @@
                 </div>
             </div>
             
-            <!-- 카운터 모듈 -->
+<!--             카운터 모듈
              <div class="counter">
                  <h5>Counter</h5>
                  <div class="box">
@@ -386,7 +386,7 @@
                          <dd>[##_count_today_##]</dd>
                      </dl>
                  </div>
-             </div>
+             </div> -->
              
         <!-- 환자조회 -->
         <div class="upper">
