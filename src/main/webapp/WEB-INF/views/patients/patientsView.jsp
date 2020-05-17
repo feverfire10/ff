@@ -562,7 +562,7 @@
 			  function sendLink() {
 			    Kakao.Link.sendDefault({
 			      objectType: 'location',
-			      address: '서울시 강동구 천호동 315-14',
+			      address: '서울 강남구 테헤란로14길 6 남도빌딩 2층, 3층, 4층',
 			      addressTitle: '오시는길',
 			      content: {
 			        title: '진료접수처리 되었습니다.',
