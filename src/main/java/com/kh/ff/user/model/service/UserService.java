@@ -17,8 +17,6 @@ public interface UserService {
 	
 	// 유저 업데이트 서비스
 	int updateUser(User u);
-	
-	// 권한 업데이트 서비스
 	int updatePower(Power p);
 	
 	// 유저 삭제 서비스

@@ -80,7 +80,7 @@
 	line-height:40px;
 }
 .selectbox{
-	float:right;
+	float:left;
 }
 .selectbox input{
 	width:200px;
@@ -124,10 +124,10 @@ p{
 }
 #supportListOne th{
 	border:1px solid;
-	width:100%;
+/* 	width:100%; */
 	height:50px;
 	text-align:center;
-	white-space:nowrap;
+	white-space:nowrap; 
 	background: rgb(1,153,220);
 }
 #supportListOne td{
@@ -146,6 +146,9 @@ p{
 #supportListTwo td{
 	text-align:center;
 	overflow:hidden;
+}
+td{
+	text-align:center;
 }
 </style>
 </head>
@@ -173,17 +176,17 @@ p{
    </div>
    
 	<div class="supportOuter" style="margin-top:50px;">
-		<div class="patientCount">외래</div>
+		<!-- <div class="patientCount">외래</div>
 		<div class="patientCount" style="background:white;">14</div>
 		<div class="patientCount">물리치료</div>
 		<div class="patientCount" style="background:white;">14</div>
 		<div class="patientCount">방사선</div>
-		<div class="patientCount" style="background:white;">14</div>
+		<div class="patientCount" style="background:white;">14</div> -->
 		
 		<div class="selectbox"> 
 			<input type="button" id="supportWait" value="대기환자">
 			<input type="button" id="supportFinish" value="완료환자">
-		</div>
+		</div><br>
 		<!-- 
 		<div class="date">
 			<label>날짜</label> <input type="text" id="datePicker">
@@ -198,145 +201,173 @@ p{
 				todayHighlight : true
 			});
 		</script>-->
-
+	<form id="enrollForm" action="psComplete.me" method="post">
 		<div class="patientInfo" style="width:100%;">
 			<div style="background:rgb(1,153,220); height:20px;margin-top:-16px;text-align:center;">
 				<p style="">환자정보</p>
 			</div>
 			<div class="infoOne">
 				<label for="" class="infoName">차트번호</label>
-				<input type="text" class="form-control" id="" name="" value="" readonly><br> 
+				<input type="text" class="form-control" id="chartNo" name="chartNo" readonly><br> 
 				<label for="" class="infoName">접수일시</label>
-				<input type="text" class="form-control" id="" name="" value="" readonly><br>
+				<input type="text" class="form-control" id="receiptDate" name="receiptDate" value="" readonly><br>
 			</div>	
 			<div class="infoTwo">
-				<label for="" class="infoName">환자성명</label>
-				<input type="text" class="form-control" id="" name="" value="" readonly><br>
+				<label for="" class="infoName">환자이름</label>
+				<input type="text" class="form-control" id="patientsName" name="patientsName" value="" readonly><br>
 				<label for="" class="infoName">담당의사</label>
-				<input type="text" class="form-control" id="" name="" value="" readonly><br>
+				<input type="text" class="form-control" id="mo" name="mo" value="" readonly><br>
 			</div>
 			<div class="infoThree">
-				<label for="" class="infoName">성별나이</label>
-				<input type="text" class="form-control" id="" name="" value="" readonly><br>
-				<label for="" class="infoName">진료과목</label>
-				<input type="text" class="form-control" id="" name="" value="" readonly><br>
+				<label for="" class="infoName">주민번호</label>
+				<input type="text" class="form-control" id="patientsPrivateNo1" name="patientsPrivateNo1" value="" readonly><br>
+				<label for="" class="infoName">진료실  </label>
+				<input type="text" class="form-control" id="ddo" name="ddo" value="" readonly style="margin-left:15px;"><br>
 			</div>
 			<div class="infoFour">
-				<label for="" class="infoName">주민번호</label>
-				<input type="text" class="form-control" id="" name="" value="" readonly><br>
 				<label for="" class="infoName">보험종류</label>
-				<input type="text" class="form-control" id="" name="" value="" readonly><br>
+				<input type="text" class="form-control" id="insurance" name="insurance" value="" readonly><br>
+				
+				<button type="button" class="updateClinic">처방완료</button>
+			
 			</div>
+		
 		</div>
+		</form>
 		
 		<div style="border:1px solid;width:100%;height:400px;overflow:auto;">
-			<table id="supportListOne" align="center">
+			<table id="supportListOne" class="chart" align="center">
+				<thead>
 					<tr>
-						<th>S</th>
-						<th>차트번호</th>
-						<th>환자이름</th>
-						<th>성별/나이</th>
-						<th>처방코드</th>
-						<th>처방명칭</th>
-						<th>횟수</th>
-						<th>응급</th>
-						<th>야간</th>
-						<th>주치의</th>
+						<th style="width:80px;">차트번호</th>
+						<th style="width:130px;">환자이름</th>
+						<th style="width:200px;">진료실</th>
+						<th style="width:80px;">처방코드</th>
+						<th style="width:800px;">처방명칭</th>
+						<th style="width:40px;">횟수</th>
+						<th style="width:40px;">응급</th>
+						<th style="width:40px;">야간</th>
+						<th style="width:80px;">주치의</th>
 					</tr>
+				</thead>
+				<tbody>
+					
+					<c:forEach items="${ list1 }" var="s">
+						<tr>
+							<td>${ s.chartNo }</td>
+							<td>${ s.patientsName }</td>
+							<td>${ s.ddo }</td>
+							<td>${ s.prescripUserCode }</td>
+							<td>${ s.prescripName }</td>
+							<td>${ s.numTimes }</td>
+							<td>${ s.emergency }</td>
+							<td>${ s.nightTime }</td>
+							<td>${ s.mo }</td>
+							<td style="display:none">${ s.receiptDate }</td>
+							<td style="display:none">${ s.patientsPrivateNo }</td>
+							<td style="display:none">${ s.insurance }</td>
+						</tr>
+					</c:forEach>
+				</tbody>	
 			</table>
 		</div>
 		
 		<div style="border:1px solid; width:100%;height:400px;">
-			<table id="supportListTwo" align="center">
+			<table id="supportListTwo" class="chart" align="center">
+				<thead>
 					<tr>
-						<th>S</th>
-						<th>차트번호</th>
-						<th>환자이름</th>
-						<th>성별/나이</th>
-						<th>처방코드</th>
-						<th>처방명칭</th>
-						<th>횟수</th>
-						<th>응급</th>
-						<th>예약</th>
-						<th>주치의</th>
+						<th style="width:80px;">차트번호</th>
+						<th style="width:130px;">환자이름</th>
+						<th style="width:200px;">진료실</th>
+						<th style="width:80px;">처방코드</th>
+						<th style="width:800px;">처방명칭</th>
+						<th style="width:40px;">횟수</th>
+						<th style="width:40px;">응급</th>
+						<th style="width:40px;">야간</th>
+						<th style="width:80px;">주치의</th>
 					</tr>
+				</thead>
+				<tbody>
+					
+					<c:forEach items="${ list2 }" var="s">
+						<tr>
+							<td>${ s.chartNo }</td>
+							<td>${ s.patientsName }</td>
+							<td>${ s.ddo }</td>
+							<td>${ s.prescripUserCode }</td>
+							<td>${ s.prescripName }</td>
+							<td>${ s.numTimes }</td>
+							<td>${ s.emergency }</td>
+							<td>${ s.nightTime }</td>
+							<td>${ s.mo }</td>
+							<td style="display:none">${ s.receiptDate }</td>
+							<td style="display:none">${ s.patientsPrivateNo }</td>
+							<td style="display:none">${ s.insurance }</td>
+						</tr>
+					</c:forEach>
+				</tbody>	
 			</table>
 		</div>
 	</div>
 	
 	<script>
+	var aaaa="";
 		$(function() {
 			$("#supportWait").click(function(){
-				$.ajax({
-					url:"selPatients.rc",
-					data : {
-			               receiptDate : '2020-05-16',
-			               clinicState : '1'
-			            },
-					type:"get",
-					success:function(list){
-						console.log(list);
-						var value = "<tr>"+"<th>"+"S"+"</th>"+"<th>"+"차트번호"+"</th>"+
-						             "<th>"+"환자이름"+"</th>"+"<th>"+"성별/나이"+"</th>"+
-							         "<th>"+"처방코드"+"</th>"+"<th>"+"처방명칭"+"</th>"+
-							         "<th>"+"횟수"+"</th>"+"<th>"+"응급"+"</th>"+
-									 "<th>"+"야간"+"</th>"+"<th>"+"주치의"+"</th>"+"</tr>";
-						
-						$.each(list, function(i, obj){
-							var ssnYear = obj.patientsPno.substring(0, 2);
-							var genNum = obj.patientsPno.substring(7, 8);
-							var nowYear = new Date().getFullYear();
-							var gender;
-							var age = 0;
-							if (genNum == "1" || genNum == "3") {
-								gender = "남";
-								if (genNum == "1") {
-									age = parseInt(nowYear)
-											- (1900 + parseInt(ssnYear));
-								} else if (genNum == "3") {
-									age = parseInt(nowYear)
-											- (2000 + parseInt(ssnYear));
-								}
-							} else {
-								gender = "여";
-								if (genNum == "2") {
-									age = parseInt(nowYear)
-											- (1900 + parseInt(ssnYear));
-								} else if (genNum == "4") {
-									age = parseInt(nowYear)
-											- (2000 + parseInt(ssnYear));
-								}
-	
-							}
-							value += "<tr>"+"<td>"+"</td>"+"<td>"+obj.chartNo+"</td>"+"<td>"
-							         +obj.patientsName+"</td>"+"<td>"+gender+"/"+age+"</td>"+"<td>"
-							         +obj.prescripUserCode+"</td>"+"<td>"+obj.prescripName+"</td>"
-							         +"<td>"+obj.numTimes+"</td>"+"<td>"+obj.emergency+"</td>"
-							         +"<td>"+obj.night+"</td>"+"<td>"+obj.mo+"</td>"+"</tr>";
-						});
-						$("#supportListOne tbody").empty();
-						$("#supportListOne tbody").append(value);
-					},error:function(){
-	    				console.log("댓글 리스트 조회용 ajax 통신 실패");
-	    			}
-				});
+				location.href = "supWaitList.me";
+			})
+		});
+		
+		$(function() {
+			$("#supportFinish").click(function(){
+				location.href = "supCompleteList.me";
+			})
+		});
+		
+		$(function(){
+			
+			$(".chart tbody tr").click(function(){
+				var str ="";
+				var tdArr= new Array();
+				1
+				var tr=$(this);
+				var td=tr.children();
+				
+				console.log(tr.text());
+				
+				td.each(function(i){
+					tdArr.push(td.eq(i).text());
+				})
+				
+				console.log(tdArr);
+				
+				var chartNo = td.eq(0).text();
+				aaaa = chartNo;
+				var patientsName = td.eq(1).text();
+				var ddo = td.eq(2).text();
+				var prescripUserCode = td.eq(3).text();
+				var prescripName = td.eq(4).text();
+				var numTimes= td.eq(5).text();
+				var emergency = td.eq(6).text();
+				var nightTime = td.eq(7).text();
+				var mo = td.eq(8).text();
+				var receiptDate = td.eq(9).text();
+				var patientsPrivateNo = td.eq(10).text();
+				var insurance = td.eq(11).text();
+				
+				$("#chartNo").val(chartNo);
+				$("#patientsName").val(patientsName);
+				$("#patientsPrivateNo").val(patientsPrivateNo);
+				$("#patientsPrivateNo1").val(patientsPrivateNo);
+				$("#mo").val(mo);
+				$("#ddo").val(ddo);
+				$("#receiptDate").val(receiptDate);
+				$("#insurance").val(insurance);
 			});
 		});
 		
-		$("#supportListOne tbody tr").click(function(){
-			var str="";
-			var tdArr=new Array();
-			
-			var tr=$(this);
-			var td=tr.children();
-			
-			console.log(tr.text());
-			
-			td.each(function(i){
-				tdArr.push(td.eq(i).text());
-			})
-			
-			console.log(tdArr);
+		$(".updateClinic").click(function(){
+			location.href="supUpdateClinic.me?aaaa="+aaaa;
 		});
 	</script>
 </body>

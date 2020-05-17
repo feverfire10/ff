@@ -69,7 +69,7 @@
 		update tb_power
 		set power_master=#{powerMaster}, power_receipt=#{powerReceipt}, power_clinic=#{powerClinic},
 		    power_list=#{powerList}, power_sub=#{powerSub}, power_result=#{powerResult},
-		    power_sheet=#{powerSheet}, power_message={powerMessage}
+		    power_sheet=#{powerSheet}, power_message=#{powerMessage}
 		where user_code=#{userCode}
 	</update>
 	

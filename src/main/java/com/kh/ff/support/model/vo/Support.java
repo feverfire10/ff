@@ -25,4 +25,5 @@ public class Support {
 	private String emergency;			// 응급
 	private String mo;					// 담당의
 	private int clinicState;			// 진료상태
+	private String ddo;					// 진료실
 }

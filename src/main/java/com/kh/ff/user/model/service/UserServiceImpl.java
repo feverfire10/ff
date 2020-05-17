@@ -47,10 +47,7 @@ public class UserServiceImpl implements UserService{
 	public int updateUser(User u) {
 		return uDao.updateUser(sqlSession, u);
 	}
-
-	/**
-	 * 권한 업데이트 서비스
-	 */
+	
 	@Override
 	public int updatePower(Power p) {
 		return uDao.updatePower(sqlSession, p);
