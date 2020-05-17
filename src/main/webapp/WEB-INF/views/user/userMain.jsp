@@ -122,6 +122,7 @@
 	width: 230px;
 	margin: auto;
 }
+/*  */
 #title{font-size: 20px;}
 #checkbox{margin-left:71px;}
 #checkbox2{margin-left:71px;}
