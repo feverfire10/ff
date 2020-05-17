@@ -102,6 +102,7 @@
      }
      .date{
         float: left;
+        margin-bottom:10px;
      }
      .date-work {
         width: 80px;
@@ -313,18 +314,6 @@
 		}
 
 
-      .counter {
-         float:right;
-         width:500px;
-      }
-      .counter h5{
-         float:left;
-      }
-      .counter dl{
-         float:left;
-         list-style-type:none;
-         margin-left:30px;
-      }
       
     </style>
 <!-- 카카오톡 연결 CDN -->
@@ -372,22 +361,7 @@
                         </div>
                 </div>
             </div>
-            
-            <!-- 카운터 모듈 -->
-             <div class="counter">
-                 <h5>Counter</h5>
-                 <div class="box">
-                     <dl class="total-line">
-                         <dt>Total</dt>
-                         <dd>[##_count_total_##] </dd>
-                     </dl>
-                     <dl class="today-line">
-                         <dt>Today</dt>
-                         <dd>[##_count_today_##]</dd>
-                     </dl>
-                 </div>
-             </div>
-             
+     
         <!-- 환자조회 -->
         <div class="upper">
             <div class="title">
