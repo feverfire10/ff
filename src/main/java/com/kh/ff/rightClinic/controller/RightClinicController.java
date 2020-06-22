@@ -50,7 +50,7 @@ public class RightClinicController {
 
 		return new Gson().toJson(list);
 	}
-	
+	/*ddddddddddddddddddddddddddd*/
 	@ResponseBody
 	@RequestMapping(value="initCal.rc", produces="application/json; charset=utf-8")
 	public String initCal(String patiName, String patiSSN) {
